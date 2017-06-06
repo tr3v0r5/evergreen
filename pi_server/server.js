@@ -21,7 +21,8 @@ var config = {
   firebase.initializeApp(config);
 
 
-var sensorRef = firebase.database(); 
+var sensorRef = firebase.database();
+
 
 
 function generateData(){
@@ -29,8 +30,23 @@ function generateData(){
   return Math.random() * 10;
 }
 
+function convertUTCDateToLocalDate(date) {
+    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
 
-function setData(sensor){
+    var offset = date.getTimezoneOffset() / 60;
+    var hours = date.getHours();
+
+    newDate.setHours(hours - offset);
+
+    return newDate;   
+}
+
+function timecapsule(){
+    var date=new Date();
+    return date;
+}
+
+/*function setData(sensor){
  switch (sensor){
    case "Moisture":
        var data= generateData();
@@ -127,5 +143,5 @@ function PiTick(){
   setData("light");
 }
 
-setInterval(PiTick,10000);
-
+setInterval(PiTick,10000);*/
+console.log("The date and time is "+ timecapsule());
