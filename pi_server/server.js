@@ -31,22 +31,100 @@ function generateData(){
 
 
 function setData(sensor){
-  var valveStatus = 0;
-  var data = generateData();
-  // console.log(data);
-   sensorRef.ref("/Sensors/"+ sensor).set({
-            valveStatus: valveStatus,
-            sensorData: data
+ switch (sensor){
+   case "Moisture":
+       var data= generateData();
+       if(data<3){
+           var moistness="Dry";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            Moisture: moistness
             });
+       }
+       else if(data>=3&&data<7){
+           var moistness="Damp";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            Moisture: moistness
+            });
+       }
+       else if(data>=7){
+           var moistness="Mud";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            Moisture: moistness
+            });
+       }
+       break;
+     
+    case "pH":
+        var data= generateData();
+       if(data<3){
+           var balance="Basic";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            pH: balance
+            });
+       }
+       else if(data>=3&&data<7){
+           var balance="Neutral";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            pH: balance
+            });
+       }
+       else if(data>=7){
+           var balance="Acidic";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            pH: balance
+            });
+       }
+       break;
+      
+    case "nutrient":
+        var data= generateData();
+       if(data<3){
+           var food="Hungry";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            Nutrient: food
+            });
+       }
+       else if(data>=3&&data<7){
+           var food="Well Fed";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            Nutrient: food
+            });
+       }
+       else if(data>=7){
+           var food="STUFFED!!!";
+            sensorRef.ref("/Sensors/"+ sensor).set({
+            Nutrient: food
+            });
+       }
+       break;
+        
+        case "light":
+            var data= generateData();
+            if(data<5){
+                var lightness="No light";
+                sensorRef.ref("/Sensors/"+ sensor).set({
+                Light: lightness
+                });
+            }
+            else if(data>=5){
+                var lightness="In light";
+                sensorRef.ref("/Sensors/"+ sensor).set({
+                Light: lightness
+                });
+            }
+            break;
+        default:
+            break;
+ }
   
 }
 
 
 function PiTick(){
-  setData("sensor1");
-  setData("sensor2");
-  setData("sensor3");
-  setData("sensor4");
+  setData("Moisture");
+  setData("pH");
+  setData("nutrient");
+  setData("light");
 }
 
 setInterval(PiTick,10000);
