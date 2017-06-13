@@ -10,7 +10,7 @@ import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
-export default class LoginScreen extends Component {
+export class LoginScreen extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
@@ -40,39 +40,38 @@ export default class LoginScreen extends Component {
 
   const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-  // class sensorData extends Component {
-  //   render(){
-  //     return(
-  //       <div style={styles.dataBlock}>
-  //         <p style={{color:'#ffffff'}}>{this.props.data}</p>
-  //       </div>
-  //     );
-  //   }
-  // }
-
-  class GardenScreen extends Component {
-
+  class SensorData extends Component {
     constructor(props){
-      super(props);
+      super();
       this.state = {
-        sensorData: '' ,
+        moistureData: '' ,
       };
     }
-//need to add snapshot and updating
+    //maybe not the most elegant solution but it works for now
     componentDidMount(){
+      var that = this;
       firebase.database().ref('Sensors/sensor1').on('value', function(snapshot) {
-        this.setState({
-          sensorData: snapshot.child("sensorData").val(),
+        that.setState({
+          moistureData: snapshot.child("sensorData").val(),
         });
       });
     }
 
-    render() {
+    render(){
+      return(
+        <View style={styles.dataBlock}>
+          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.moistureData}</Text>
+        </View>
+      );
+    }
+  }
 
+  class GardenScreen extends Component {
+    render() {
       return (
         <View style={styles.container}>
-          <Text style={{color:'#ffffff', fontSize:30}}>working</Text>
-          <Text>{this.state.sensorData}</Text>
+          <Text style={{color:'#ffffff', fontSize:30}}>Sensor Data</Text>
+          <SensorData />
         </View>
       );
     }
@@ -88,10 +87,8 @@ export default class LoginScreen extends Component {
     },
     dataBlock:{
       backgroundColor: 'blue',
-      display: 'inline-block',
-      height: 50,
-      width: 50,
-      textAlign: 'center',
+      height: 75,
+      width: 75,
     },
   });
 
