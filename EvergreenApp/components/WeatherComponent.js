@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
 } from 'react-native';
+const styles = require('../Styles/style.js');
 var WeatherScreen=React.createClass({
 	getInitialState:function(){
 		var temp;
@@ -46,10 +47,10 @@ var WeatherScreen=React.createClass({
     render:function(){
       return(
         <View style={styles.dataBlock}>
-          <Text style={{color:'green', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.Temp}</Text>
-		  <Text style={{color:'green', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.searchedCity}</Text>
+          <Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.Temp}</Text>
+		  <Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.searchedCity}</Text>
         </View>
       );
     }
 })
-module.export=WeatherScreen;
+module.exports=WeatherScreen;

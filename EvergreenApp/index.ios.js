@@ -1,133 +1,84 @@
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
-} from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import * as firebase from 'firebase';
-import WeatherScreen from './components/WeatherComponent.js';
-//var WeatherScreen=require('./components/WeatherComponent.js');
-export default class LoginScreen extends Component {
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View style={styles.container}>
-        <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-        <TextInput
-            style={{height: 30, backgroundColor:'white', width: 200, textAlign: 'center'}}
-            placeholder="login"
-            onChangeText={(text) => this.setState({text})}
-            />
-          <Button
-            title="login"
-            onPress = {() => navigate('Weat')}
-            />
-        </View>
-      );
-    }
-  }
+/////////////////////////////////////////////////////////////
+ /**
+  * Sample React Native App
+  * https://github.com/facebook/react-native
+  * @flow
+  */
 
-  class GardenScreen extends Component {
-    render() {
-      return (
-        <View style={styles.container}>
-          <Text style={{color:'#ffffff', fontSize:30}}>working</Text>
-        </View>
-      );
-    }
-  }
+ import React, { Component } from 'react';
+ import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
+ } from 'react-native';
+ import { StackNavigator } from 'react-navigation';
+ import * as firebase from 'firebase';
+ import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
+ const styles = require('./Styles/style.js');
 
+ //component import
+ var SensorData = require('./components/SensorData.js');
 
-/*var WeatherScreen=React.createClass({
-	getInitialState:function(){
-		var temp;
-		return({
-			Temp: temp,
-			searchedCity: '11206'
-		});
-		
-	},
-	componentDidMount:function(){
-		var that=this;
-		/*this.setState({
-			Temp: 80,
-			img: 'Sun'
-		});
-			this.weathercall();
-	},
+ class LoginScreen extends Component {
 
-	fetchWeather:function(zip) {
-		var apiKey='3f766cac24cd2475';
-		let url =`https://api.wunderground.com/api/${apiKey}/conditions/q/${zip}.json`
+   render() {
+     const { navigate } = this.props.navigation;
+     return (
+       <View style={styles.container}>
+         <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+         <TextInput
+             style={{height: 30, backgroundColor:'white', width: 200, textAlign: 'center'}}
+             placeholder="login"
+             onChangeText={(text) => this.setState({text})}
+             />
+           <Button
+             title="login"
+             onPress = {() => navigate('Garden')}
+             />
+           <Button
+             title="weather"
+             onPress = {() => navigate('Weather')}
+             />
+         </View>
+       );
+     }
+   }
 
-	  return fetch(url).then((response) => response.json())
-	},
-	weathercall:function(){
-		this.fetchWeather(this.state.searchedCity).then((response) => {
-			let weatherList = response;
+   const firebaseConfig = {
+   apiKey: "AIzaSyDIQMP6yMBrKuwDvtRaSmhwYMMZC3FyqpY",
+   authDomain: "smart-garden-ca02a.firebaseapp.com",
+   databaseURL: "https://smart-garden-ca02a.firebaseio.com",
+   storageBucket: "smart-garden-ca02a.appspot.com",
+   };
 
-		      // Store nextColor, since we'd like to start next time with it.
-		      //var current = this.state.nextColor;
+   const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-		      // Reset animation
-		      //this.state.val.setValue(0);
-
-		      this.setState({
-				Temp: weatherList.current_observation.temp_f,
-		        searchedCity: weatherList.current_observation.display_location.city
-		      });
-		
-		
-		  });
-	},
-    render:function(){
-      return(
-        <View style={styles.dataBlock}>
-          <Text style={{color:'green', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.Temp}</Text>
-		  <Text style={{color:'green', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.searchedCity}</Text>
-        </View>
-      );
-    }
-})*/
+   class GardenScreen extends Component {
+     render() {
+       return (
+         <View style={styles.container}>
+           <Text style={{color:'#ffffff', fontSize:30}}>Sensor Data</Text>
+           <SensorData />
+         </View>
+       );
+     }
+   }
+   var WeatherScreen=React.createClass({
+ 	  render:function() {
+ 	      return (
+ 	        <View style={styles.container}>
+ 	          <Text style={{color:'#ffffff', fontSize:30}}>Weather Data</Text>
+ 	          <WeatherComponent />
+ 	        </View>
+ 	      );
+ 	  }
+	  
+   })
 
 
-/*class WeatherScreen extends Component{
-	constructor(prop){
-	super(prop);
-	var temp;
-	this.state={
-		Temp: temp,
-		img: ''
-	}
-}
-	componentDidMount(){
-		var that=this;
-		this.setState({
-			Temp: 90,
-			img: 'Sun'
-		});
-		
-	}
-    render(){
-      return(
-        <View style={styles.dataBlock}>
-          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.Temp}</Text>
-        </View>
-      );
-    }
-}*/
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'rgb(52,180,67)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-  },
-});
 
-const EvergreenApp = StackNavigator({
-  Login: { screen: LoginScreen },
-  Garden: { screen: GardenScreen },
-Weat: { screen: WeatherScreen}
-});
+   const EvergreenApp = StackNavigator({
+     Login: { screen: LoginScreen },
+     Garden: { screen: GardenScreen },
+   	 Weather: { screen: WeatherScreen}
+   });
+
 
 AppRegistry.registerComponent('EvergreenApp', () => EvergreenApp);

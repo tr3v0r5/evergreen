@@ -9,6 +9,7 @@ import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
+import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
 const styles = require('./Styles/style.js');
 
 //component import
@@ -29,6 +30,10 @@ class LoginScreen extends Component {
           <Button
             title="login"
             onPress = {() => navigate('Garden')}
+            />
+          <Button
+            title="weather"
+            onPress = {() => navigate('Weather')}
             />
         </View>
       );
@@ -54,12 +59,24 @@ class LoginScreen extends Component {
       );
     }
   }
+  var WeatherScreen=React.createClass({
+	  render:function() {
+	      return (
+	        <View style={styles.container}>
+	          <Text style={{color:'#ffffff', fontSize:30}}>Weather Data</Text>
+	          <WeatherComponent />
+	        </View>
+	      );
+	  }
+	  
+  })
 
 
 
   const EvergreenApp = StackNavigator({
     Login: { screen: LoginScreen },
-    Garden: { screen: GardenScreen }
+    Garden: { screen: GardenScreen },
+	Weather:{screen: WeatherScreen }
   });
 
 
