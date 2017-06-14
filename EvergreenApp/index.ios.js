@@ -3,7 +3,8 @@ import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-
+import WeatherScreen from './components/WeatherComponent.js';
+//var WeatherScreen=require('./components/WeatherComponent.js');
 export default class LoginScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
@@ -35,7 +36,7 @@ export default class LoginScreen extends Component {
   }
 
 
-var WeatherScreen=React.createClass({
+/*var WeatherScreen=React.createClass({
 	getInitialState:function(){
 		var temp;
 		return({
@@ -49,7 +50,7 @@ var WeatherScreen=React.createClass({
 		/*this.setState({
 			Temp: 80,
 			img: 'Sun'
-		});*/
+		});
 			this.weathercall();
 	},
 
@@ -85,7 +86,7 @@ var WeatherScreen=React.createClass({
         </View>
       );
     }
-})
+})*/
 
 
 /*class WeatherScreen extends Component{
