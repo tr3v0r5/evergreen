@@ -7,7 +7,8 @@ var WeatherScreen=React.createClass({
 		var temp;
 		return({
 			Temp: temp,
-			searchedCity: '11206'
+			searchedCity: '',
+			zip:'19702'
 		});
 		
 	},
@@ -27,7 +28,8 @@ var WeatherScreen=React.createClass({
 	  return fetch(url).then((response) => response.json())
 	},
 	weathercall:function(){
-		this.fetchWeather(this.state.searchedCity).then((response) => {
+		//this.getZip();
+		this.fetchWeather(this.state.zip).then((response) => {
 			let weatherList = response;
 
 		      // Store nextColor, since we'd like to start next time with it.
@@ -44,12 +46,39 @@ var WeatherScreen=React.createClass({
 		
 		  });
 	},
+	getZip:function(){
+		var text;
+		
+	},
+	setZip:function(text){
+		this.setState({
+					  zip:text
+				  });
+		
+	},
     render:function(){
+		var text;
+		var that=this;
       return(
+		 <View>
+		  <TextInput
+		  style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+		  placeholder="Zipcode"
+		  	onChangeText={(zip)=>that.setState({zip})}
+		    onSubmitEditing={(zip)=>that.setState({zip})}
+		    clearButtonMode={"always"}
+		    clearTextOnFocus={true}
+		    enablesReturnKeyAutomatically={true}
+		    returnKeyLabel={"search"}
+			/>
+			
+		  
+		  
         <View style={styles.dataBlock}>
           <Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.Temp}</Text>
 		  <Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.searchedCity}</Text>
         </View>
+		  </View>
       );
     }
 })
