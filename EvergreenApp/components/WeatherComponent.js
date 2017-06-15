@@ -48,11 +48,11 @@ var WeatherScreen=React.createClass({
 	},
 	getZip:function(){
 		var text;
-		
+		this.refs.textInput
 	},
-	setZip:function(text){
+	setZip:function(e){
 		this.setState({
-					  zip:text
+			zip:e.target.value
 				  });
 		
 	},
@@ -64,8 +64,10 @@ var WeatherScreen=React.createClass({
 		  <TextInput
 		  style={{height: 40, borderColor: 'gray', borderWidth: 1}}
 		  placeholder="Zipcode"
-		  	onChangeText={(zip)=>that.setState({zip})}
-		    onSubmitEditing={(zip)=>that.setState({zip})}
+		  	ref={'textInput'}
+		  	onChangeText={(zip)=>this.setState({zip})}
+		    onSubmitEditing={this.weathercall}
+			value={this.state.zip}
 		    clearButtonMode={"always"}
 		    clearTextOnFocus={true}
 		    enablesReturnKeyAutomatically={true}
