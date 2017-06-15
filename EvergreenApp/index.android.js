@@ -10,10 +10,13 @@ import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
+
+//styling import
 const styles = require('./Styles/style.js');
 
 //component import
 var SensorData = require('./components/SensorData.js');
+var LoginBox = require('./components/LoginBox.js');
 
 class LoginScreen extends Component {
 
@@ -22,19 +25,17 @@ class LoginScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-        <TextInput
-            style={{height: 30, backgroundColor:'white', width: 200, textAlign: 'center'}}
-            placeholder="login"
-            onChangeText={(text) => this.setState({text})}
-            />
+          <LoginBox/>
           <Button
-            title="login"
-            onPress = {() => navigate('Garden')}
-            />
-          <Button
-            title="weather"
-            onPress = {() => navigate('Weather')}
-            />
+          style={{marginTop: 20}}
+          title="login"
+          onPress = {() => navigate('Garden')}
+          />
+        <Button
+          style={{marginTop: 20}}
+          title="weather"
+          onPress = {() => navigate('Weather')}
+          />
         </View>
       );
     }
@@ -68,7 +69,7 @@ class LoginScreen extends Component {
 	        </View>
 	      );
 	  }
-	  
+
   })
 
 
