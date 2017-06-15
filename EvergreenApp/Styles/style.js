@@ -15,6 +15,9 @@ export const styles = StyleSheet.create({
     height: 75,
     width: 75,
   },
+  extraTop:{
+    marginTop: 20,
+  },
 });
 
 module.exports = styles;

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
 } from 'react-native';
 const styles = require('../Styles/style.js');
+
 var WeatherScreen=React.createClass({
+
 	getInitialState:function(){
 		var temp;
 		return({
@@ -10,8 +12,8 @@ var WeatherScreen=React.createClass({
 			searchedCity: '',
 			zip:'19702'
 		});
-		
 	},
+
 	componentDidMount:function(){
 		var that=this;
 		/*this.setState({
@@ -42,19 +44,20 @@ var WeatherScreen=React.createClass({
 				Temp: weatherList.current_observation.temp_f,
 		        searchedCity: weatherList.current_observation.display_location.city
 		      });
-		
-		
+
+
 		  });
 	},
+
 	getZip:function(){
 		var text;
-		
 	},
+
 	setZip:function(text){
 		this.setState({
 					  zip:text
 				  });
-		
+
 	},
     render:function(){
 		var text;
@@ -64,22 +67,20 @@ var WeatherScreen=React.createClass({
 		  <TextInput
 		  style={{height: 40, borderColor: 'gray', borderWidth: 1}}
 		  placeholder="Zipcode"
-		  	onChangeText={(zip)=>that.setState({zip})}
-		    onSubmitEditing={(zip)=>that.setState({zip})}
+		  	onChangeText={(zip) => that.setState({zip})}
+		    onSubmitEditing={(zip) => that.setState({zip})}
 		    clearButtonMode={"always"}
 		    clearTextOnFocus={true}
 		    enablesReturnKeyAutomatically={true}
 		    returnKeyLabel={"search"}
 			/>
-			
-		  
-		  
+
         <View style={styles.dataBlock}>
           <Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.Temp}</Text>
-		  <Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.searchedCity}</Text>
+		  		<Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.searchedCity}</Text>
         </View>
 		  </View>
       );
     }
 })
-module.exports=WeatherScreen;
+module.exports = WeatherScreen;
