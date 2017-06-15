@@ -8,7 +8,7 @@ var WeatherScreen=React.createClass({
 		return({
 			Temp: temp,
 			searchedCity: '',
-			zip:'19702'
+			zip:''
 		});
 		
 	},
