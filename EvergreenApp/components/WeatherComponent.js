@@ -15,22 +15,19 @@ class WeatherScreen extends Component{
 		};
 	}
 
-	componentDidMount(){
-		var that=this;
-		this.weathercall();
-	}
-
 	fetchWeather(zip) {
+
 		var apiKey='3f766cac24cd2475';
 		let url =`https://api.wunderground.com/api/${apiKey}/conditions/q/${zip}.json`
-
 	  return fetch(url).then((response) => response.json())
+
 	}
 
 	weathercall(){
-		this.fetchWeather(this.state.zip).then((response) => {
+		var that = this;
+		this.fetchWeather(state.zip).then((response) => {
 			let weatherList = response;
-		    this.setState({
+		    that.setState({
 				Temp: weatherList.current_observation.temp_f,
 		    searchedCity: weatherList.current_observation.display_location.city
 		      });

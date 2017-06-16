@@ -35,6 +35,9 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     marginTop: 20,
     width: 200
+  },
+  sensorList:{
+    flex:1
   }
 });
 

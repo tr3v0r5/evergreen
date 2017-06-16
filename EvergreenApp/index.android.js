@@ -16,9 +16,9 @@ import WeatherComponent from './components/WeatherComponent.js';//Weather screen
 const styles = require('./Styles/style.js');
 
 //component import
-var SensorData = require('./components/SensorData.js');
-var LoginBox = require('./components/LoginBox.js');
-// var SensorList = require('./componets/SensorList.js');
+import SensorData from './components/SensorData.js';
+import LoginBox from './components/LoginBox.js';
+import SensorList from './components/SensorList.js';
 
 class LoginScreen extends Component {
 
