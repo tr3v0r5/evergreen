@@ -18,6 +18,24 @@ export const styles = StyleSheet.create({
   extraTop:{
     marginTop: 20,
   },
+  textBox:{
+    height: 30,
+    backgroundColor:'white',
+    width: 200,
+    textAlign: 'center',
+    marginTop: 20,
+    paddingTop: 6,
+ },
+  genericText:{
+    color: '#ffffff',
+    fontSize: 30,
+  },
+  stockButton:{
+    backgroundColor: '#1666e5',
+    borderRadius: 3,
+    marginTop: 20,
+    width: 200
+  }
 });
 
 module.exports = styles;

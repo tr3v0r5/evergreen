@@ -4,17 +4,19 @@ import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
+const styles = require('../Styles/style.js');
+
 export class LoginBox extends Component{
 render(){
   return(
     <View>
       <TextInput
-        style={{height: 30, backgroundColor:'white', width: 200, textAlign: 'center', marginTop: 20, paddingTop: 5}}
+        style={ styles.textBox }
         placeholder="user name"
         onChangeText={(text) => this.setState({text})}
         />
       <TextInput
-        style={{height: 30, backgroundColor:'white', width: 200, textAlign: 'center', marginTop: 20, paddingTop: 5}}
+        style={ styles.textBox }
         placeholder="password"
         onChangeText={(text) => this.setState({text})}
         />
