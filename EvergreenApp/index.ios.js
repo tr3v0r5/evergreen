@@ -8,9 +8,11 @@
  import React, { Component } from 'react';
  import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
  } from 'react-native';
+ //import Svg from 'react-native-svg';
  import { StackNavigator } from 'react-navigation';
  import * as firebase from 'firebase';
  import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
+ import ChartComponent from './components/ChartComponent.js';
  const styles = require('./Styles/style.js');
 
  //component import
@@ -36,6 +38,10 @@
              title="weather"
              onPress = {() => navigate('Weather')}
              />
+			 <Button
+			 title="Chart"
+			 onPress={()=>navigate('Chart')}
+			 />
          </View>
        );
      }
@@ -71,13 +77,22 @@
  	  }
 	  
    })
+  var ChartScreen=React.createClass({
+	   render:function(){
+		   return (<View style={styles.container}>
+ 	          <Text style={{color:'#ffffff', fontSize:30}}>Chart</Text>
+ 	          <ChartComponent />
+ 	        </View>);
+	   }
+   })
 
 
 
    const EvergreenApp = StackNavigator({
      Login: { screen: LoginScreen },
      Garden: { screen: GardenScreen },
-   	 Weather: { screen: WeatherScreen}
+	   Weather: { screen: WeatherScreen},
+	   Chart:{screen: ChartScreen}
    });
 
 
