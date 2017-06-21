@@ -83,7 +83,6 @@ export class FirebaseLogin extends Component {
 
   render() {
 
-    const { navigate } = this.props.navigation;
     let { fadeAnim } = this.state;
 
     if(this.state.isLoginDisplayed){

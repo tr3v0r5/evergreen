@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
 
