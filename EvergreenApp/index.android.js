@@ -5,10 +5,9 @@
  */
 
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert,
+import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
 
@@ -29,44 +28,18 @@ class LoginScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-          <LoginBox/>
-          <Button
-          raised
-          title="login"
-          onPress = {() => navigate('Garden')}
-          buttonStyle={styles.stockButton}
-          textStyle={{textAlign: 'center'}}
-          />
-        <Button
-          raised
-          title="weather"
-          onPress = {() => navigate('Weather')}
-          icon={{name: 'cloud', size: 32}}
-          buttonStyle={styles.stockButton}
-          textStyle={{textAlign: 'center'}}
-          />
-        </View>
+      <LoginBox/>
       );
     }
   }
 
-  const firebaseConfig = {
-  apiKey: "AIzaSyDIQMP6yMBrKuwDvtRaSmhwYMMZC3FyqpY",
-  databaseURL: "https://smart-garden-ca02a.firebaseio.com",
-  authDomain: "smart-garden-ca02a.firebaseapp.com",
-  storageBucket: "smart-garden-ca02a.appspot.com",
-  };
-
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
-
   class GardenScreen extends Component {
     render() {
       return (
-        <View style={styles.container}>
+        <View style={styles.containerGarden}>
           <Text style={styles.genericText}>Sensor Data</Text>
           <SensorData />
+          <WeatherComponent />
         </View>
       );
     }
@@ -107,7 +80,7 @@ class LoginScreen extends Component {
 
   const EvergreenApp = StackNavigator({
     Login: { screen: LoginScreen },
-    Splash: {screen: SplashScreen },
+    Splash: { screen: SplashScreen },
     Garden: { screen: GardenScreen },
 	  Weather:{ screen: WeatherScreen },
     Sensor: { screen: SensorScreen },

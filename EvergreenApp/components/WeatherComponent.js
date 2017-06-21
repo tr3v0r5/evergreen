@@ -11,7 +11,7 @@ class WeatherScreen extends Component{
 		this.state = {
 			Temp: temp,
 			searchedCity: '',
-			zip:''
+			zip:'19711'
 		};
 	}
 
@@ -25,7 +25,7 @@ class WeatherScreen extends Component{
 
 	weathercall(){
 		var that = this;
-		this.fetchWeather(state.zip).then((response) => {
+		this.fetchWeather(this.state.zip).then((response) => {
 			let weatherList = response;
 		    that.setState({
 				Temp: weatherList.current_observation.temp_f,
@@ -35,15 +35,14 @@ class WeatherScreen extends Component{
 	}
 
 	render(){
-		var text;
-		var that=this;
     return(
 		 <View>
 		 	<TextInput
-		  	style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+				ref={'textInput'}
+				style={{height: 40, borderColor: 'gray', borderWidth: 1, width: 200}}
 		  	placeholder="Zipcode"
 		  	onChangeText={(zip)=>this.setState({zip})}
-		    onSubmitEditing={this.weathercall}
+		    onSubmitEditing={() => this.weathercall()}
 				value={this.state.zip}
 		    clearButtonMode={"always"}
 		    clearTextOnFocus={true}
@@ -51,7 +50,7 @@ class WeatherScreen extends Component{
 		    returnKeyLabel={"search"}
 			/>
 
-      	<View style={styles.dataBlock}>
+		<View style={styles.weatherWidget}>
       		<Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.Temp}</Text>
 		  		<Text style={{color:'#FFFFFF', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.searchedCity}</Text>
         </View>

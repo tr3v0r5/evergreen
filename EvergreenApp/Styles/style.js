@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     paddingTop: 6,
  },
-  genericText:{
+  genericText: {
     color: '#ffffff',
     fontSize: 30,
   },
@@ -38,7 +38,21 @@ export const styles = StyleSheet.create({
   },
   sensorList:{
     flex:1
-  }
+  },
+  weatherWidget:{
+    width: 200,
+    height: 50,
+    backgroundColor: 'blue'
+  },
+  containerGarden:{
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flex: 1,
+    backgroundColor: 'rgb(52,180,67)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
 });
 
 module.exports = styles;
