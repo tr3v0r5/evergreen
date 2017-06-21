@@ -4,7 +4,6 @@ import { AppRegistry, StyleSheet, Text, View, TextInput, Alert, Image,
 Animated } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as firebase from 'firebase';
-import { StackNavigator } from 'react-navigation';
 const styles = require('../Styles/style.js');
 
 
