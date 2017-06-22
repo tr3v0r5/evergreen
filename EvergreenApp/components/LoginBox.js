@@ -7,14 +7,14 @@ import * as firebase from 'firebase';
 const styles = require('../Styles/style.js');
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDIQMP6yMBrKuwDvtRaSmhwYMMZC3FyqpY",
-  databaseURL: "https://smart-garden-ca02a.firebaseio.com",
-  authDomain: "smart-garden-ca02a.firebaseapp.com",
-  storageBucket: "smart-garden-ca02a.appspot.com",
-  };
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDIQMP6yMBrKuwDvtRaSmhwYMMZC3FyqpY",
+//   databaseURL: "https://smart-garden-ca02a.firebaseio.com",
+//   authDomain: "smart-garden-ca02a.firebaseapp.com",
+//   storageBucket: "smart-garden-ca02a.appspot.com",
+//   };
+//
+// const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 
 export class FirebaseLogin extends Component {
@@ -56,6 +56,10 @@ export class FirebaseLogin extends Component {
 
       let user = firebase.auth().currentUser;
       //navigate to garden screen
+      if((user != null)&&(user.emailVerified)){
+          this.props.navigation.navigate('Garden');
+      }
+      else{Alert.alert('Sorry wrong password or Email verification incomplete');}
 
       console.log(user.emailVerified);
 
@@ -83,6 +87,7 @@ export class FirebaseLogin extends Component {
 
   render() {
 
+    const { navigate } = this.props.navigation;
     let { fadeAnim } = this.state;
 
     if(this.state.isLoginDisplayed){
@@ -138,7 +143,7 @@ export class FirebaseLogin extends Component {
           raised
           iconRight
           title="login"
-          onPress = {() => this.login(this.state.UserName, this.state.Password)}
+          onPress = {() => this.toggleBox()}
           icon={{name: 'chevron-right', size: 24}}
           buttonStyle={styles.stockButton}
           textStyle={{textAlign: 'center'}}
@@ -147,5 +152,6 @@ export class FirebaseLogin extends Component {
     );
   }
   }
+
 }
 module.exports = FirebaseLogin;
