@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated
 } from 'react-native';
-import { Button, List, ListItem, Grid, Row,FormLabel, FormInput,FormValidationMessage } from 'react-native-elements';
+import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
+from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
@@ -178,6 +179,7 @@ class GardenScreen extends Component {
     header: null
   };
 
+
   constructor(props){
     super(props);
     this.state = {
@@ -185,23 +187,57 @@ class GardenScreen extends Component {
     }
   }
 
+
   componentDidMount(){
     //firebase read in user data
     let userID = firebase.auth().currentUser.uid;
     let listSensorsRef = firebase.database().ref("Users/"+ userID +"Current/Sensors/");
   }
 
+
     render() {
+
+      const FakeItems = [
+        {
+          title: 'Moisture Sensor 1',
+          icon: 'opacity'
+        },
+        {
+          title: 'Moisture Sensor 2',
+          icon: 'opacity'
+        },
+        {
+          title: 'Moisture Sensor 3',
+          icon: 'opacity'
+        },
+        {
+          title: 'Garden Water Valve 1',
+          icon: 'highlight'
+        },
+      ];
+      const { navigate } = this.props.navigation;
+      console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
+
       return (
         <View style={styles.containerGarden}>
-          <View>
-            <Text style={styles.genericText}>Sensor Data</Text>
-              <List>
-                <ListItem><SensorData sensor='1' /></ListItem>
-                <ListItem><SensorData sensor='2' /></ListItem>
-                <ListItem><SensorData sensor='3' /></ListItem>
+          <View style={{flexDirection: 'row', flex:1}}>
+            <View style={{flexDirection:'column',flex:1}}>
+              <Text style={{fontSize:30, color:'white'}}>Welcome to your Smart Garden</Text>
+              <Text style={{paddingTop: 15},styles.genericText}>Sensor Data</Text>
+              <List containerStyle={{marginRight: 10, marginLeft: 10}}>
+                {
+                  FakeItems.map((item, i) => (
+                    <ListItem
+                      onPress={() => navigate('Sensor')}
+                      key={i}
+                      title={item.title}
+                      leftIcon={{name: item.icon}}
+                      />
+                  ))
+                }
               </List>
             </View>
+          </View>
           <WeatherComponent />
         </View>
       );

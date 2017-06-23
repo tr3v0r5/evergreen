@@ -26,7 +26,8 @@ export const styles = StyleSheet.create({
  },
   genericText: {
     color: '#ffffff',
-    fontSize: 30,
+    fontSize: 20,
+    textAlign: 'center',
   },
   stockButton:{
     backgroundColor: '#1666e5',
