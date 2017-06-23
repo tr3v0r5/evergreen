@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated
 } from 'react-native';
-import { Button, List, ListItem } from 'react-native-elements';
+import { Button, List, ListItem, Grid, Row,FormLabel, FormInput,FormValidationMessage } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
@@ -52,9 +52,14 @@ class LoginScreen extends Component {
 
           user.sendEmailVerification().then(function() {
             alert("verification email sent");
+            firebase.database().ref('Users/'+ user.uid).set({
+                Current: '',
+                History: '',
+            });//this might be a bad way to do this
           }, function(error) {
             console.log(error.toString());
           });
+
       }
       catch (error) {
         console.log(error.toString());
@@ -68,12 +73,14 @@ class LoginScreen extends Component {
 
         let user = firebase.auth().currentUser;
         //navigate to garden screen
+
         if((user != null)&&(user.emailVerified)){
             this.props.navigation.navigate('Garden');
         }
-        else{Alert.alert('Sorry wrong password or Email verification incomplete');}
+        else{
+          Alert.alert('sorry wrong password or email verification incomplete');
+        }
 
-        console.log(user.emailVerified);
 
       }
       catch (error) {
@@ -106,17 +113,14 @@ class LoginScreen extends Component {
         return (
           <View style={styles.container}>
             <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-            <Animated.View style={{opacity: fadeAnim,}}>
-              <TextInput
-                style={ styles.textBox }
-                placeholder="user name"
-                onChangeText={(UserName) => this.setState({UserName})}
-                />
-              <TextInput
-                style={ styles.textBox }
-                placeholder="password"
-                onChangeText={(Password) => this.setState({Password})}
-                />
+             <Animated.View style={{opacity: fadeAnim,}}>
+              <FormInput onChangeText={(UserName) => this.setState({UserName})}
+                containerStyle={styles.textBox}/>
+              <FormValidationMessage></FormValidationMessage>
+              <FormInput onChangeText={(Password) => this.setState({Password})}
+                containerStyle={styles.textBox}/>
+              <FormValidationMessage>Error message</FormValidationMessage>
+
             </Animated.View>
             <Button
               raised
@@ -168,30 +172,36 @@ class LoginScreen extends Component {
   }
 
 
-//fake list for styling listing modules
-const SensorList = [
-  {
-    name: "Sensor1"
-  },
-  {
-    name: "Sensor2"
-  },
-];
-
 class GardenScreen extends Component {
+
+  static navigationOptions = {
+    header: null
+  };
+
+  constructor(props){
+    super(props);
+    this.state = {
+      userSensors:[]
+    }
+  }
+
+  componentDidMount(){
+    //firebase read in user data
+    let userID = firebase.auth().currentUser.uid;
+    let listSensorsRef = firebase.database().ref("Users/"+ userID +"Current/Sensors/");
+  }
+
     render() {
       return (
         <View style={styles.containerGarden}>
           <View>
             <Text style={styles.genericText}>Sensor Data</Text>
-            <List>
-              <ListItem><SensorData sensor='1' /></ListItem>
-              <ListItem><SensorData sensor='2' /></ListItem>
-              <ListItem><SensorData sensor='3' /></ListItem>
-            </List>
-
-
-          </View>
+              <List>
+                <ListItem><SensorData sensor='1' /></ListItem>
+                <ListItem><SensorData sensor='2' /></ListItem>
+                <ListItem><SensorData sensor='3' /></ListItem>
+              </List>
+            </View>
           <WeatherComponent />
         </View>
       );

@@ -19,12 +19,10 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   textBox:{
-    height: 30,
+    height: 50,
     backgroundColor:'white',
     width: 200,
-    textAlign: 'center',
     marginTop: 20,
-    paddingTop: 6,
  },
   genericText: {
     color: '#ffffff',
