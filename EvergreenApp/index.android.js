@@ -191,30 +191,27 @@ class GardenScreen extends Component {
   componentDidMount(){
     //firebase read in user data
     let userID = firebase.auth().currentUser.uid;
-    let listSensorsRef = firebase.database().ref("Users/"+ userID +"Current/Sensors/");
-  }
+    let listSensorsRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/");
+
+    var list = [];
+
+    var that = this;
+
+    listSensorsRef.on('value', function(snapshot) {
+      snapshot.forEach(function(sensor){
+        list.push(sensor.val());
+      });
+
+      that.setState({
+        userSensors: list,
+      });
+    });
+
+  }//componentDidMount
 
 
     render() {
 
-      const FakeItems = [
-        {
-          title: 'Moisture Sensor 1',
-          icon: 'opacity'
-        },
-        {
-          title: 'Moisture Sensor 2',
-          icon: 'opacity'
-        },
-        {
-          title: 'Moisture Sensor 3',
-          icon: 'opacity'
-        },
-        {
-          title: 'Garden Water Valve 1',
-          icon: 'highlight'
-        },
-      ];
       const { navigate } = this.props.navigation;
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
 
@@ -226,7 +223,7 @@ class GardenScreen extends Component {
               <Text style={{paddingTop: 15},styles.genericText}>Sensor Data</Text>
               <List containerStyle={{marginRight: 10, marginLeft: 10}}>
                 {
-                  FakeItems.map((item, i) => (
+                  this.state.userSensors.map((item, i) => (
                     <ListItem
                       onPress={() => navigate('Sensor')}
                       key={i}
