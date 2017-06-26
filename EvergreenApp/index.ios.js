@@ -12,7 +12,7 @@
  import { StackNavigator } from 'react-navigation';
  import * as firebase from 'firebase';
  import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
- import ChartComponent from './components/ChartComponent.js';
+ import ChartComponent from './components/Newchart.js';
  const styles = require('./Styles/style.js');
 
  //component import

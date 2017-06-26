@@ -18,7 +18,7 @@ var WeatherScreen=React.createClass({
 			Temp: 80,
 			img: 'Sun'
 		});*/
-			this.weathercall();
+			//this.weathercall();
 	},
 
 	fetchWeather:function(zip) {
@@ -45,16 +45,6 @@ var WeatherScreen=React.createClass({
 		
 		
 		  });
-	},
-	getZip:function(){
-		var text;
-		this.refs.textInput
-	},
-	setZip:function(e){
-		this.setState({
-			zip:e.target.value
-				  });
-		
 	},
     render:function(){
 		var text;
