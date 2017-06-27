@@ -135,7 +135,7 @@ class LoginScreen extends Component {
             <Button
               raised
               iconRight
-              title="login"
+              title="login  "
               onPress = {() => this.login(this.state.UserName, this.state.Password)}
               icon={{name: 'chevron-right', size: 24}}
               buttonStyle={styles.stockButton}
@@ -197,9 +197,13 @@ class GardenScreen extends Component {
 
     var that = this;
 
-    listSensorsRef.on('value', function(snapshot) {
+    listSensorsRef.on('value',function(snapshot) {
+      list = []//resets the list so that each time it gets redrawn the old list doesnt stay
+      // console.log(snapshot.val());
       snapshot.forEach(function(sensor){
+
         list.push(sensor.val());
+        // console.log(list);
       });
 
       that.setState({
@@ -207,10 +211,12 @@ class GardenScreen extends Component {
       });
     });
 
+
   }//componentDidMount
 
 
     render() {
+
 
       const { navigate } = this.props.navigation;
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
@@ -255,8 +261,10 @@ class WeatherScreen extends Component{
 class SensorScreen extends Component{
     render(){
       return(
-        <View>
-          <Text style={styles.genericText}>TODO</Text>
+        <View style={styles.container}>
+          <Text style={styles.genericText}>
+          </Text>
+          <SensorData sensor="1"/>
         </View>
       );
     }

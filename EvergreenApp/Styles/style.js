@@ -12,8 +12,8 @@ export const styles = StyleSheet.create({
   },
   dataBlock:{
     backgroundColor: 'blue',
-    height: 20,
-    width: 20,
+    height: 200,
+    width: 200,
   },
   extraTop:{
     marginTop: 20,
