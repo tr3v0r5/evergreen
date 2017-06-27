@@ -79,7 +79,7 @@
    })
   var ChartScreen=React.createClass({
 	   render:function(){
-		   return (<View style={styles.container}>
+		   return (<View style={styles.container} >
  	          <Text style={{color:'#ffffff', fontSize:30}}>Chart</Text>
  	          <ChartComponent />
  	        </View>);
