@@ -11,7 +11,7 @@ import WeatherComponent from './components/WeatherComponent.js';//Weather screen
 const styles = require('./Styles/style.js');
 
 //component import
-import SensorData from './components/SensorData.js';
+// import SensorData from './components/SensorData.js';
 import LoginBox from './components/LoginBox.js';
 //import SensorList from './components/SensorList.js';
 
@@ -119,7 +119,8 @@ class LoginScreen extends Component {
                 containerStyle={styles.textBox}/>
               <FormValidationMessage></FormValidationMessage>
               <FormInput onChangeText={(Password) => this.setState({Password})}
-                containerStyle={styles.textBox}/>
+                containerStyle={styles.textBox}
+                secureTextEntry={true} />
               <FormValidationMessage>Error message</FormValidationMessage>
 
             </Animated.View>
@@ -172,7 +173,6 @@ class LoginScreen extends Component {
 
   }
 
-
 class GardenScreen extends Component {
 
   static navigationOptions = {
@@ -199,12 +199,9 @@ class GardenScreen extends Component {
 
     listSensorsRef.on('value',function(snapshot) {
       list = []//resets the list so that each time it gets redrawn the old list doesnt stay
-      // console.log(snapshot.val());
       snapshot.forEach(function(sensor){
-
         list.push(sensor.val());
-        // console.log(list);
-      });
+      });//returns the all contents of child nodes in one list
 
       that.setState({
         userSensors: list,
@@ -231,7 +228,7 @@ class GardenScreen extends Component {
                 {
                   this.state.userSensors.map((item, i) => (
                     <ListItem
-                      onPress={() => navigate('Sensor')}
+                      onPress={() => navigate('Sensor', { sensor: item.id })}
                       key={i}
                       title={item.title}
                       leftIcon={{name: item.icon}}
@@ -259,15 +256,46 @@ class WeatherScreen extends Component{
   }
 
 class SensorScreen extends Component{
-    render(){
-      return(
-        <View style={styles.container}>
-          <Text style={styles.genericText}>
-          </Text>
-          <SensorData sensor="1"/>
+  constructor(props){
+    super();
+    this.state = {
+      sensorData: '' ,
+      sensorTitle: '',
+    };
+  }
+  //maybe not the most elegant solution but it works for now
+  componentDidMount(){
+
+    var that = this;//gets around setState scope issue
+
+    let userID = firebase.auth().currentUser.uid;
+
+    const { params } = this.props.navigation.state;//some dark magic for now
+
+    console.log(params.sensor);
+    let SensorRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor);
+
+    SensorRef.on('value', function(snapshot) {
+      console.log(snapshot.val().data);
+      that.setState({
+        sensorData: snapshot.val().data,
+        sensorTitle: snapshot.val().title,
+      });
+    });
+  }
+
+  render(){
+    const { params } = this.props.navigation.state;
+    console.log(params.sensor);
+    return(
+      <View style={styles.container}>
+        <View style={styles.dataBlock}>
+          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorTitle}</Text>
+          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorData}</Text>
         </View>
-      );
-    }
+      </View>
+    );
+  }
   }
 
 class SplashScreen extends Component{
