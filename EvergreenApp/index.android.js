@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated
-} from 'react-native';
+import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
+ LayoutAnimation, UIManager } from 'react-native';
 import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
@@ -90,40 +90,43 @@ class LoginScreen extends Component {
     }
 
     toggleBox(){
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
       this.setState({
         isLoginDisplayed: true,
       });
     }
 
-    componentDidMount(){
-      Animated.timing(                  // Animate over time
-        this.state.fadeAnim,            // The animated value to drive
-        {
-          toValue: 1,                   // Animate to opacity: 1 (opaque)
-          duration: 3000,              // Make it take a while
-        }
-      ).start();
-    }
+    // componentWillUpdate(){
+    //   LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    // }
 
     render() {
+      //if-else is used to change the functionality of buttons
+      //in-line if-else is used to change the styling to get the LayoutAnimation functioning
+
+
 
       const { navigate } = this.props.navigation;
-      let { fadeAnim } = this.state;
+
+      var loginDisplayed = this.state.isLoginDisplayed === true ? {} : {display:'none'};
+
+      UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 
       if(this.state.isLoginDisplayed){
+
         return (
           <View style={styles.container}>
             <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-             <Animated.View style={{opacity: fadeAnim,}}>
+             <View style={loginDisplayed}>
               <FormInput onChangeText={(UserName) => this.setState({UserName})}
                 containerStyle={styles.textBox}/>
               <FormValidationMessage></FormValidationMessage>
               <FormInput onChangeText={(Password) => this.setState({Password})}
                 containerStyle={styles.textBox}
                 secureTextEntry={true} />
-              <FormValidationMessage>Error message</FormValidationMessage>
+              <FormValidationMessage>Error message</FormValidationMessages>
 
-            </Animated.View>
+            </View>
             <Button
               raised
               iconRight
@@ -144,10 +147,19 @@ class LoginScreen extends Component {
               />
           </View>
         );
-      } else {
-      return(
+      }else{
+        return(
         <View style={styles.container}>
           <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+           <View style={loginDisplayed}>
+            <FormInput onChangeText={(UserName) => this.setState({UserName})}
+              containerStyle={styles.textBox}/>
+            <FormValidationMessage></FormValidationMessage>
+            <FormInput onChangeText={(Password) => this.setState({Password})}
+              containerStyle={styles.textBox}
+              secureTextEntry={true} />
+            <FormValidationMessage>Error message</FormValidationMessage>
+          </View>
           <Button
             raised
             iconRight
@@ -160,7 +172,7 @@ class LoginScreen extends Component {
           <Button
             raised
             iconRight
-            title="login"
+            title="login  "
             onPress = {() => this.toggleBox()}
             icon={{name: 'chevron-right', size: 24}}
             buttonStyle={styles.stockButton}
@@ -168,10 +180,9 @@ class LoginScreen extends Component {
             />
         </View>
       );
-    }
-    }
-
-  }
+    }//else
+      }//render
+  }//loginscreen
 
 class GardenScreen extends Component {
 
