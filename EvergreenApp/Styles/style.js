@@ -21,8 +21,8 @@ export const styles = StyleSheet.create({
   textBox:{
     height: 50,
     backgroundColor:'white',
-    width: 200,
     marginTop: 20,
+
  },
   genericText: {
     color: '#ffffff',
