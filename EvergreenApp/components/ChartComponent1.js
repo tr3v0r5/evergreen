@@ -26,13 +26,13 @@ import {
 
  const data=[
 	{date:new Date("Fri Jun 09 2017 13:56:48 GMT+0000 (UTC)"), value: 93.24},
-	 {date:new Date("Fri Jun 10 2017 13:56:51 GMT+0000 (UTC)"), value: 95.35},
-	 {date:new Date("Fri Jun 19 2017 13:56:51 GMT+0000 (UTC)"), value: 96.84},
+	{date:new Date("Fri Jun 10 2017 13:56:51 GMT+0000 (UTC)"), value: 95.35},
+	{date:new Date("Fri Jun 19 2017 13:56:51 GMT+0000 (UTC)"), value: 9.84},
  	{date:new Date("Fri Jun 29 2017 13:56:51 GMT+0000 (UTC)"), value: 99.92},
- 	{date:new Date("Fri Jun 30 2017 13:56:51 GMT+0000 (UTC)"), value: 99.80},
-	 {date:new Date("Fri Jun 30 2017 13:57:51 GMT+0000 (UTC)"), value: 99.47}
+ 	{date:new Date("Fri Jun 30 2017 13:56:51 GMT+0000 (UTC)"), value: 74.80},
+	{date:new Date("Fri Jun 30 2017 13:57:51 GMT+0000 (UTC)"), value: 99.47}
  ];
- 
+ console.log(("Fri Jun 09 2017 13:56:48 GMT+0000 (UTC)").toLocaleString());
  const lastDatum = data[data.length - 1];
  
  const dimensionWindow = Dimensions.get('window');
@@ -45,19 +45,19 @@ var ChartComponent=React.createClass({
  
      let width= Math.round(dimensionWindow.width * 0.9),
 		height= Math.round(dimensionWindow.height * 0.5);
-   return{
-     graphWidth: 0,
-     graphHeight: 0,
-     linePath: '',
+   	 return{
+       graphWidth: 0,
+       graphHeight: 0,
+       linePath: '',
 	   bottomaxis:'',
 	   leftaxis:'',
 	   lefttick:'',
-	 data:data,
+	   data:data,
 	   width:width,
 	   height:height
 	   
-   };
-},
+   		};
+   },
    componentWillMount:function() {
      this.computeNextState(this.props);
    },
@@ -147,31 +147,32 @@ var ChartComponent=React.createClass({
 	     const scaleY = this.createScaleY(0,110, height);
 
 	     const lineShape = d3.shape.line()
-	     .x((d)=>scaleX(d.date))
-	       .y((d)=>scaleY(d.value));
-		   
-		   let maxFrequency = max(data, d => d.value)+10;
-		   let apple=(scaleX(data[1].date)-scaleX(data[0].date))/2;
+	     		.x((d)=>scaleX(d.date))
+	       		.y((d)=>scaleY(d.value));
+//////////////////////////////// For Axis ///////////////////////////////////////////////		   
+		 let maxFrequency = max(data, d => d.value)+10;
+		 let apple=(scaleX(data[1].date)-scaleX(data[0].date))/2;
 		   //console.warn(apple);
-		   var firstTime=scaleX(data[0].date);
-        var secondtime = scaleX(data[1].date)
-        var lasttime = scaleX(data[data.length - 1].date)
-		   console.warn(firstTime);
-		   let leftAxis=ticks(0, maxFrequency, 10);
-		   let bottomAxis=[firstTime-apple,lasttime+apple];
+		 var firstTime=scaleX(data[0].date);
+         var secondtime = scaleX(data[1].date)
+         var lasttime = scaleX(data[data.length - 1].date)
+		 console.warn(firstTime);
+		 let leftAxis=ticks(0, maxFrequency, 10);
+		 let bottomAxis=[firstTime-apple,lasttime+apple];
 		  
-		  const leftAxisD=d3.shape.line()
+		 const leftAxisD=d3.shape.line()
 				.x(() => bottomAxis[0] + apple)
             	.y(d => scaleY(d) - height)
-		   (leftAxis)
+		   		(leftAxis)
 		   
-        const bottomAxisD = d3.shape.line()
-		   .x(d => d + apple)
-            .y(() => 0)
-		   (bottomAxis)
-		   
-		   console.warn(bottomAxisD);
-		   console.warn(leftAxis+'axisL');
+	 	 const bottomAxisD = d3.shape.line()
+		   		.x(d => d + apple)
+            	.y(() => 0)
+		   		(bottomAxis)
+//////////////////////////////////////////////////////////////////////////////////////////
+		 		   
+		 console.warn(bottomAxisD);
+		 console.warn(leftAxis+'axisL');
 		   //console.warn(lineShape(data));
 	     return {
 	       data,
@@ -197,57 +198,49 @@ var ChartComponent=React.createClass({
 	     };
 	   }
    },
-
-
- 
+   
    render:function() {
-     /*const {
-       graphWidth,
-       graphHeight,
-       linePath,
-      ticks,
-      scale,
-     } = this.state;*/
-     const {
-       x: scaleX,
-     } = scale;
      return (
 		 <View style={styles.container}>
-<Svg width={this.state.width} height={this.state.height}>
-    <G translate="10,-20">
-        <G translate={"0," + this.state.graphHeight}>
-            <G key={-1}>
-                <Path stroke={'black'} d={this.state.bottomaxis} key="-1"/>
-                {
-                    data.map((d, i) => (
-                        <G key={i + 1} translate={this.state.scale.x(d.date) + (this.state.apple)+ ",0"}>
-                            <Line stroke={'red'} y2={5}/>
-						<Text fill={'black'} y={9}>{JSON.stringify(d.date)}</Text>
-                        </G>
-                    ))
-                }
-            </G>
-            <G key={-2}>
-                <Path stroke={'black'} d={this.state.leftaxis} key="-1"/>
-                {
-                    this.state.lefttick.map((d, i) => (
-                        <G key={i + 1} translate={"0," + (this.state.scale.y(d) - this.state.graphHeight)}>
-                            <Line stroke={'red'} x1={5} x2={9}/>
-                            <Text fill={'blue'} x={-9} y={-5}>{d}</Text>
-                        </G>
-                    ))
-                }
-            </G>
-				<G translate={this.state.apple+","+-this.state.graphHeight}>
-				<Path d={this.state.linePath}
-				stroke='red'
-				fill='none'
-				/>
-				</G>
-        </G>
-    </G>
-</Svg>
-   
+		 	<Svg width={this.state.width+20} height={this.state.height+20}>
+    	 		<G translate="20,-20">
+        			<G translate={"0," + this.state.graphHeight}>
+            			<G key={-1}>
+                			<Path stroke={'black'} d={this.state.bottomaxis} key="-1"/>
+                				{
+                    				data.map((d, i) => (
+                        				<G key={i + 1} translate={this.state.scale.x(d.date) + (this.state.apple)+ ",0"}>
+                            				<Line stroke={'red'} y2={5}/>
+											<G rotate="50">
+										<Text fill={'black'} y={-2}>{d.date.toLocaleDateString()}</Text>
+										<Text fill={'black'} y={10} x={-7}>{d.date.toLocaleTimeString()}</Text>
+											</G>
+                        				</G>
+                    				))
+                				}
+            			</G>
+								
+            			<G key={-2}>
+                			<Path stroke={'black'} d={this.state.leftaxis} key="-1"/>
+                				{
+                   				 	this.state.lefttick.map((d, i) => (
+                        				<G key={i + 1} translate={"0," + (this.state.scale.y(d) - this.state.graphHeight)}>
+                            				<Line stroke={'red'} x1={5} x2={9}/>
+                            				<Text fill={'blue'} x={-10} y={-5}>{d}</Text>
+                        				</G>
+                    				))
+                				}
+            			</G>
+								
+						<G translate={this.state.apple+","+-this.state.graphHeight}>
+								<Path d={this.state.linePath}
+									stroke='red'
+									fill='none'
+								/>
+						</G>
+        			</G>
+    			</G>
+			</Svg>
        </View>
      );
    }
