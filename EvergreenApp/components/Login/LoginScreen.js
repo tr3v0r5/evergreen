@@ -8,6 +8,9 @@ import * as firebase from 'firebase';
 
 const styles = require('../../Styles/style.js');
 
+import LoginBox from './LoginBox.js';
+import SignupBox from './SignupBox.js';
+
 export class LoginScreen extends Component {
 
   static navigationOptions = {
@@ -95,18 +98,8 @@ export class LoginScreen extends Component {
       if(this.state.isLoginDisplayed){
 
         return (
-          <View style={styles.container}>
-            <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-             <View style={loginDisplayed}>
-              <FormInput onChangeText={(UserName) => this.setState({UserName})}
-                containerStyle={styles.textBox}/>
-              <FormValidationMessage></FormValidationMessage>
-              <FormInput onChangeText={(Password) => this.setState({Password})}
-                containerStyle={styles.textBox}
-                secureTextEntry={true} />
-              <FormValidationMessage>Error message</FormValidationMessage>
-
-            </View>
+          <View>
+          <LoginBox displayed={ this.state.isLoginDisplayed }/>
             <Button
               raised
               iconRight

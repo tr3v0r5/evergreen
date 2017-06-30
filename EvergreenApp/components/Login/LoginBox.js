@@ -7,8 +7,19 @@ import { StackNavigator } from 'react-navigation';
 
 export class LoginBox extends Component{
   render(){
+
+    var loginDisplayed = this.state.isLoginDisplayed === true ? {} : {display:'none'};
+
     return(
-      <Text>Hello</Text>
+      <View style={loginDisplayed}>
+       <FormInput onChangeText={(UserName) => this.setState({UserName})}
+         containerStyle={styles.textBox}/>
+       <FormValidationMessage></FormValidationMessage>
+       <FormInput onChangeText={(Password) => this.setState({Password})}
+         containerStyle={styles.textBox}
+         secureTextEntry={true} />
+       <FormValidationMessage>Error message not currently implemented</FormValidationMessage>
+     </View>
     );
   }//render()
 }//LoginBox
