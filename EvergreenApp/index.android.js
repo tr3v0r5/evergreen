@@ -1,84 +1,59 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
-} from 'react-native';
+import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
+ LayoutAnimation, UIManager } from 'react-native';
+import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
+from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
 
+
 //styling import
 const styles = require('./Styles/style.js');
 
-//component import
-var SensorData = require('./components/SensorData.js');
-var LoginBox = require('./components/LoginBox.js');
 
-class LoginScreen extends Component {
+//firebase config stuff
+const firebaseConfig = {
+apiKey: "AIzaSyDIQMP6yMBrKuwDvtRaSmhwYMMZC3FyqpY",
+databaseURL: "https://smart-garden-ca02a.firebaseio.com",
+authDomain: "smart-garden-ca02a.firebaseapp.com",
+storageBucket: "smart-garden-ca02a.appspot.com",
+};
 
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View style={styles.container}>
-        <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-          <LoginBox/>
-          <Button
-          style={{marginTop: 20}}
-          title="login"
-          onPress = {() => navigate('Garden')}
-          />
-        <Button
-          style={{marginTop: 20}}
-          title="weather"
-          onPress = {() => navigate('Weather')}
-          />
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+
+//Screen imports
+import LoginScreen from './components/Login/LoginScreen.js';
+
+import GardenScreen from './components/Garden/GardenScreen.js';
+
+import SensorScreen from './components/Sensor/SensorScreen.js';
+
+import WeatherScreen from './components/Weather/WeatherScreen.js';
+
+import SettingsScreen from './components/Settings/SettingsScreen.js';
+
+class SplashScreen extends Component{
+    render(){
+      return(
+        <View>
+          <Text style={styles.genericText}>TODO</Text>
         </View>
       );
     }
   }
 
-  const firebaseConfig = {
-  apiKey: "AIzaSyDIQMP6yMBrKuwDvtRaSmhwYMMZC3FyqpY",
-  authDomain: "smart-garden-ca02a.firebaseapp.com",
-  databaseURL: "https://smart-garden-ca02a.firebaseio.com",
-  storageBucket: "smart-garden-ca02a.appspot.com",
-  };
-
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-  class GardenScreen extends Component {
-    render() {
-      return (
-        <View style={styles.container}>
-          <Text style={{color:'#ffffff', fontSize:30}}>Sensor Data</Text>
-          <SensorData />
-        </View>
-      );
-    }
-  }
-  var WeatherScreen=React.createClass({
-	  render:function() {
-	      return (
-	        <View style={styles.container}>
-	          <Text style={{color:'#ffffff', fontSize:30}}>Weather Data</Text>
-	          <WeatherComponent />
-	        </View>
-	      );
-	  }
-
-  })
-
-
-
-  const EvergreenApp = StackNavigator({
+const EvergreenApp = StackNavigator({
     Login: { screen: LoginScreen },
+    Splash: { screen: SplashScreen },
     Garden: { screen: GardenScreen },
-	Weather:{screen: WeatherScreen }
-  });
+	  Weather: { screen: WeatherScreen },
+    Sensor: { screen: SensorScreen },
+    Settings: { screen: SettingsScreen },
+  }, { headerMode: 'screen' }
+);
 
 
 AppRegistry.registerComponent('EvergreenApp', () => EvergreenApp);
