@@ -25,10 +25,7 @@ import * as firebase from 'firebase';
  } = ART;
  const PaddingSize = 20;
 
- const data=[
-	
- ];
-
+ 
  
  
  const dimensionWindow = Dimensions.get('window');
@@ -38,16 +35,8 @@ import * as firebase from 'firebase';
 var ChartComponent=React.createClass({
 	
 	getInitialState:function(){
-	    var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
-	    firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
-			data=[]
-	 	   snapshot.forEach(function(childSnap){
-	 	   	let date=childSnap.child("date").val();
-	 		let value=childSnap.child('value').val();
-	 		data.push({date:new Date(date),value:value},);
-	 	   })
-	    });
-		 console.warn(data);
+	    
+		 
      let width= Math.round(dimensionWindow.width * 0.9),
 		height= Math.round(dimensionWindow.height * 0.5);
    	 return{
@@ -57,7 +46,7 @@ var ChartComponent=React.createClass({
 	   bottomaxis:'',
 	   leftaxis:'',
 	   lefttick:'',
-	   data:data,
+	   data:[],
 	   width:width,
 	   height:height
 	   
@@ -76,10 +65,12 @@ var ChartComponent=React.createClass({
  
      const graphWidth = this.state.width - PaddingSize * 2;
      const graphHeight = this.state.height - PaddingSize * 2;
-	 
-     const lineGraph = this.draw.createLineGraph(this.state.data,graphWidth,graphHeight);
+	 const getdata=this.getdata();
+	 console.warn(getdata);
+     const lineGraph = this.draw.createLineGraph(getdata,graphWidth,graphHeight);
 	 
      this.setState({
+		 data:lineGraph.data,
       graphWidth,
       graphHeight,
       linePath: lineGraph.path,
@@ -95,6 +86,22 @@ var ChartComponent=React.createClass({
        this.previousGraph = lineGraph;
      }
    },
+   getdata:function(){
+    var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
+	var data=[];
+    firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
+		data=[];
+ 	   snapshot.forEach(function(childSnap){
+ 	   	let date=childSnap.child("date").val();
+ 		let value=childSnap.child('value').val();
+ 		data.push({date:new Date(date),value:value},);
+ 	   })
+	   
+	   console.warn(data+'inside');
+	   
+    });
+	return data;
+   },
 
    draw:{
 	   
@@ -105,7 +112,7 @@ var ChartComponent=React.createClass({
 	    * @param {number} width Width to create the scale with.
 	    * @return {Function} D3 scale instance.
 	    */
-	   createScaleX:function(start, end, width) {
+	   createScaleX:function(data,start, end, width) {
 		   //console.warn('In xCreate '+start+end+width);
 	     return d3.scale.scaleBand()
             .rangeRound([0, width])
@@ -143,6 +150,7 @@ var ChartComponent=React.createClass({
 	  	 //console.warn('In createline');
 		 const lastDatum = data[data.length - 1];
 	     const scaleX = this.createScaleX(
+			 data,
 	       data[0].date,
 	       lastDatum.date,
 	       width
@@ -180,22 +188,12 @@ var ChartComponent=React.createClass({
 		 console.warn(leftAxis+'axisL');
 		   //console.warn(lineShape(data));
 	     return {
-	       data,
+	       data:data,
 	       scale: {
 	         x: scaleX,
 	         y: scaleY,
 	       },
 	       path: lineShape(data),
-	       ticks: data.map((datum) => {
-	         		const time = datum.date;
-	         	    const value = datum.value;
-					//console.warn(value);
-	         	   	return {
-	          		  x: scaleX(time),
-	           		  y: scaleY(value),
-	           		  datum,
-	         	   	};					
-	       }),
 		   bottomaxis:bottomAxisD,
 		   leftaxis:leftAxisD,
 		   lefttick:leftAxis,
@@ -205,6 +203,7 @@ var ChartComponent=React.createClass({
    },
    
    render:function() {
+	   let data=this.state.data
      return (
 		 <View style={styles.container}>
 		 	<Svg width={this.state.width+20} height={this.state.height+20}>
