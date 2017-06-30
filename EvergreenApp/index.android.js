@@ -20,6 +20,7 @@ authDomain: "smart-garden-ca02a.firebaseapp.com",
 storageBucket: "smart-garden-ca02a.appspot.com",
 };
 
+
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 

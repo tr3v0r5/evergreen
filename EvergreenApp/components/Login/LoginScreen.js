@@ -90,7 +90,7 @@ export class LoginScreen extends Component {
 
       var loginDisplayed = this.state.isLoginDisplayed === true ? {} : {display:'none'};
 
-      UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+      UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);//Android only
 
       if(this.state.isLoginDisplayed){
 

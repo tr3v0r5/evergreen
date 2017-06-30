@@ -8,6 +8,8 @@ import * as firebase from 'firebase';
 
 import WeatherComponent from '../WeatherComponent.js';//Weather screen import
 
+import SensorList from './SensorList.js'
+
 const styles = require('../../Styles/style.js');
 
 export class GardenScreen extends Component {
@@ -51,8 +53,8 @@ export class GardenScreen extends Component {
 
     render() {
 
-
       const { navigate } = this.props.navigation;
+
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
 
       return (
@@ -61,21 +63,10 @@ export class GardenScreen extends Component {
             <View style={{flexDirection:'column',flex:1}}>
               <Text style={{fontSize:30, color:'white'}}>Welcome to your Smart Garden</Text>
               <Text style={{paddingTop: 15},styles.genericText}>Sensor Data</Text>
-              <List containerStyle={{marginRight: 10, marginLeft: 10}}>
-                {
-                  this.state.userSensors.map((item, i) => (
-                    <ListItem
-                      onPress={() => navigate('Sensor', { sensor: item.id })}
-                      key={i}
-                      title={item.title}
-                      leftIcon={{name: item.icon}}
-                      />
-                  ))
-                }
-              </List>
+              <SensorList navi={ this.props.navigation } list={ this.state.userSensors }/>
             </View>
           </View>
-          <WeatherComponent />
+            <WeatherComponent  />
         </View>
       );
     }
