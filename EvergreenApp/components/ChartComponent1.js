@@ -12,6 +12,7 @@ import {
  import * as shape from 'd3-shape';
  import{max,
     ticks} from 'd3-array';
+import * as firebase from 'firebase';
  //import Path from 'd3-path';
  const d3 = {
    scale,
@@ -25,24 +26,28 @@ import {
  const PaddingSize = 20;
 
  const data=[
-	{date:new Date("Fri Jun 09 2017 13:56:48 GMT+0000 (UTC)"), value: 93.24},
-	{date:new Date("Fri Jun 10 2017 13:56:51 GMT+0000 (UTC)"), value: 95.35},
-	{date:new Date("Fri Jun 19 2017 13:56:51 GMT+0000 (UTC)"), value: 9.84},
- 	{date:new Date("Fri Jun 29 2017 13:56:51 GMT+0000 (UTC)"), value: 99.92},
- 	{date:new Date("Fri Jun 30 2017 13:56:51 GMT+0000 (UTC)"), value: 74.80},
-	{date:new Date("Fri Jun 30 2017 13:57:51 GMT+0000 (UTC)"), value: 99.47}
+	
  ];
- console.log(("Fri Jun 09 2017 13:56:48 GMT+0000 (UTC)").toLocaleString());
- const lastDatum = data[data.length - 1];
+
+ 
  
  const dimensionWindow = Dimensions.get('window');
  
- const TickWidth = PaddingSize * 2;
+
  
 var ChartComponent=React.createClass({
 	
 	getInitialState:function(){
- 
+	    var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
+	    firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
+			data=[]
+	 	   snapshot.forEach(function(childSnap){
+	 	   	let date=childSnap.child("date").val();
+	 		let value=childSnap.child('value').val();
+	 		data.push({date:new Date(date),value:value},);
+	 	   })
+	    });
+		 console.warn(data);
      let width= Math.round(dimensionWindow.width * 0.9),
 		height= Math.round(dimensionWindow.height * 0.5);
    	 return{
@@ -136,7 +141,7 @@ var ChartComponent=React.createClass({
 	    */
 	   createLineGraph:function(data,width,height) {
 	  	 //console.warn('In createline');
-
+		 const lastDatum = data[data.length - 1];
 	     const scaleX = this.createScaleX(
 	       data[0].date,
 	       lastDatum.date,

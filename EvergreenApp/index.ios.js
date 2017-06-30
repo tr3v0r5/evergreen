@@ -53,8 +53,16 @@
    databaseURL: "https://smart-garden-ca02a.firebaseio.com",
    storageBucket: "smart-garden-ca02a.appspot.com",
    };
-
+   const data=[];
    const firebaseApp = firebase.initializeApp(firebaseConfig);
+   var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
+   firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
+	   snapshot.forEach(function(childSnap){
+	   	let date=childSnap.child("date").val();
+		let value=childSnap.child('value').val();
+		data.push({date:date,value:value},);
+	   })
+   });
 
    class GardenScreen extends Component {
      render() {
