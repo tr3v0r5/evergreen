@@ -8,9 +8,11 @@
  import React, { Component } from 'react';
  import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
  } from 'react-native';
+ //import Svg from 'react-native-svg';
  import { StackNavigator } from 'react-navigation';
  import * as firebase from 'firebase';
  import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
+ import ChartComponent from './components/ChartComponent1.js';
  const styles = require('./Styles/style.js');
 
  //component import
@@ -36,6 +38,10 @@
              title="weather"
              onPress = {() => navigate('Weather')}
              />
+			 <Button
+			 title="Chart"
+			 onPress={()=>navigate('Chart')}
+			 />
          </View>
        );
      }
@@ -47,8 +53,16 @@
    databaseURL: "https://smart-garden-ca02a.firebaseio.com",
    storageBucket: "smart-garden-ca02a.appspot.com",
    };
-
+   const data=[];
    const firebaseApp = firebase.initializeApp(firebaseConfig);
+   var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
+   firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
+	   snapshot.forEach(function(childSnap){
+	   	let date=childSnap.child("date").val();
+		let value=childSnap.child('value').val();
+		data.push({date:date,value:value},);
+	   })
+   });
 
    class GardenScreen extends Component {
      render() {
@@ -71,13 +85,22 @@
  	  }
 	  
    })
+  var ChartScreen=React.createClass({
+	   render:function(){
+		   return (<View style={styles.container} >
+ 	          <Text style={{color:'#ffffff', fontSize:30}}>Chart</Text>
+ 	          <ChartComponent />
+ 	        </View>);
+	   }
+   })
 
 
 
    const EvergreenApp = StackNavigator({
      Login: { screen: LoginScreen },
      Garden: { screen: GardenScreen },
-   	 Weather: { screen: WeatherScreen}
+	   Weather: { screen: WeatherScreen},
+	   Chart:{screen: ChartScreen}
    });
 
 

@@ -11,12 +11,12 @@ class WeatherScreen extends Component{
 		this.state = {
 			Temp: temp,
 			searchedCity: '',
-			zip:'19711'
+			zip:'',
 		};
+		
 	}
 
 	fetchWeather(zip) {
-
 		var apiKey='3f766cac24cd2475';
 		let url =`https://api.wunderground.com/api/${apiKey}/conditions/q/${zip}.json`
 	  return fetch(url).then((response) => response.json())
