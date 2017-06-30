@@ -5,10 +5,7 @@ import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationM
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
-const styles = require('../../Styles/style.js');
-
-export class LoginBox extends Component{
-
+export class SignupBox extends Component{
   render(){
 
     var loginDisplayed = this.props.displayed === true ? {} : {display:'none'};
@@ -26,4 +23,4 @@ export class LoginBox extends Component{
     );
   }//render()
 }//LoginBox
-module.exports=LoginBox;
+module.exports=SignupBox;

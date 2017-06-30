@@ -98,8 +98,17 @@ export class LoginScreen extends Component {
       if(this.state.isLoginDisplayed){
 
         return (
-          <View>
-          <LoginBox displayed={ this.state.isLoginDisplayed }/>
+          <View style={styles.container}>
+            <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+            <View style={loginDisplayed}>
+             <FormInput onChangeText={(UserName) => this.setState({UserName})}
+               containerStyle={styles.textBox}/>
+             <FormValidationMessage></FormValidationMessage>
+             <FormInput onChangeText={(Password) => this.setState({Password})}
+               containerStyle={styles.textBox}
+               secureTextEntry={true} />
+             <FormValidationMessage>Error message not currently implemented</FormValidationMessage>
+           </View>
             <Button
               raised
               iconRight
