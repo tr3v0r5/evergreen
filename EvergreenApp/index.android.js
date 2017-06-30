@@ -33,6 +33,7 @@ import SensorScreen from './components/Sensor/SensorScreen.js';
 
 import WeatherScreen from './components/Weather/WeatherScreen.js';
 
+import SettingsScreen from './components/Settings/SettingsScreen.js';
 
 class SplashScreen extends Component{
     render(){
@@ -48,8 +49,9 @@ const EvergreenApp = StackNavigator({
     Login: { screen: LoginScreen },
     Splash: { screen: SplashScreen },
     Garden: { screen: GardenScreen },
-	  Weather:{ screen: WeatherScreen },
+	  Weather: { screen: WeatherScreen },
     Sensor: { screen: SensorScreen },
+    Settings: { screen: SettingsScreen },
   }, { headerMode: 'screen' }
 );
 
