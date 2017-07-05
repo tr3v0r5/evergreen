@@ -5,6 +5,7 @@ import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationM
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
+import Chart from '../ChartComponent1.js';
 
 const styles = require('../../Styles/style.js');
 
@@ -46,6 +47,7 @@ export class SensorScreen extends Component{
           <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorTitle}</Text>
           <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorData}</Text>
         </View>
+		<Chart />
       </View>
     );
   }

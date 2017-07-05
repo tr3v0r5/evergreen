@@ -66,7 +66,9 @@ export class GardenScreen extends Component {
               <SensorList navi={ this.props.navigation } list={ this.state.userSensors }/>
             </View>
           </View>
+		  <View>
             <WeatherComponent  />
+		  </View>
         </View>
       );
     }

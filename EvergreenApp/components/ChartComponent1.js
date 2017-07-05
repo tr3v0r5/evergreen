@@ -35,7 +35,8 @@ import * as firebase from 'firebase';
 var ChartComponent=React.createClass({
 	
 	getInitialState:function(){
-	    
+		let datam=[{date:new Date("Tue Jun 13 2017 15:52:43 GMT+0000 (UTC)"),value:19},
+		{date:new Date("Tue Jun 13 2017 16:52:43 GMT+0000 (UTC)"),value:40}]  
 		 
      let width= Math.round(dimensionWindow.width * 0.9),
 		height= Math.round(dimensionWindow.height * 0.5);
@@ -46,7 +47,7 @@ var ChartComponent=React.createClass({
 	   bottomaxis:'',
 	   leftaxis:'',
 	   lefttick:'',
-	   data:[],
+		 data:datam,
 	   width:width,
 	   height:height
 	   
@@ -66,7 +67,7 @@ var ChartComponent=React.createClass({
      const graphWidth = this.state.width - PaddingSize * 2;
      const graphHeight = this.state.height - PaddingSize * 2;
 	 const getdata=this.getdata();
-	 console.warn(getdata);
+	 console.warn(getdata+' getdata');
      const lineGraph = this.draw.createLineGraph(getdata,graphWidth,graphHeight);
 	 
      this.setState({
@@ -90,7 +91,6 @@ var ChartComponent=React.createClass({
     var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
 	var data=[];
     firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
-		data=[];
  	   snapshot.forEach(function(childSnap){
  	   	let date=childSnap.child("date").val();
  		let value=childSnap.child('value').val();
@@ -100,6 +100,7 @@ var ChartComponent=React.createClass({
 	   console.warn(data+'inside');
 	   
     });
+	console.warn(data);
 	return data;
    },
 
@@ -112,7 +113,7 @@ var ChartComponent=React.createClass({
 	    * @param {number} width Width to create the scale with.
 	    * @return {Function} D3 scale instance.
 	    */
-	   createScaleX:function(data,start, end, width) {
+	   createScaleX:function(data,width) {
 		   //console.warn('In xCreate '+start+end+width);
 	     return d3.scale.scaleBand()
             .rangeRound([0, width])
@@ -151,8 +152,6 @@ var ChartComponent=React.createClass({
 		 const lastDatum = data[data.length - 1];
 	     const scaleX = this.createScaleX(
 			 data,
-	       data[0].date,
-	       lastDatum.date,
 	       width
 	     );
 		 //console.warn(scaleX.range);

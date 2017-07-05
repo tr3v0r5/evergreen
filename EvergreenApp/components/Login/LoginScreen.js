@@ -48,6 +48,9 @@ export class LoginScreen extends Component {
         console.log(error.toString());
       }
     }
+	skip(){
+		this.props.navigation.navigate('Garden');
+	}
 
     async login(email, pass){
       try {
@@ -140,6 +143,7 @@ export class LoginScreen extends Component {
               secureTextEntry={true} />
             <FormValidationMessage>Error message</FormValidationMessage>
           </View>
+			  <View>
           <Button
             raised
             iconRight
@@ -149,11 +153,23 @@ export class LoginScreen extends Component {
             buttonStyle={styles.stockButton}
             textStyle={{textAlign: 'center'}}
             />
+			</View>
+			<View>
           <Button
             raised
             iconRight
             title="login  "
             onPress = {() => this.toggleBox()}
+            icon={{name: 'chevron-right', size: 24}}
+            buttonStyle={styles.stockButton}
+            textStyle={{textAlign: 'center'}}
+            />
+			</View>
+			<Button
+            raised
+            iconRight
+            title="Skip  "
+            onPress = {() => this.skip()}
             icon={{name: 'chevron-right', size: 24}}
             buttonStyle={styles.stockButton}
             textStyle={{textAlign: 'center'}}
