@@ -56,13 +56,14 @@ export class GardenScreen extends Component {
       const { navigate } = this.props.navigation;
 
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
+      console.ignoredYellowBox = ['Warning: checkPropTypes'];
 
       return (
         <View style={styles.containerGarden}>
           <View style={{flexDirection: 'row', flex:1}}>
             <View style={{flexDirection:'column',flex:1}}>
               <Text style={{fontSize:30, color:'white'}}>Welcome to your Smart Garden</Text>
-              <Text style={{paddingTop: 15},styles.genericText}>Sensor Data</Text>
+              <Text style={{paddingTop: 15},styles.genericText}>Sensor List</Text>
               <SensorList navi={ this.props.navigation } list={ this.state.userSensors }/>
             </View>
           </View>

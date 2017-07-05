@@ -6,6 +6,8 @@ from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
+import ChartComponent from '../ChartComponent.js'
+
 const styles = require('../../Styles/style.js');
 
 export class SensorScreen extends Component{
@@ -42,6 +44,7 @@ export class SensorScreen extends Component{
     console.log(params.sensor);
     return(
       <View style={styles.container}>
+        <ChartComponent/>
         <View style={styles.dataBlock}>
           <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorTitle}</Text>
           <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorData}</Text>
