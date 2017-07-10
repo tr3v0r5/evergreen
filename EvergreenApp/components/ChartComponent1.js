@@ -27,17 +27,17 @@ import * as firebase from 'firebase';
  const PaddingSize = 20;
 
 //const text = require('../node_modules/react-native/Libraries/Text/Text.js')
- 
- 
- const dimensionWindow = Dimensions.get('window');
- 
 
- 
+
+ const dimensionWindow = Dimensions.get('window');
+
+
+
 var ChartComponent=React.createClass({
-	
+
 	getInitialState:function(){
-	    
-		 
+
+
      let width= Math.round(dimensionWindow.width * 0.9),
 		height= Math.round(dimensionWindow.height * 0.5);
    	 return{
@@ -50,27 +50,29 @@ var ChartComponent=React.createClass({
 	   data:[],
 	   width:width,
 	   height:height
-	   
+
    		};
    },
    componentWillMount:function() {
-     this.computeNextState(this.props);
+     this.computeNextState();
    },
- 
-   componentWillReceiveProps:function(nextProps) {
-     this.computeNextState(nextProps);
+
+   shouldComponentUpdate:function(nextState){
+     if(this.state.data !== nextState.data){
+       return true;
+     }
    },
- 
-   computeNextState:function(nextProps) {
-	 
- 
+
+   computeNextState:function() {
+
+
      const graphWidth = this.state.width - PaddingSize * 2;
      const graphHeight = this.state.height - PaddingSize * 2;
 	 const getdata=this.getdata();
 	 console.warn(getdata);
 	 if (getdata.length>1){
      const lineGraph = this.draw.createLineGraph(getdata,graphWidth,graphHeight);
-	 
+
      this.setState({
 		 data:lineGraph.data,
       graphWidth,
@@ -90,11 +92,12 @@ var ChartComponent=React.createClass({
  		createdgraph:false
  	})
  }
- 
+
    },
    getdata:function(){
     var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
 	var data=[];
+  var that=this;
     firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
 		data=[];
  	   snapshot.forEach(function(childSnap){
@@ -102,15 +105,18 @@ var ChartComponent=React.createClass({
  		let value=childSnap.child('value').val();
  		data.push({date:new Date(date),value:value},);
  	   })
-	   
+
 	   console.warn(data+'inside');
-	   
+     that.setState({
+       data:data,
+     });
+
     });
 	return data;
    },
 
    draw:{
-	   
+
 	   /**
 	    * Create an x-scale.
 	    * @param {number} start Start time in seconds.
@@ -160,13 +166,13 @@ var ChartComponent=React.createClass({
 	       width
 	     );
 		 //console.warn(scaleX.range);
-		 
+
 	     const scaleY = this.createScaleY(0,110, height);
 
 	     const lineShape = d3.shape.line()
 	     		.x((d)=>scaleX(d.date))
 	       		.y((d)=>scaleY(d.value));
-//////////////////////////////// For Axis ///////////////////////////////////////////////		   
+//////////////////////////////// For Axis ///////////////////////////////////////////////
 		 let maxFrequency = max(data, d => d.value)+10;
 		 let apple=(scaleX(data[1].date)-scaleX(data[0].date))/2;
 		   //console.warn(apple);
@@ -176,18 +182,18 @@ var ChartComponent=React.createClass({
 		 console.warn(firstTime);
 		 let leftAxis=ticks(0, maxFrequency, 10);
 		 let bottomAxis=[firstTime-apple,lasttime+apple];
-		  
+
 		 const leftAxisD=d3.shape.line()
 				.x(() => bottomAxis[0] + apple)
             	.y(d => scaleY(d) - height)
 		   		(leftAxis)
-		   
+
 	 	 const bottomAxisD = d3.shape.line()
 		   		.x(d => d + apple)
             	.y(() => 0)
 		   		(bottomAxis)
 //////////////////////////////////////////////////////////////////////////////////////////
-		 		   
+
 		 console.warn(bottomAxisD);
 		 console.warn(leftAxis+'axisL');
 		   //console.warn(lineShape(data));
@@ -205,8 +211,9 @@ var ChartComponent=React.createClass({
 	     };
 	   }
    },
-   
+
    render:function() {
+
 	   let data=this.state.data
 	   if(this.state.createdgraph){
      return (
@@ -228,7 +235,7 @@ var ChartComponent=React.createClass({
                     				))
                 				}
             			</G>
-								
+
             			<G key={-2}>
                 			<Path stroke={'black'} d={this.state.leftaxis} key="-1"/>
                 				{
@@ -240,7 +247,7 @@ var ChartComponent=React.createClass({
                     				))
                 				}
             			</G>
-								
+
 						<G translate={this.state.apple+","+-this.state.graphHeight}>
 								<Path d={this.state.linePath}
 									stroke='red'
@@ -251,7 +258,7 @@ var ChartComponent=React.createClass({
     			</G>
 			</Svg>
        </View>
-							
+
      );
  }
  else{
@@ -261,12 +268,12 @@ var ChartComponent=React.createClass({
  }
    }
  })
- 
+
  //////////////////////////////////////////////////
- 
- 
+
+
  //////////////////////////////////////////////////
- 
+
  const styles = StyleSheet.create({
    container: {
 	   backgroundColor:'white'
