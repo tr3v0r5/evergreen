@@ -16,7 +16,7 @@ export class SensorData extends Component {
   //maybe not the most elegant solution but it works for now
   componentDidMount(){
     var that = this;
-    firebase.database().ref('Sensors/sensor1').on('value', function(snapshot) {
+    firebase.database().ref('Sensors/sensor'+ this.props.sensor).on('value', function(snapshot) {
       that.setState({
         moistureData: snapshot.child("sensorData").val(),
       });
@@ -24,6 +24,7 @@ export class SensorData extends Component {
   }
 
   render(){
+
     return(
       <View style={styles.dataBlock}>
         <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.moistureData}</Text>
