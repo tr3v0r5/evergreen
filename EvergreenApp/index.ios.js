@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
+import { AppRegistry, StyleSheet, TextInput, View, Alert, Animated,Text,
  LayoutAnimation, UIManager } from 'react-native';
 import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
