@@ -6,7 +6,7 @@ from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
-import ChartComponent from '../ChartComponent.js'
+import ChartComponent from '../ChartComponent1.js'
 
 const styles = require('../../Styles/style.js');
 
@@ -27,7 +27,7 @@ export class SensorScreen extends Component{
 
     const { params } = this.props.navigation.state;//some dark magic for now
 
-    console.log(params.sensor);
+    // console.log(params.sensor);
     let SensorRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor);
 
     SensorRef.on('value', function(snapshot) {
@@ -41,7 +41,10 @@ export class SensorScreen extends Component{
 
   render(){
     const { params } = this.props.navigation.state;
-    console.log(params.sensor);
+    // console.log(params.sensor);
+    console.ignoredYellowBox = ['Setting a timer'];
+    console.ignoredYellowBox = ['Warning: checkPropTypes'];//supress react native warnings from firebase
+
     return(
       <View style={styles.container}>
         <ChartComponent/>

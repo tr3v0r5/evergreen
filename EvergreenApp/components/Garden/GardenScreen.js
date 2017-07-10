@@ -37,7 +37,7 @@ export class GardenScreen extends Component {
     var that = this;
 
     listSensorsRef.on('value',function(snapshot) {
-      list = []//resets the list so that each time it gets redrawn the old list doesnt stay
+      list = []//resets the list so that each time a value changes the old list is cleared
       snapshot.forEach(function(sensor){
         list.push(sensor.val());
       });//returns the all contents of child nodes in one list

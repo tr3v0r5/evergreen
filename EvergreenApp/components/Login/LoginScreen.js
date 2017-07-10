@@ -74,6 +74,15 @@ export class LoginScreen extends Component {
           <View>
             <LoginBox navi={ this.props.navigation }/>
           </View>
+          <Button
+            raised
+            iconRight
+            title="signup"
+            onPress = {() => this.toggleBox('SignUp')}
+            icon={{name: 'chevron-right', size: 24}}
+            buttonStyle={ styles.stockButton }
+            textStyle={{textAlign: 'center'}}
+            />
         </View>
       );
 
@@ -84,6 +93,15 @@ export class LoginScreen extends Component {
             <View>
               <SignupBox navi={ this.props.navigation }/>
             </View>
+            <Button
+              raised
+              iconRight
+              title="login  "
+              onPress = {() => this.toggleBox('Login')}
+              icon={{name: 'chevron-right', size: 24}}
+              buttonStyle={ styles.stockButton }
+              textStyle={{textAlign: 'center'}}
+              />
           </View>
         );
       }
