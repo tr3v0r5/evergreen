@@ -36,10 +36,10 @@ import * as firebase from 'firebase';
 var ChartComponent=React.createClass({
 	
 	getInitialState:function(){
-	    
+	    console.warn('initial');
 		 
-     let width= Math.round(dimensionWindow.width * 0.9),
-		height= Math.round(dimensionWindow.height * 0.5);
+     	let width= Math.round(dimensionWindow.width * 0.9),
+			height= Math.round(dimensionWindow.height * 0.5);
    	 return{
        graphWidth: 0,
        graphHeight: 0,
@@ -49,75 +49,25 @@ var ChartComponent=React.createClass({
 	   lefttick:'',
 	   data:[],
 	   width:width,
-	   height:height
-	   
+	   height:height,
+		 createdgraph:false
    		};
    },
    componentWillMount:function() {
-     this.computeNextState(this.props);
+	   console.warn("willmount");
+       const graphWidth = this.state.width - PaddingSize * 2;
+       const graphHeight = this.state.height - PaddingSize * 2;
+	   this.createLineGraph(this.props.data,graphWidth,graphHeight);
    },
- 
-   componentWillReceiveProps:function(nextProps) {
-     this.computeNextState(nextProps);
+   componentDidMount:function(){
+	   console.warn("didmount");
+	   const graphWidth = this.state.width - PaddingSize * 2;
+       const graphHeight = this.state.height - PaddingSize * 2;
+	   this.createLineGraph(this.props.data,graphWidth,graphHeight);
    },
- 
-   computeNextState:function(nextProps) {
-	 
- 
-     const graphWidth = this.state.width - PaddingSize * 2;
-     const graphHeight = this.state.height - PaddingSize * 2;
-	 const getdata=this.getdata();
-	 console.warn(getdata);
-	 if (getdata.length>1){
-     const lineGraph = this.draw.createLineGraph(getdata,graphWidth,graphHeight);
-	 
-     this.setState({
-		 data:lineGraph.data,
-      graphWidth,
-      graphHeight,
-      linePath: lineGraph.path,
-      ticks: lineGraph.ticks,
-      scale: lineGraph.scale,
-		bottomaxis:lineGraph.bottomaxis,
-		leftaxis:lineGraph.leftaxis,
-		lefttick:lineGraph.lefttick,
-		 apple:lineGraph.apple,
-		 createdgraph:true
-     });
- }
- else{
- 	this.setState({
- 		createdgraph:false
- 	})
- }
- 
-   },
-   getdata:function(){
-    var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
-	var data=[];
-    firebase.database().ref('Users/'+userId+'/History').on('value', function(snapshot) {
-		data=[];
- 	   snapshot.forEach(function(childSnap){
- 	   	let date=childSnap.child("date").val();
- 		let value=childSnap.child('value').val();
- 		data.push({date:new Date(date),value:value},);
- 	   })
-	   
-	   console.warn(data+'inside');
-	   
-    });
-	return data;
-   },
-
-   draw:{
-	   
-	   /**
-	    * Create an x-scale.
-	    * @param {number} start Start time in seconds.
-	    * @param {number} end End time in seconds.
-	    * @param {number} width Width to create the scale with.
-	    * @return {Function} D3 scale instance.
-	    */
+   
+   
+  
 	   createScaleX:function(data,width) {
 		   //console.warn('In xCreate '+start+end+width);
 	     return d3.scale.scaleBand()
@@ -153,7 +103,9 @@ var ChartComponent=React.createClass({
 	    * @return {Object} Object with data needed to render.
 	    */
 	   createLineGraph:function(data,width,height) {
-	  	 //console.warn('In createline');
+	  	 console.log('In createline');
+		 var that=this;
+		 console.warn(data+'fnanrgk k');
 		 //const lastDatum = data[data.length - 1];
 	     const scaleX = this.createScaleX(
 			 data,
@@ -191,7 +143,7 @@ var ChartComponent=React.createClass({
 		 console.warn(bottomAxisD);
 		 console.warn(leftAxis+'axisL');
 		   //console.warn(lineShape(data));
-	     return {
+	     this.setState ({
 	       data:data,
 	       scale: {
 	         x: scaleX,
@@ -201,19 +153,23 @@ var ChartComponent=React.createClass({
 		   bottomaxis:bottomAxisD,
 		   leftaxis:leftAxisD,
 		   lefttick:leftAxis,
-		   apple:apple
-	     };
-	   }
-   },
+		   apple:apple,
+		   createdgraph:true
+	     });
+	 },
+  
    
    render:function() {
+	   console.warn("render");
+       const graphWidth = this.state.width - PaddingSize * 2;
+       const graphHeight = this.state.height - PaddingSize * 2;
 	   let data=this.state.data
 	   if(this.state.createdgraph){
      return (
 		 <View style={styles.container}>
 		 	<Svg width={this.state.width+20} height={this.state.height+20}>
     	 		<G translate="20,-20">
-        			<G translate={"0," + this.state.graphHeight}>
+        			<G translate={"0," + graphHeight}>
             			<G key={-1}>
                 			<Path stroke={'black'} d={this.state.bottomaxis} key="-1"/>
                 				{
@@ -233,7 +189,7 @@ var ChartComponent=React.createClass({
                 			<Path stroke={'black'} d={this.state.leftaxis} key="-1"/>
                 				{
                    				 	this.state.lefttick.map((d, i) => (
-                        				<G key={i + 1} translate={"0," + (this.state.scale.y(d) - this.state.graphHeight)}>
+                        				<G key={i + 1} translate={"0," + (this.state.scale.y(d) - graphHeight)}>
                             				<Line stroke={'red'} x1={5} x2={9}/>
                             				<Text fill={'blue'} x={-10} y={-5}>{d}</Text>
                         				</G>
@@ -241,8 +197,8 @@ var ChartComponent=React.createClass({
                 				}
             			</G>
 								
-						<G translate={this.state.apple+","+-this.state.graphHeight}>
-								<Path d={this.state.linePath}
+						<G translate={this.state.apple+","+-graphHeight}>
+								<Path d={this.state.path}
 									stroke='red'
 									fill='none'
 								/>
