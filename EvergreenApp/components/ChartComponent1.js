@@ -59,11 +59,11 @@ var ChartComponent=React.createClass({
        const graphHeight = this.state.height - PaddingSize * 2;
 	   this.createLineGraph(this.props.data,graphWidth,graphHeight);
    },
-   componentDidMount:function(){
-	   console.warn("didmount");
+   componentWillReceiveProps:function(nextProps){
+	   console.warn(nextProps+"nextprops");
 	   const graphWidth = this.state.width - PaddingSize * 2;
        const graphHeight = this.state.height - PaddingSize * 2;
-	   this.createLineGraph(this.props.data,graphWidth,graphHeight);
+	   this.createLineGraph(nextProps.data,graphWidth,graphHeight);
    },
    
    
@@ -105,7 +105,7 @@ var ChartComponent=React.createClass({
 	   createLineGraph:function(data,width,height) {
 	  	 console.log('In createline');
 		 var that=this;
-		 console.warn(data+'fnanrgk k');
+		 console.warn(JSON.stringify(data)+'fnanrgk k');
 		 //const lastDatum = data[data.length - 1];
 	     const scaleX = this.createScaleX(
 			 data,

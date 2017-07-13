@@ -40,7 +40,7 @@ export class SensorScreen extends Component{
   getdata(){
 	var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
 	var that=this;
-	firebase.database().ref('Users/'+userId+'/History').once('value',function(snapshot) {
+	firebase.database().ref('Users/'+userId+'/History').on('value',function(snapshot) {
 	console.warn('getdata firebase');
 		let data=[];
    		snapshot.forEach(function(childSnap){
@@ -48,6 +48,7 @@ export class SensorScreen extends Component{
 			let value=childSnap.child('value').val();
 			data.push({date:new Date(date),value:value},);
    	 	})
+		
 		that.setState({
 			data:data,
 			dataReady:true
