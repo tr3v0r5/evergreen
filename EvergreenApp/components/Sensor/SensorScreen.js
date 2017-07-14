@@ -24,7 +24,7 @@ export class SensorScreen extends Component{
     var that = this;//gets around setState scope issue
 
     let userID = firebase.auth().currentUser.uid;
-	this.getdata()
+	this.getdata(userID)
     const { params } = this.props.navigation.state;//some dark magic for now
     console.log(params.sensor);
     let SensorRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor);
@@ -37,35 +37,39 @@ export class SensorScreen extends Component{
       });
     });
   }
-  getdata(){
-	var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
+  getdata(userId){
+	//var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
+	const { params } = this.props.navigation.state;
 	var that=this;
-	firebase.database().ref('Users/'+userId+'/History').on('value',function(snapshot) {
-	console.warn('getdata firebase');
+	firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).on('value',function(snapshot) {
+	//console.warn('getdata firebase');
 		let data=[];
    		snapshot.forEach(function(childSnap){
-   			let date=childSnap.child("date").val();
-			let value=childSnap.child('value').val();
+   			let date=childSnap.key;
+			//console.warn(JSON.stringify(date));
+			let value=childSnap.child('data').val();
 			data.push({date:new Date(date),value:value},);
    	 	})
+		if (data!=[]){
+			that.setState({
+				data:data,
+				dataReady:true
+			});
+		}
 		
-		that.setState({
-			data:data,
-			dataReady:true
-		});
   });
 }
   loading(){
   	return(
   		<View>
-		<Text style={{color:'#ffffff', fontSize: 20,textAlign: 'center', marginTop: 20 }}>Loading...</Text>
+		<Text style={{color:'#ffffff', fontSize: 20,textAlign: 'center', marginTop: 20 }}>No Data</Text>
 		</View>
   	)
   }
   render(){
     const { params } = this.props.navigation.state;
     console.log(params.sensor);
-	console.warn(this.state.dataReady)
+	//console.warn(this.state.dataReady)
     return(
       <View style={styles.container}>
         <View style={styles.dataBlock}>

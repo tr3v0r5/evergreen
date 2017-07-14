@@ -8,7 +8,7 @@ import WidgetComponent from './WidgetComponent.js';
 import {sliderWidth,itemWidth} from '../Styles/weatherStyles.js'
 import styles from '../Styles/weatherStyles.js'
 //const styles = require('../Styles/weatherStyles.js');
-
+import {Icon} from 'react-native-elements';
 export default class WeatherComponent extends Component{
 
   	constructor(props){
@@ -50,7 +50,9 @@ export default class WeatherComponent extends Component{
 
           this.setState({
             infoArray:temporaryArray,
-            loaded:true
+            loaded:true,
+			  //temp: responseData.forecast.simpleforecast.forecastday.high.fahrenheit,
+			   
        });
         })
       }
@@ -70,6 +72,11 @@ export default class WeatherComponent extends Component{
         });
 
     };
+	
+	oneWidget()
+	{
+		return this.state.infoArray[0];
+	}
 
       render(){
 		  if(this.props.widget==="large"){
@@ -105,7 +112,26 @@ export default class WeatherComponent extends Component{
 }
 else{
 	return(
-	<Text> Ca Marche!!!!</Text>
+	<View>
+        <View style={styles.widgetweatherContainer}>
+
+        	<View style={styles.topContainer}>
+        		<View style = {styles.iconContainer}>
+        			<Icon
+        				name='white-balance-sunny'
+        				type='material-community'
+        				color='white'
+        				size ={50}
+        					/>
+        		</View>
+
+          		<Text style = {styles.widgettempText}>{10}  </Text>
+          		<Text style = {styles.widgetdegreeText}> &#8457;</Text>
+        	</View>
+
+        
+        </View>
+	</View>
 	)
 }
     }

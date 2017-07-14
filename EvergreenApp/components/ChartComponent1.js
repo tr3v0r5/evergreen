@@ -36,7 +36,7 @@ import * as firebase from 'firebase';
 var ChartComponent=React.createClass({
 	
 	getInitialState:function(){
-	    console.warn('initial');
+	    //console.warn('initial');
 		 
      	let width= Math.round(dimensionWindow.width * 0.9),
 			height= Math.round(dimensionWindow.height * 0.5);
@@ -54,13 +54,13 @@ var ChartComponent=React.createClass({
    		};
    },
    componentWillMount:function() {
-	   console.warn("willmount");
+	   //console.warn("willmount");
        const graphWidth = this.state.width - PaddingSize * 2;
        const graphHeight = this.state.height - PaddingSize * 2;
 	   this.createLineGraph(this.props.data,graphWidth,graphHeight);
    },
    componentWillReceiveProps:function(nextProps){
-	   console.warn(nextProps+"nextprops");
+	   //console.warn(nextProps+"nextprops");
 	   const graphWidth = this.state.width - PaddingSize * 2;
        const graphHeight = this.state.height - PaddingSize * 2;
 	   this.createLineGraph(nextProps.data,graphWidth,graphHeight);
@@ -103,9 +103,9 @@ var ChartComponent=React.createClass({
 	    * @return {Object} Object with data needed to render.
 	    */
 	   createLineGraph:function(data,width,height) {
-	  	 console.log('In createline');
+	  	 //console.log('In createline');
 		 var that=this;
-		 console.warn(JSON.stringify(data)+'fnanrgk k');
+		 //console.warn(JSON.stringify(data)+'fnanrgk k');
 		 //const lastDatum = data[data.length - 1];
 	     const scaleX = this.createScaleX(
 			 data,
@@ -125,7 +125,7 @@ var ChartComponent=React.createClass({
 		 var firstTime=scaleX(data[0].date);
          var secondtime = scaleX(data[1].date)
          var lasttime = scaleX(data[data.length - 1].date)
-		 console.warn(firstTime);
+		 //console.warn(firstTime);
 		 let leftAxis=ticks(0, maxFrequency, 10);
 		 let bottomAxis=[firstTime-apple,lasttime+apple];
 		  
@@ -140,8 +140,8 @@ var ChartComponent=React.createClass({
 		   		(bottomAxis)
 //////////////////////////////////////////////////////////////////////////////////////////
 		 		   
-		 console.warn(bottomAxisD);
-		 console.warn(leftAxis+'axisL');
+		 //console.warn(bottomAxisD);
+		 //console.warn(leftAxis+'axisL');
 		   //console.warn(lineShape(data));
 	     this.setState ({
 	       data:data,
@@ -160,7 +160,7 @@ var ChartComponent=React.createClass({
   
    
    render:function() {
-	   console.warn("render");
+	   //console.warn("render");
        const graphWidth = this.state.width - PaddingSize * 2;
        const graphHeight = this.state.height - PaddingSize * 2;
 	   let data=this.state.data

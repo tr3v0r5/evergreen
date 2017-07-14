@@ -12,7 +12,7 @@ function wp (percentage)
 const slideHeight = viewportHeight *0.65;
 const slideWidth = wp(60);
 const horizontalMargin = wp(3);
-
+const wHeight=(viewportHeight*.2);
 export const sliderWidth = viewportWidth;
 export const itemWidth = slideWidth + horizontalMargin*3;
 
@@ -44,6 +44,7 @@ export default StyleSheet.create({
   },
   iconContainer:
   {
+	  zIndex:10,  
     marginTop:0,
     marginLeft:180,
     padding:10
@@ -109,5 +110,34 @@ export default StyleSheet.create({
     fontFamily: 'HelveticaNeue-Light',
     fontSize: 15,
     color: '#34495e',
-  }
+  },
+  widgetweatherContainer:{
+	    width:itemWidth,
+	    height:wHeight,
+	    flexDirection: 'column',
+
+	    shadowColor:'#000000',
+	    shadowOffset:
+	    {
+	      width:0,
+	      height:3
+	    },
+	    shadowRadius:5,
+	    shadowOpacity: 0.7
+	  },
+widgettempText:{
+	    fontFamily: 'HelveticaNeue-Thin',
+	    fontSize:70,
+	    color:'white',
+	    marginLeft:20,
+	    marginTop: -60
+	 },
+widgetdegreeText:{
+	   fontFamily: 'HelveticaNeue-Thin',
+	   color:'white',
+	   fontSize:20,
+	   marginLeft:65,
+	   marginTop: -10
+	 },
+  
 });

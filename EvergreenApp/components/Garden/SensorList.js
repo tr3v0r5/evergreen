@@ -24,7 +24,7 @@ export class SensorList extends Component{
                       onPress={() => navigate('Sensor', { sensor: item.id })}
                       key={i}
                       title={item.title}
-                      leftIcon={{name: item.icon}}
+                      leftIcon={{name:item.icon}}
                       />
                   ))
                 }
