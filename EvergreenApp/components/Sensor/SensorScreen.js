@@ -5,7 +5,7 @@ import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationM
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-import Chart from '../ChartComponent1.js';
+import Chart from '../ChartComponent.js';
 
 const styles = require('../../Styles/style.js');
 
