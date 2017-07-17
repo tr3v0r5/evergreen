@@ -19,7 +19,7 @@ export class WeatherScreen extends Component{
 	      return (
 	        <View style={styles.container}>
 	          <Text style={styles.genericText}>Weather Data</Text>
-	          <WeatherComponent />
+	          <WeatherComponent widget='large'/>
 	        </View>
 	      );
 	  }

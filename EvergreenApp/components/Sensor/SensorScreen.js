@@ -15,7 +15,7 @@ export class SensorScreen extends Component{
     this.state = {
       sensorData: '' ,
       sensorTitle: '',
-		dataReady:false
+		  dataReady:false
     };
   }
   //maybe not the most elegant solution but it works for now

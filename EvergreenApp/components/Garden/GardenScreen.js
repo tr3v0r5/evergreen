@@ -50,7 +50,7 @@ export class GardenScreen extends Component {
   //componentDidMount
 
     render() {
-		const{buttonclicked}=this.state;
+		  const { buttonclicked } = this.state;
       const { navigate } = this.props.navigation;
 
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react

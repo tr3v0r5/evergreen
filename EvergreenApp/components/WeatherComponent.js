@@ -3,8 +3,6 @@ import { ActivityIndicator, AppRegistry, StyleSheet, Text, TextInput, View, Aler
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import WidgetComponent from './WidgetComponent.js';
-
-
 import {sliderWidth,itemWidth} from '../Styles/weatherStyles.js'
 import styles from '../Styles/weatherStyles.js'
 //const styles = require('../Styles/weatherStyles.js');
