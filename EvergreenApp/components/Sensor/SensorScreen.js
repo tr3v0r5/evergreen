@@ -6,7 +6,7 @@ from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
-import ChartComponent from '../ChartComponent1.js'
+import ChartComponent from '../ChartComponent.js'
 
 const styles = require('../../Styles/style.js');
 

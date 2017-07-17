@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
- LayoutAnimation, UIManager } from 'react-native';
+ LayoutAnimation, UIManager,TouchableOpacity } from 'react-native';
 import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
@@ -18,11 +18,10 @@ export class GardenScreen extends Component {
     header: null
   };
 
-
   constructor(props){
     super(props);
     this.state = {
-      userSensors:[]
+      userSensors:[],
     }
   }
 
@@ -37,7 +36,7 @@ export class GardenScreen extends Component {
     var that = this;
 
     listSensorsRef.on('value',function(snapshot) {
-      list = []//resets the list so that each time a value changes the old list is cleared
+      list = []//resets the list so that each time it gets redrawn the old list doesnt stay
       snapshot.forEach(function(sensor){
         list.push(sensor.val());
       });//returns the all contents of child nodes in one list
@@ -46,28 +45,30 @@ export class GardenScreen extends Component {
         userSensors: list,
       });
     });
+}
 
-
-  }//componentDidMount
-
+  //componentDidMount
 
     render() {
-
+		const{buttonclicked}=this.state;
       const { navigate } = this.props.navigation;
 
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
-      console.ignoredYellowBox = ['Warning: checkPropTypes'];
 
       return (
         <View style={styles.containerGarden}>
           <View style={{flexDirection: 'row', flex:1}}>
             <View style={{flexDirection:'column',flex:1}}>
               <Text style={{fontSize:30, color:'white'}}>Welcome to your Smart Garden</Text>
-              <Text style={{paddingTop: 15},styles.genericText}>Sensor List</Text>
+              <Text style={{paddingTop: 15},styles.genericText}>Sensor Data</Text>
               <SensorList navi={ this.props.navigation } list={ this.state.userSensors }/>
             </View>
           </View>
-            <WeatherComponent  />
+		  <View>
+		  <TouchableOpacity onPress={()=>navigate('Weather')}>
+		  <WeatherComponent/>
+		  </TouchableOpacity>
+		  </View>
         </View>
       );
     }
