@@ -12,7 +12,7 @@ var SerialPort = require('serialport');
 
 var firebase = require("firebase");
 
-var Timer = require("timers");
+var usb = require('usb');
 
 var config = {
     apiKey: "AIzaSyDIQMP6yMBrKuwDvtRaSmhwYMMZC3FyqpY",
@@ -27,6 +27,7 @@ var config = {
 
 var userID = 'LaZTsgde9AWuHxRfmS5Y75QZSge2';
 
+console.log(usb.getDeviceList());
 
 var sensorRef = firebase.database();
 
@@ -38,7 +39,7 @@ var sensorRef = firebase.database();
 // });
 
 //open serialport
-var portName = '/dev/ttyUSB0';
+var portName = '/dev/ttyUSB0';// temporary fix
 
 // console.log(SerialPort);
 
