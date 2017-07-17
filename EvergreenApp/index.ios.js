@@ -83,7 +83,7 @@
  	        </View>
  	      );
  	  }
-	  
+
    })
   var ChartScreen=React.createClass({
 	   render:function(){
