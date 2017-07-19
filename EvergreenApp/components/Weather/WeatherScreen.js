@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
+
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
  LayoutAnimation, UIManager } from 'react-native';
-import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
-from 'react-native-elements';
+
+import { Button, List, ListItem, Grid, Row,FormLabel, FormInput,
+  FormValidationMessage, Icon } from 'react-native-elements';
+
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
 
 //styling import
-const styles = require('../../Styles/style.js');
+import styles from '../../Styles/style.js';
 
 
-import WeatherComponent from '../WeatherComponent.js';//Weather screen import
+import WeatherComponent from '../Weather/WeatherComponent.js';//Weather screen import
 
 
 export class WeatherScreen extends Component{

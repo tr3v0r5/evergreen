@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,TouchableOpacity
-} from 'react-native';
+import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,
+  TouchableOpacity } from 'react-native';
 import {Icon} from 'react-native-elements';
 
 
-import styles from '../Styles/weatherStyles.js'
+import styles from '../../Styles/weatherStyles.js'
 
 
 export class WidgetComponent extends Component

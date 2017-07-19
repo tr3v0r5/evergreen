@@ -39,7 +39,7 @@ var sensorRef = firebase.database();
 // });
 
 //open serialport
-var portName = '/dev/ttyUSB0';// temporary fix
+var portName = '/dev/ttyUSB0';// need to find a way to look this up dynamically
 
 // console.log(SerialPort);
 

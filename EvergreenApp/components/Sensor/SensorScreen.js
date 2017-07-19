@@ -1,94 +1,103 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
  LayoutAnimation, UIManager } from 'react-native';
-import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
+import { Button, List, ListItem, Grid, Row, Icon }
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import Chart from '../ChartComponent.js';
 
 const styles = require('../../Styles/style.js');
+const styles2 = require('../../Styles/sensorDetailStyle.js');
 
 export class SensorScreen extends Component{
+
   constructor(props){
     super();
     this.state = {
       sensorData: '' ,
       sensorTitle: '',
-		  dataReady:false
+      sensorIcon: '',
+		  dataReady: false
     };
-  }
-  //maybe not the most elegant solution but it works for now
-  componentDidMount(){
+  }//constructor
 
-    var that = this;//gets around setState scope issue(later should be changed to an arrow function)
+  componentDidMount(){
 
     let userID = firebase.auth().currentUser.uid;
 
-    this.getdata(userID)
+    this.getdata(userID)//sets data state from firebase
 
-    const { params } = this.props.navigation.state;//some dark magic for now
-    console.log(params.sensor);
-    let SensorRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor);
+    const { params } = this.props.navigation.state;//gets parameters from last screen
 
-    //changed to an arrow function
-    SensorRef.on('value', (snapshot) => {
+    firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor).on('value', (snapshot) => {
       console.log(snapshot.val().data);
       this.setState({
         sensorData: snapshot.val().data,
         sensorTitle: snapshot.val().title,
+        sensorIcon: snapshot.val().icon,
       });
     });
   }//componentDidMount
 
   getdata(userId){
-	//var userId='QVw8UfD3b4Tcd1YsxiNCx8x3zyh1';
-	const { params } = this.props.navigation.state;
 
-  // changed to an arrow function
-	firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).on('value',(snapshot) => {
-	//console.warn('getdata firebase');
+	   const { params } = this.props.navigation.state;
 
-    let data=[];
-//changed to an Arrow function
-    snapshot.forEach((childSnap) => {
-   	  let date=childSnap.key;
-			//console.warn(JSON.stringify(date));
-			let value=childSnap.child('data').val();
-			data.push({date:new Date(date),value:value},);
-    });
+	    firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).on('value',(snapshot) => {
+        let data=[];
+        snapshot.forEach((childSnap) => {
+          let date=childSnap.key;
+			    let value=childSnap.child('data').val();
+          data.push({date:new Date(date),value:value},);
+        });
 
-    if (data!=[]){
-			this.setState({
-				data:data,
-				dataReady:true
-			});
-		}
-  });//on
-}//getData
+        if (data!=[]){
+			     this.setState({
+				      data:data,
+				      dataReady:true
+			     });
+		    }
+      });//on
+  }//getData
+
   loading(){
   	return(
   		<View>
-		<Text style={{color:'#ffffff', fontSize: 20,textAlign: 'center', marginTop: 20 }}>No Data</Text>
-		</View>
-  	)
-  }
+		      <Text style={{color:'#ffffff', fontSize: 20,textAlign: 'center', marginTop: 25 }}>No Data</Text>
+		  </View>
+  	);
+  }//loading
+
   render(){
+    console.log(this.state.data);
     const { params } = this.props.navigation.state;
-    console.log(params.sensor);
+
+
 
     return(
       <View style={styles.container}>
-        <View style={styles.dataBlock}>
-          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorTitle}</Text>
-          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorData}</Text>
+        <View style={{ flex: 2/10 }}>
+          <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
+            <Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
+          </View>
+          <Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center',marginTop: 10, marginBottom: 20 }}>Sensor Current Value: {this.state.sensorData}</Text>
         </View>
-		{this.state.dataReady
-			?(<Chart data={this.state.data}/>)
-			:(this.loading())
-		}
+        <View style={{ flex: 6/10}}>
+        <Text>Sensor History</Text>
+      {
+        this.state.dataReady ? (<Chart data={this.state.data}/>) : (this.loading())
+      }
+        </View>
+        <View style={{ flex: 2/10}}>
+          <Text>LOL</Text>
+        </View>
       </View>
     );
-  }
-  }
+
+  }//render
+
+}//SensorScreen
+
 module.exports=SensorScreen;

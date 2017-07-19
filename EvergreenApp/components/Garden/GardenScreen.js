@@ -6,7 +6,7 @@ from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
-import WeatherComponent from '../WeatherComponent.js';//Weather screen import
+import WeatherComponent from '../Weather/WeatherComponent.js';//Weather screen import
 
 import SensorList from './SensorList.js'
 
