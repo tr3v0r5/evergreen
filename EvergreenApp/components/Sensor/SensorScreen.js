@@ -108,6 +108,7 @@ export class SensorScreen extends Component{
           (this.state.dataType === 'valve') ? ( <Text>Override Button if a valve</Text> ) : ( <Text> nothing to see here </Text> )
         }
         </View>
+		<Chart />
       </View>
     );
 
