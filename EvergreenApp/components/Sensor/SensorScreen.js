@@ -18,7 +18,9 @@ export class SensorScreen extends Component{
       sensorData: '' ,
       sensorTitle: '',
       sensorIcon: '',
-		  dataReady: false
+      sensorType: '',
+		  dataReady: false,
+      dataNotUndefined: true,
     };
   }//constructor
 
@@ -36,6 +38,7 @@ export class SensorScreen extends Component{
         sensorData: snapshot.val().data,
         sensorTitle: snapshot.val().title,
         sensorIcon: snapshot.val().icon,
+        sensorType: snapshot.val().type,
       });
     });
   }//componentDidMount
@@ -53,11 +56,21 @@ export class SensorScreen extends Component{
         });
 
         if (data!=[]){
-			     this.setState({
-				      data:data,
-				      dataReady:true
-			     });
+          if(data != undefined){
+            this.setState({
+               data:data,
+               dataNotUndefined: true,
+               dataReady:true
+            });
+          }else{
+            this.setState({
+               data:data,
+               dataNotUndefined: false,
+               dataReady:true
+            });
+          }
 		    }
+
       });//on
   }//getData
 
@@ -72,13 +85,13 @@ export class SensorScreen extends Component{
   render(){
     console.log(this.state.data);
     const { params } = this.props.navigation.state;
-
+    console.log(this.state.dataNotUndefined + ' '+  this.state.dataReady );
 
 
     return(
       <View style={styles.container}>
         <View style={{ flex: 2/10 }}>
-          <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
             <Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
             <Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
           </View>
@@ -86,12 +99,14 @@ export class SensorScreen extends Component{
         </View>
         <View style={{ flex: 6/10}}>
         <Text>Sensor History</Text>
-      {
-        this.state.dataReady ? (<Chart data={this.state.data}/>) : (this.loading())
-      }
+        {
+          (this.state.dataReady && this.state.dataUndefined ) ? (<Chart data={this.state.data}/>) : (this.loading())
+        }
         </View>
         <View style={{ flex: 2/10}}>
-          <Text>LOL</Text>
+        {
+          (this.state.dataType === 'valve') ? ( <Text>Override Button if a valve</Text> ) : ( <Text> nothing to see here </Text> )
+        }
         </View>
       </View>
     );
