@@ -65,10 +65,12 @@ export class GardenScreen extends Component {
             </View>
           </View>
 		  <View>
-		  <TouchableOpacity onPress={()=>navigate('Weather')}>
-		  <WeatherComponent/>
+
+      <TouchableOpacity onPress={()=>navigate('Weather')}>
+		      <WeatherComponent/>
 		  </TouchableOpacity>
-		  </View>
+
+      </View>
         </View>
       );
     }

@@ -28,14 +28,13 @@ export class SensorScreen extends Component{
 
     let userID = firebase.auth().currentUser.uid;
 
-    this.getdata(userID)//sets data state from firebase
+    this.getdata(userID);//sets data state from firebase
 
     const { params } = this.props.navigation.state;//gets parameters from last screen
 
     firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor).on('value', (snapshot) => {
-      console.log(snapshot.val().data);
+      console.log(snapshot.val());
       this.setState({
-        sensorData: snapshot.val().data,
         sensorTitle: snapshot.val().title,
         sensorIcon: snapshot.val().icon,
         sensorType: snapshot.val().type,
@@ -50,26 +49,23 @@ export class SensorScreen extends Component{
 	    firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).on('value',(snapshot) => {
         let data=[];
         snapshot.forEach((childSnap) => {
-          let date=childSnap.key;
-			    let value=childSnap.child('data').val();
+          let date = childSnap.key;
+			    let value = childSnap.val().data;
           data.push({date:new Date(date),value:value},);
         });
 
-        if (data!=[]){
-          if(data != undefined){
+        if (data.length > 1 && data != undefined){
             this.setState({
                data:data,
-               dataNotUndefined: true,
-               dataReady:true
+               dataReady: true
             });
-          }else{
-            this.setState({
-               data:data,
-               dataNotUndefined: false,
-               dataReady:true
-            });
-          }
-		    }
+		    }else {
+          this.setState({
+            data: data,
+            dataReady: false,
+          });
+          console.log('this should stop the chart');
+        }
 
       });//on
   }//getData
@@ -85,8 +81,6 @@ export class SensorScreen extends Component{
   render(){
     console.log(this.state.data);
     const { params } = this.props.navigation.state;
-    console.log(this.state.dataNotUndefined + ' '+  this.state.dataReady );
-
 
     return(
       <View style={styles.container}>
@@ -100,15 +94,21 @@ export class SensorScreen extends Component{
         <View style={{ flex: 6/10}}>
         <Text>Sensor History</Text>
         {
-          (this.state.dataReady && this.state.dataUndefined ) ? (<Chart data={this.state.data}/>) : (this.loading())
+          (this.state.dataReady) ? (<Chart data={this.state.data}/>) : (this.loading())
         }
         </View>
         <View style={{ flex: 2/10}}>
         {
-          (this.state.dataType === 'valve') ? ( <Text>Override Button if a valve</Text> ) : ( <Text> nothing to see here </Text> )
+          (this.state.sensorType === 'valve') ? (
+            <Button
+            raised
+            title="override"
+            buttonStyle={styles.stockButton}
+            textStyle={{textAlign: 'center'}}
+            />
+          ) : ( <Text> nothing to see here </Text> )
         }
         </View>
-		<Chart />
       </View>
     );
 

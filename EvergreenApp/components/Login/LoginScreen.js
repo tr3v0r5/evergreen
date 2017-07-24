@@ -74,27 +74,18 @@ export class LoginScreen extends Component {
           <View>
             <LoginBox navi={ this.props.navigation }/>
           </View>
-			  <View>
-          <Button
-            raised
-            iconRight
-            title="signup"
-            onPress = {() => this.toggleBox('SignUp')}
-            icon={{name: 'chevron-right', size: 24}}
-            buttonStyle={ styles.stockButton }
-            textStyle={{textAlign: 'center'}}
-            />
-			</View>
-			<Button
-            raised
-            iconRight
-            title="Skip  "
-            onPress = {() => this.skip()}
-            icon={{name: 'chevron-right', size: 24}}
-            buttonStyle={styles.stockButton}
-            textStyle={{textAlign: 'center'}}
-            />
-        </View>
+			       <View>
+               <Button
+                 raised
+                 iconRight
+                 title="signup"
+                 onPress = {() => this.toggleBox('SignUp')}
+                 icon={{name: 'chevron-right', size: 24}}
+                 buttonStyle={ styles.stockButton }
+                 textStyle={{textAlign: 'center'}}
+                 />
+			       </View>
+          </View>
       );
 
       }else{
