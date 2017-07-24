@@ -50,7 +50,7 @@ export class SensorScreen extends Component{
 			let value=childSnap.child('data').val();
 			data.push({date:new Date(date),value:value},);
    	 	})
-		if (data!=[]){
+		if (data!=undefined){
 			that.setState({
 				data:data,
 				dataReady:true
