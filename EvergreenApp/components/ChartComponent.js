@@ -39,7 +39,7 @@ var ChartComponent=React.createClass({
 	    //console.warn('initial');
 
      	let width= Math.round(dimensionWindow.width * 0.9),
-			height= Math.round(dimensionWindow.height * 0.5);
+			height= Math.round(dimensionWindow.height * 0.47);
    	 return{
        graphWidth: 0,
        graphHeight: 0,
@@ -86,7 +86,7 @@ var ChartComponent=React.createClass({
 	   createScaleY:function(minY, maxY, height) {
 		   //console.warn('In yCreate');
 	     return d3.scale.scaleLinear()
-	       .domain([minY, maxY]).nice(5)
+	       .domain([minY, maxY]).nice(10)
 	       // We invert our range so it outputs using the axis that React uses.
 	       .range([height, 0]);
 	   },
@@ -112,14 +112,14 @@ var ChartComponent=React.createClass({
 	       width
 	     );
 		 //console.warn(scaleX.range);
-
-	     const scaleY = this.createScaleY(0,110, height);
+		 let maxFrequency = max(data, d => d.value)+10;
+	     const scaleY = this.createScaleY(0,maxFrequency,height);
 
 	     const lineShape = d3.shape.line()
 	     		.x((d)=>scaleX(d.date))
 	       		.y((d)=>scaleY(d.value));
 //////////////////////////////// For Axis ///////////////////////////////////////////////
-		 let maxFrequency = max(data, d => d.value)+10;
+
 		 let apple=(scaleX(data[1].date)-scaleX(data[0].date))/2;
 		   //console.warn(apple);
 		 var firstTime=scaleX(data[0].date);
