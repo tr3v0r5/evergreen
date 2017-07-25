@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
- LayoutAnimation, UIManager } from 'react-native';
+ LayoutAnimation, UIManager,TouchableOpacity } from 'react-native';
 import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
-import WeatherComponent from '../WeatherComponent.js';//Weather screen import
+import WeatherComponent from '../Weather/WeatherComponent.js';//Weather screen import
 
 import SensorList from './SensorList.js'
 
@@ -18,11 +18,10 @@ export class GardenScreen extends Component {
     header: null
   };
 
-
   constructor(props){
     super(props);
     this.state = {
-      userSensors:[]
+      userSensors:[],
     }
   }
 
@@ -46,13 +45,12 @@ export class GardenScreen extends Component {
         userSensors: list,
       });
     });
+}
 
-
-  }//componentDidMount
-
+  //componentDidMount
 
     render() {
-
+		  const { buttonclicked } = this.state;
       const { navigate } = this.props.navigation;
 
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
@@ -66,7 +64,13 @@ export class GardenScreen extends Component {
               <SensorList navi={ this.props.navigation } list={ this.state.userSensors }/>
             </View>
           </View>
-            <WeatherComponent  />
+		  <View>
+
+      <TouchableOpacity onPress={()=>navigate('Weather')}>
+		      <WeatherComponent/>
+		  </TouchableOpacity>
+
+      </View>
         </View>
       );
     }
