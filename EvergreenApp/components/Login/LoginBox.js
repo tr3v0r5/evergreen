@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
- LayoutAnimation, UIManager } from 'react-native';
+ LayoutAnimation, UIManager, AsyncStorage } from 'react-native';
 import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
@@ -25,9 +25,9 @@ export class LoginBox extends Component{
         .signInWithEmailAndPassword(email, pass);
 
       let user = firebase.auth().currentUser;
-
       //navigate to garden screen
       if((user != null)&&(user.emailVerified)){//the first part of this is wrong currently
+
           this.props.navi.navigate('Garden');
 
       }//if

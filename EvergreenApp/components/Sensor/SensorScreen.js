@@ -118,32 +118,29 @@ export class SensorScreen extends Component{
     const { params } = this.props.navigation.state;
 
     return(
-      <View style={styles.container}>
-        <View style={{ flex: 2/10 }}>
-          <View style={{flexDirection: 'row', flex: 1, marginTop: 20}}>
-            <View style={{flex: 4/10}}>
-              <Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
+      <View style={{flexDirection: 'column', flex: 1, backgroundColor: 'rgb(52,180,67)', padding: 15}}>
+        <View style={{ flexDirection: 'row', flex: 2/10 }}>
+          <View style={{flex: 4/10}}>
+            <Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={40} />
+          </View>
+          <View style={{flex: 6/10}}>
+            <View style={{flexDirection: 'column', flex: 5/10}}>
+              <Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center', flex: 5/10 }}>{this.state.sensorTitle}</Text>
             </View>
-            <View style={{flex: 6/10}}>
-              <View style={{flexDirection: 'column', flex: 1}}>
-                <View style={{flex: 5/10}}>
-                  <Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center', flex: 5/10 }}>{this.state.sensorTitle}</Text>
-                </View>
-                <View style={{flex: 5/10}}>
-                  <Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center', flex: 5/10 }}>Sensor Current Value: {this.state.sensorData}</Text>
-                </View>
-              </View>
+            <View style={{flex: 5/10}}>
+              <Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center', flex: 5/10 }}>Sensor Current Value: {this.state.sensorData}</Text>
             </View>
           </View>
+        </View>
 
-        </View>
         <View style={{ flex: 6/10}}>
-        <Text>Sensor History</Text>
-        {
-          (this.state.dataReady) ? (<Chart data={this.state.data}/>) : (this.loading())
-        }
+          <Text>Sensor History</Text>
+          {
+            (this.state.dataReady) ? (<Chart data={this.state.data}/>) : (this.loading())
+          }
         </View>
-        <View style={{ flex: 2/10}}>
+
+        <View style={{ flex: 2/10, }}>
         {
           (this.state.sensorType === 'valve') ? (
             <Button
