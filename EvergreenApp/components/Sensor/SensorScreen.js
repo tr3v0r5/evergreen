@@ -15,7 +15,10 @@ export class SensorScreen extends Component{
     this.state = {
       sensorData: '' ,
       sensorTitle: '',
-		dataReady:false
+	  sensorIcon: '',
+      sensorType: '',
+	  dataReady: false,
+      dataNotUndefined: true,
     };
   }
   //maybe not the most elegant solution but it works for now
@@ -34,6 +37,8 @@ export class SensorScreen extends Component{
       that.setState({
         sensorData: snapshot.val().data,
         sensorTitle: snapshot.val().title,
+		sensorIcon: snapshot.val().icon,
+        sensorType: snapshot.val().type,
       });
     });
   }
@@ -50,13 +55,28 @@ export class SensorScreen extends Component{
 			let value=childSnap.child('data').val();
 			data.push({date:new Date(date),value:value},);
    	 	})
-		if (data!=undefined){
-			that.setState({
-				data:data,
-				dataReady:true
-			});
+		if (data==[]){
+            this.setState({
+               data:data,
+               dataNotUndefined: false,
+				dataReady:false
+            });    
 		}
-		
+		else{
+          if(data != undefined){
+            that.setState({
+               data:data,
+               dataNotUndefined: true,
+               dataReady:true
+            });
+          }else{
+            that.setState({
+               data:data,
+               dataNotUndefined: false,
+				dataReady:false
+            });
+		}
+		}
   });
 }
   loading(){
@@ -68,20 +88,47 @@ export class SensorScreen extends Component{
   }
   render(){
     const { params } = this.props.navigation.state;
-    console.log(params.sensor);
+    console.warn(this.state.sensorType);
 	//console.warn(this.state.dataReady)
     return(
-      <View style={styles.container}>
-        <View style={styles.dataBlock}>
-          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorTitle}</Text>
-          <Text style={{color:'#ffffff', fontSize: 12,textAlign: 'center', marginTop: 20 }}>{this.state.sensorData}</Text>
-        </View>
-		{this.state.dataReady
-			?(<Chart data={this.state.data}/>)				
-			:(this.loading())
-		}
-      </View>
-    );
+      <View style={{flex: 1,backgroundColor: 'rgb(52,180,67)',padding: 10,}}>
+		<View style={{flex:1,justifyContent:'space-around'}}>
+		
+				<View style={{ flex: 2/10 }}>
+          			<View style={{flexDirection: 'row', flex: 1}}>
+            			<View style={{flex: 2/10}}>
+              				<Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
+            			</View>
+            			<View style={{flex: 6/10}}>
+              				
+                				<View style={{flex: 5/10}}>
+                  					<Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
+                				</View>
+                				<View style={{flex: 5/10}}>
+                  					<Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>
+                				</View>
+             	 			
+            			</View>
+          			</View>
+		</View>
+          	
+		
+        <View style={{ flex: 6/10}}>
+        <Text style={{textAlign:'center'}}>Sensor History</Text>
+		<View>
+		{
+      (this.state.dataReady && this.state.dataNotUndefined ) ? (<Chart data={this.state.data}/>) : (this.loading())
+    }
+	</View>
+    </View>
+    <View style={{ flex: 2/10}}>
+    {
+      (this.state.sensorType === 'valve') ? ( <Text>Override Button if a valve</Text> ) : ( <Text> nothing to see here </Text> )
+    }
+    </View>
+	</View>
+  </View>
+);
   }
-  }
+}
 module.exports=SensorScreen;
