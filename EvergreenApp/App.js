@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated } from 'react-native';
 import { Button } from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
+import WeatherComponent from './components/WeatherComponent.js';
+import GardenComponent from './components/GardenComponent.js';
 
 //styling import
 const styles = require('./Styles/style.js');
@@ -11,7 +12,7 @@ const styles = require('./Styles/style.js');
 //component import
 import SensorData from './components/SensorData.js';
 import LoginBox from './components/LoginBox.js';
-import WidgetComponent from './components/WidgetComponent.js';
+
 
 
 
@@ -178,27 +179,20 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     },
   ];
 
-  class GardenScreen extends Component {
-      render() {
-        return (
-          <View style={styles.containerGarden}>
-            <View>
-              <Text style={styles.genericText}>Sensor Data</Text>
-              <List>
-                <ListItem><SensorData sensor='1' /></ListItem>
-                <ListItem><SensorData sensor='2' /></ListItem>
-                <ListItem><SensorData sensor='3' /></ListItem>
-              </List>
 
 
-            </View>
-            <WeatherComponent />
-          </View>
-        );
-      }
-    }
 
-  export default  class WeatherScreen extends Component{
+
+  export default class GardenScreen extends Component{
+                  render() {
+                      return (
+                          <GardenComponent />
+                      );
+                  }
+                }
+
+
+class WeatherScreen extends Component{
     	  render() {
     	      return (
     	          <WeatherComponent />
@@ -206,36 +200,15 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     	  }
       }
 
-    class SensorScreen extends Component{
-        render(){
-          return(
-            <View>
-              <Text style={styles.genericText}>TODO</Text>
-            </View>
-          );
-        }
-      }
-
-    class SplashScreen extends Component{
-        render(){
-          return(
-            <View>
-              <Text style={styles.genericText}>TODO</Text>
-            </View>
-          );
-        }
-      }
 
 
   const EvergreenApp = StackNavigator({
     Login: { screen: LoginScreen },
-    Splash: { screen: SplashScreen },
-    Garden: { screen: GardenScreen },
 	  Weather:{ screen: WeatherScreen },
-    Sensor: { screen: SensorScreen },
+    Garden: {screen: GardenScreen}
   }, { headerMode: 'screen' }
 );
-
+console.disableYellowBox = true;
 
 // skip this line if using Create React Native App
-AppRegistry.registerComponent('WeatherScreen', () => WeatherScreen);
+AppRegistry.registerComponent('GardenScreen', () => GardenScreen);
