@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
+import { AppRegistry, StyleSheet, TextInput, View, Alert, Animated,Text,
  LayoutAnimation, UIManager } from 'react-native';
 import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-import WeatherComponent from './components/WeatherComponent.js';//Weather screen import
+import WeatherComponent from './components/Weather/WeatherComponent.js';//Weather screen import
 
 
 //styling import

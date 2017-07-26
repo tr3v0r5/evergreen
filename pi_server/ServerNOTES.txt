@@ -1,0 +1,21 @@
+The server must:
+- Pair with a users app to get to get their log in credentials
+- Receive broadcast message from sensors before it they are configured
+- Send configuration messages to setup unconfigured sensors
+- Write unconfigured sensor data to firebase
+- Read sensor configuration data from firebase
+- Write Current sensor data to firebase
+- Once an hour archive sensor data for history chart
+
+
+
+
+Flow for user setting up garden:
+
+- User plugs in pi server to Internet and power(server.js auto starts)
+- User adds sensors to garden
+- User installs app and creates an account then signs into app
+- User clicks add sensor button
+  - this displays list of unconfigured sensors
+  - they click on a sensor give it a name and a type
+- Now users can see what sensors that they have set up in their garden
