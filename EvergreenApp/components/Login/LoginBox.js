@@ -38,30 +38,27 @@ export class LoginBox extends Component{
           //After AsyncWrite move to next screen
           this.props.navi.navigate('Garden', {userID: user.uid});
 
-      }//if
-      else{
+      } else{
         this.setState({
           PasswordErrorMess: 'sorry wrong password or email verification incomplete',
         });
-      }//else
 
-    }
-    catch (error) {
+      }//if-else
+
+    } catch (error) {
 
       let err = error.toString();
-
       this.setState({
         PasswordErrorMess: err,
       });
-
       console.log(err);
 
-    }
-  }
+    }//try-catch
+
+  }//login
 
   render(){
 
-    // var loginDisplayed = this.props.displayed === true ? {} : {display:'none'};
     const { navigate } = this.props.navi
 
     return(
@@ -88,5 +85,6 @@ export class LoginBox extends Component{
    </View>
     );
   }//render()
+
 }//LoginBox
 module.exports=LoginBox;

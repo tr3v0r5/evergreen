@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
+import { AppRegistry, StyleSheet, Text, TextInput, View, Alert,
  LayoutAnimation, UIManager, AsyncStorage } from 'react-native';
 import { Button, Icon }
 from 'react-native-elements';
-import * as firebase from 'firebase';
 
 const styles = require('../../Styles/style.js');
 
@@ -31,7 +30,7 @@ export class LoginScreen extends Component {
       try {
         const UID = await AsyncStorage.getItem('UID');
         if (UID !== null){
-          this.props.navigation.navigate('Garden', {userID: UID });
+          this.props.navigation.navigate('Garden', { userID: UID });
         }
       } catch (error) {
         // Error retrieving data
@@ -82,7 +81,7 @@ export class LoginScreen extends Component {
           </View>
         );
 
-      }else if(this.state.whichLoginState === 'Login'){
+      } else if(this.state.whichLoginState === 'Login'){
 
         return(
         <View style={styles.container}>

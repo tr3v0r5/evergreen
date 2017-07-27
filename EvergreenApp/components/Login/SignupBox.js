@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert,
- LayoutAnimation, UIManager } from 'react-native';
+ LayoutAnimation } from 'react-native';
 import { Button, FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
 import * as firebase from 'firebase';

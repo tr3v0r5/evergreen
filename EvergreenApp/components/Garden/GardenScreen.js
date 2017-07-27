@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput,
-   View, UIManager, TouchableOpacity, AsyncStorage } from 'react-native';
+   View, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Button, List, ListItem } from 'react-native-elements';
 import * as firebase from 'firebase';
 
@@ -59,6 +59,7 @@ export class GardenScreen extends Component {
     render() {
 
       const { navigate } = this.props.navigation;// from react-navigation to changes screens
+      const { params } = this.props.navigation.state;
 
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
 
@@ -69,7 +70,11 @@ export class GardenScreen extends Component {
             <View style={{flexDirection:'column',flex:1 }}>
               <Text style={{ fontSize:30, color:'white' }}>Welcome to your Smart Garden</Text>
               <Text style={{ paddingTop: 15 },styles.genericText}>Sensor Data</Text>
-              <SensorList navi={ this.props.navigation } list={ this.state.userSensors }/>
+              <SensorList
+                navi={ this.props.navigation }
+                list={ this.state.userSensors }
+                userID={ params.userID }
+                />
             </View>
           </View>
 

@@ -10,7 +10,7 @@ export class SensorList extends Component{
 
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
 
-      const { navigate } = this.props.navi
+      const { navigate } = this.props.navi;
 
       return (
 		  	<View style={{ flex:1 }}>
@@ -19,7 +19,7 @@ export class SensorList extends Component{
                 {
                   this.props.list.map((item, i) => (
                     <ListItem
-                      onPress={() => navigate('Sensor', { sensor: item.id })}
+                      onPress={() => navigate('Sensor', { sensor: item.id, userID: this.props.userID })}
                       key={i}
                       title={item.title}
                       leftIcon={{name:item.icon}}
