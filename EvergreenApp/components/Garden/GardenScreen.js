@@ -29,7 +29,7 @@ export class GardenScreen extends Component {
   componentDidMount(){
     //firebase read in user data
     let userID = firebase.auth().currentUser.uid;
-    let listSensorsRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/");
+    let listSensorsRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/").orderByChild('title');
 
     var list = [];
 
