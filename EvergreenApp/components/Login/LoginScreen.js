@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
  LayoutAnimation, UIManager } from 'react-native';
-import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
+import { Button, Icon }
 from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
@@ -20,150 +20,95 @@ export class LoginScreen extends Component {
     constructor(){
       super();
       this.state = {
-          UserName: '',
-          Password: '',
-          isLoginDisplayed: false,
-          fadeAnim: new Animated.Value(0),
+          whichLoginState: '',
       }
     }
 
-    async signup(email, pass){
-
-      try {
-        await firebase.auth()
-          .createUserWithEmailAndPassword(email, pass);
-
-          //send verification
-          let user = firebase.auth().currentUser;
-
-          user.sendEmailVerification().then(function() {
-            alert("verification email sent");
-            firebase.database().ref('Users/'+ user.uid).set({
-                Current: '',
-                History: '',
-            });//this might be a bad way to do this
-          }, function(error) {
-            console.log(error.toString());
-          });
-
-      }
-      catch (error) {
-        console.log(error.toString());
-      }
-    }
-
-    async login(email, pass){
-      try {
-        await firebase.auth()
-          .signInWithEmailAndPassword(email, pass);
-
-        let user = firebase.auth().currentUser;
-        //navigate to garden screen
-
-        if((user != null)&&(user.emailVerified)){
-            this.props.navigation.navigate('Garden');
-        }
-        else{
-          Alert.alert('sorry wrong password or email verification incomplete');
-        }
-
-
-      }
-      catch (error) {
-        console.log(error.toString());
-      }
-    }
-
-    toggleBox(){
+    toggleBox(loginOrSignup){
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
       this.setState({
-        isLoginDisplayed: true,
+        whichLoginState: loginOrSignup,
       });
     }
 
-    // componentWillUpdate(){
-    //   LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-    // }
-
     render() {
-      //if-else is used to change the functionality of buttons
-      //in-line if-else is used to change the styling to get the LayoutAnimation functioning
 
       const { navigate } = this.props.navigation;
 
-      var loginDisplayed = this.state.isLoginDisplayed === true ? {} : {display:'none'};
+      console.ignoredYellowBox = ['Setting a timer'];
+      console.ignoredYellowBox = ['Warning: checkPropTypes'];//supress react native warnings from firebase
 
       UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);//Android only
 
-      if(this.state.isLoginDisplayed){
+      if(this.state.whichLoginState === ''){
 
         return (
+          <View style={ styles.container }>
+            <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+           <Button
+             raised
+             iconRight
+             title="sign-up"
+             onPress = {() => this.toggleBox('SignUp')}
+             icon={{name: 'chevron-right', size: 24}}
+             buttonStyle={styles.stockButton}
+             textStyle={{textAlign: 'center'}}
+             />
+           <Button
+             raised
+             iconRight
+             title="login  "
+             onPress = {() => this.toggleBox('Login')}
+             icon={{name: 'chevron-right', size: 24}}
+             buttonStyle={ styles.stockButton }
+             textStyle={{textAlign: 'center'}}
+             />
+          </View>
+        );
+
+      }else if(this.state.whichLoginState === 'Login'){
+
+        return(
+        <View style={styles.container}>
+          <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+          <View>
+            <LoginBox navi={ this.props.navigation }/>
+          </View>
+			       <View>
+               <Button
+                 raised
+                 iconRight
+                 title="signup"
+                 onPress = {() => this.toggleBox('SignUp')}
+                 icon={{name: 'chevron-right', size: 24}}
+                 buttonStyle={ styles.stockButton }
+                 textStyle={{textAlign: 'center'}}
+                 />
+			       </View>
+          </View>
+      );
+
+      }else{
+        return(
           <View style={styles.container}>
             <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-            <View style={loginDisplayed}>
-             <FormInput onChangeText={(UserName) => this.setState({UserName})}
-               containerStyle={styles.textBox}/>
-             <FormValidationMessage></FormValidationMessage>
-             <FormInput onChangeText={(Password) => this.setState({Password})}
-               containerStyle={styles.textBox}
-               secureTextEntry={true} />
-             <FormValidationMessage>Error message not currently implemented</FormValidationMessage>
-           </View>
-            <Button
-              raised
-              iconRight
-              title="sign-up"
-              onPress = {() => this.signup(this.state.UserName, this.state.Password)}
-              icon={{name: 'chevron-right', size: 24}}
-              buttonStyle={styles.stockButton}
-              textStyle={{textAlign: 'center'}}
-              />
+            <View>
+              <SignupBox navi={ this.props.navigation }/>
+            </View>
             <Button
               raised
               iconRight
               title="login  "
-              onPress = {() => this.login(this.state.UserName, this.state.Password)}
+              onPress = {() => this.toggleBox('Login')}
               icon={{name: 'chevron-right', size: 24}}
-              buttonStyle={styles.stockButton}
+              buttonStyle={ styles.stockButton }
               textStyle={{textAlign: 'center'}}
               />
           </View>
         );
-      }else{
-        return(
-        <View style={styles.container}>
-          <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
-           <View style={loginDisplayed}>
-            <FormInput onChangeText={(UserName) => this.setState({UserName})}
-              containerStyle={styles.textBox}/>
-            <FormValidationMessage></FormValidationMessage>
-            <FormInput onChangeText={(Password) => this.setState({Password})}
-              containerStyle={styles.textBox}
-              secureTextEntry={true} />
-            <FormValidationMessage>Error message</FormValidationMessage>
-          </View>
-          <Button
-            raised
-            iconRight
-            title="sign-up"
-            onPress = {() => this.toggleBox()}
-            icon={{name: 'chevron-right', size: 24}}
-            buttonStyle={styles.stockButton}
-            textStyle={{textAlign: 'center'}}
-            />
-          <Button
-            raised
-            iconRight
-            title="login  "
-            onPress = {() => this.toggleBox()}
-            icon={{name: 'chevron-right', size: 24}}
-            buttonStyle={styles.stockButton}
-            textStyle={{textAlign: 'center'}}
-            />
-        </View>
-      );
-    }//else
-      }//render
+      }
+
+    }//render
   }//loginscreen
 
 module.exports=LoginScreen;
