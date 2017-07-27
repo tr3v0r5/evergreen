@@ -9,7 +9,7 @@ import * as firebase from 'firebase';
 import {sliderWidth,itemWidth} from '../Styles/weatherStyles.js'
 import styles from '../Styles/weatherStyles.js'
 
-export default class WeatherComponent extends Component{
+export default class WeatherScreen extends Component{
 
   	constructor(props){
   		super(props);
@@ -24,7 +24,6 @@ export default class WeatherComponent extends Component{
         state:'',
         infoArray:[],
         loaded:false,
-        semiLoaded:false
   		};
     }
 
@@ -118,7 +117,6 @@ setZipCode() {
             humidity = {info.humidity} wind = {info.wind}/>
           );
         });
-
     };
 
       render(){
@@ -133,6 +131,9 @@ setZipCode() {
                });
            }}
           >
+          <View style = {styles.headerContainer}>
+          <Text style = {styles.headerText}> 5 Day Weather Forecast </Text>
+          </View>
            <Carousel
            sliderWidth={this.state.viewport.width}
            itemWidth={itemWidth}
@@ -155,4 +156,4 @@ setZipCode() {
   	}
 
 
-module.exports = WeatherComponent;
+module.exports = WeatherScreen;

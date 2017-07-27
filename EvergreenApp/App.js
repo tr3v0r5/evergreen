@@ -3,8 +3,8 @@ import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated } from 
 import { Button } from 'react-native-elements';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-import WeatherComponent from './components/WeatherComponent.js';
-import GardenComponent from './components/GardenComponent.js';
+import HomeScreen from './components/HomeScreen.js';
+
 
 //styling import
 const styles = require('./Styles/style.js');
@@ -183,32 +183,21 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 
 
-  export default class GardenScreen extends Component{
+  export default class App extends Component{
                   render() {
                       return (
-                          <GardenComponent />
+                          <HomeScreen />
                       );
                   }
                 }
 
-
-class WeatherScreen extends Component{
-    	  render() {
-    	      return (
-    	          <WeatherComponent />
-    	      );
-    	  }
-      }
-
-
-
+/*
   const EvergreenApp = StackNavigator({
-    Login: { screen: LoginScreen },
-	  Weather:{ screen: WeatherScreen },
     Garden: {screen: GardenScreen}
   }, { headerMode: 'screen' }
 );
+*/
 console.disableYellowBox = true;
 
 // skip this line if using Create React Native App
-AppRegistry.registerComponent('GardenScreen', () => GardenScreen);
+//AppRegistry.registerComponent('EvergreenApp', () => EvergreenApp);

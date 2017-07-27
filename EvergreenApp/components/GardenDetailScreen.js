@@ -5,31 +5,31 @@ import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
 import {Button, Icon} from 'react-native-elements';
 
 import * as firebase from 'firebase';
-import GardenZoneComponent from './GardenZoneComponent.js';
+import PlantComponent from './PlantComponent.js';
 
 import styles from '../Styles/gardenStyles.js';
 
-export default class GardenScreen extends Component{
+export default class GardenDetailScreen extends Component{
   constructor(props){
     super(props);
     this.state = {
       uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
-      zonesArray:[],
+      plantssArray:[],
       loaded:false
     };
   }
 
 
-  initZones()
+  initPlants()
   {
-    var zoneRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones');
+    var zoneRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones/Zone1');
     var that = this;
-    zoneRef.on('value', (snapshot) => {
-              var zones = [];
+    PlantRef.on('value', (snapshot) => {
+              var plants = [];
 
               snapshot.forEach((child) => {
 
-              zones.push({
+              plants.push({
                     name:child.val().Name,
                     imageSource :child.val().ImageSource,
                     keyRef :child.key
@@ -45,17 +45,16 @@ export default class GardenScreen extends Component{
 
   componentWillMount()
   {
-    this.initZones();
+    this.initPlants();
 
   }
 
-  makeZones(){
-    return this.state.zonesArray.map(function(zone,i){
-      var nameVal = zone.name;
-      var imageVal = zone.imageSource;
-      var keyVal = zone.keyRef
+  makePlants(){
+    return this.state.plantsArray.map(function(plant,i){
+      var nameVal = plant.name;
+      var imageVal = plant.imageSource;
         return(
-          <GardenZoneComponent key = {i}  name = {nameVal} keyRef = {keyVal}
+          <PlantComponent key = {i}  name = {nameVal}
           imageSource = {imageVal}/>
         );
       });
@@ -65,27 +64,9 @@ export default class GardenScreen extends Component{
   render() {
     if(this.state.loaded){
       return(
-        <ScrollView style = {{backgroundColor:'white'}}>
-        <View>
-
-        <Icon
-        raised
-        name='plus'
-        type='material-community'
-        color='#27ae60'
-        containerStyle = {styles.gardenIcon}
-        onPress={() => console.log('hello')} />
-
-        <View style = {styles.gardenHeader}>
-        <Text style = {styles.gardenText}>Welcome to Your Smart Garden</Text>
-        </View>
-
-        <View style = {styles.gardenGrid}>
-
-        {this.makeZones()}
-        </View>
-        </View>
-       </ScrollView>
+    <View>
+      {this.makePlants()}
+      </View>
       );
           }
 
@@ -99,4 +80,4 @@ export default class GardenScreen extends Component{
 
 
 
-module.exports = GardenScreen;
+module.exports = GardenDetailScreen;

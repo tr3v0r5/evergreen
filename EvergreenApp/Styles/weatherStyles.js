@@ -18,14 +18,22 @@ export const itemWidth = slideWidth + horizontalMargin*3;
 
 
 export default StyleSheet.create({
-  linearGradient: {
-  flex: 1,
-
-},
+  headerContainer:
+  {
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:20
+  },
+  headerText:
+  {
+    color:'#27ae60',
+    fontFamily: 'HelveticaNeue-Thin',
+    fontSize:30,
+  },
   carouselContainer:
   {
     flex:1,
-    marginTop: 100
+    marginTop: 80
   },
   weatherContainer:
   {

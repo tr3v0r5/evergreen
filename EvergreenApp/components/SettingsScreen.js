@@ -20,14 +20,15 @@ export default class SettingsScreen extends Component{
   render() {
     return (
       <ScrollableTabView
-      style={{paddingTop: 20, }}
-      renderTabBar={() => <DefaultTabBar backgroundColor = '#27ae60'/>}
+      style={{paddingTop: 15, }}
+      renderTabBar={() => <DefaultTabBar backgroundColor = 'white'/>}
       tabBarActiveTextColor = 'white'
       tabBarInactiveTextColor= 'white'
-      tabBarUnderlineStyle={{backgroundColor:'transparent',height:2,}}
+      tabBarUnderlineStyle={{backgroundColor:'#27ae60',height:2,}}
+      tabBarTextStyle = {{color:'#27ae60', fontFamily: 'HelveticaNeue-Thin',fontSize:15}}
     >
     <UserSettingsComponent tabLabel = 'User Settings'/>
-      <Text tabLabel='Tab #1'>My</Text>
+      <Text tabLabel='TODO'></Text>
     </ScrollableTabView>
 
     );

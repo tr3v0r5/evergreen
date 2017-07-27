@@ -1,39 +1,55 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, TextInput, View, Alert, ScrollView, Image
+import { ActivityIndicator, Text,  View, Alert, ScrollView, Image,TouchableOpacity
 } from 'react-native';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import * as firebase from 'firebase';
 
-import styles from '../Styles/gardenStyles.js'
-const remote = 'http://www.alpinenurseries.com.au/alpine/wp-content/uploads/2015/02/Rhapiolepis-Snow-Maiden-HD.jpg';
-export default class GardenZoneComponent extends Component{
+import styles from '../Styles/gardenStyles.js';
 
-  	constructor(props){
-  		super(props);
+export class GardenZoneComponent extends Component{
+
+  	constructor(){
+  		super();
   		this.state = {
         uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
-        name:'HILDA',
-        imageSource:'https://static.pexels.com/photos/507595/pexels-photo-507595.jpeg'
+        name:'',
   		};
     }
 
-    componentWillReceiveProps(props)
-      {
-      this.setState({
-          name:props.name
-      });
-      }
+    // componentWillReceiveProps(props)
+    //   {
+    //   this.setState({
+    //       name:props.name,
+    //       keyRef : props.keyRef
+    //   });
+    //   }
 
+    onLearnMore = (maga) => {
+      this.props.navigation.navigate('GardenDetailScreen');
+    };
+
+viewDetails()
+{
+  const { navigate } = this.props.navigation;
+   navigate('GardenDetailScreen');
+}
 
 
       render(){
         const resizeMode = 'center';
         return(
-          <Image style = {styles.zoneContainer} source={{ uri: this.state.imageSource }}>
+          <TouchableOpacity
+                  activeOpacity={0.7}
+                  style = {{padding:10}}
+                  onPress={() => this.props.navigation.navigate('GardenDetailScreen')}
+                  >
+          <Image style = {styles.zoneContainer} source={{ uri: this.props.imageSource }}>
             <Text style = {styles.zoneName}>
-              {this.state.name}
+              {this.props.name}
                 </Text>
                   </Image>
+                  </TouchableOpacity>
         );
   	}
   }
