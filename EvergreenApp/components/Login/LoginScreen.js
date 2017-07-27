@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
- LayoutAnimation, UIManager } from 'react-native';
+ LayoutAnimation, UIManager, AsyncStorage } from 'react-native';
 import { Button, Icon }
 from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
 const styles = require('../../Styles/style.js');
@@ -22,7 +21,24 @@ export class LoginScreen extends Component {
       this.state = {
           whichLoginState: '',
       }
-    }
+
+      this.loginCheck();
+
+    }//constructor
+
+    async loginCheck(){
+
+      try {
+        const UID = await AsyncStorage.getItem('UID');
+        if (UID !== null){
+          this.props.navigation.navigate('Garden', {userID: UID });
+        }
+      } catch (error) {
+        // Error retrieving data
+        console.log(error);
+      }
+
+    }//loginCheck
 
     toggleBox(loginOrSignup){
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);

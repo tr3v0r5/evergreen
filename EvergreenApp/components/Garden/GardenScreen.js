@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
- LayoutAnimation, UIManager,TouchableOpacity } from 'react-native';
-import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
-from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
+import { AppRegistry, StyleSheet, Text, TextInput,
+   View, UIManager, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Button, List, ListItem } from 'react-native-elements';
 import * as firebase from 'firebase';
 
-import WeatherComponent from '../Weather/WeatherComponent.js';//Weather screen import
-
+//User Components imports
+import WeatherComponent from '../Weather/WeatherComponent.js';
 import SensorList from './SensorList.js'
 
 const styles = require('../../Styles/style.js');
 
 export class GardenScreen extends Component {
 
+  //navigation options
   static navigationOptions = {
     header: null
   };
@@ -23,56 +22,78 @@ export class GardenScreen extends Component {
     this.state = {
       userSensors:[],
     }
-  }
+  }//constructor
+
+  async logout(){
+    //needs to eventually include firebase logout fuction
+
+    try {
+      await AsyncStorage.setItem('UID', '' );
+      this.props.navigation.navigate('Login');
+    } catch (error) {
+      console.log('AsyncStorage write error: '+ error)
+    }
+  }//tempary logout function
 
 
   componentDidMount(){
-    //firebase read in user data
-    let userID = firebase.auth().currentUser.uid;
-    let listSensorsRef = firebase.database().ref("Users/"+ userID +"/Current/Sensors/");
 
-    var list = [];
+    const { params } = this.props.navigation.state;//get uid from last screen
 
-    var that = this;
+    firebase.database().ref("Users/"+ params.userID +"/Current/Sensors/").orderByChild('title')
+      .on('value', snapshot => {
+        list = [];//intialize list and reset for each database change
 
-    listSensorsRef.on('value',function(snapshot) {
-      list = []//resets the list so that each time it gets redrawn the old list doesnt stay
-      snapshot.forEach(function(sensor){
-        list.push(sensor.val());
-      });//returns the all contents of child nodes in one list
+        snapshot.forEach(function(sensor){
+          list.push(sensor.val());
+        });//returns the all contents of child nodes in one list
 
-      that.setState({
-        userSensors: list,
-      });
-    });
-}
+        this.setState({
+          userSensors: list,
+        });//component state equal to state
 
-  //componentDidMount
+      });//on
+
+}//componentDidMount
 
     render() {
-		  const { buttonclicked } = this.state;
-      const { navigate } = this.props.navigation;
+
+      const { navigate } = this.props.navigation;// from react-navigation to changes screens
 
       console.ignoredYellowBox = ['Setting a timer'];//gets rid of pop up using firebase with react
 
       return (
         <View style={styles.containerGarden}>
+
           <View style={{flexDirection: 'row', flex:1}}>
-            <View style={{flexDirection:'column',flex:1}}>
-              <Text style={{fontSize:30, color:'white'}}>Welcome to your Smart Garden</Text>
-              <Text style={{paddingTop: 15},styles.genericText}>Sensor Data</Text>
+            <View style={{flexDirection:'column',flex:1 }}>
+              <Text style={{ fontSize:30, color:'white' }}>Welcome to your Smart Garden</Text>
+              <Text style={{ paddingTop: 15 },styles.genericText}>Sensor Data</Text>
               <SensorList navi={ this.props.navigation } list={ this.state.userSensors }/>
             </View>
           </View>
-		  <View>
 
-      <TouchableOpacity onPress={()=>navigate('Weather')}>
-		      <WeatherComponent/>
-		  </TouchableOpacity>
+          <View>
+            <TouchableOpacity onPress={() => navigate('Weather')}>
+		            <WeatherComponent/>
+		        </TouchableOpacity>
+          </View>
 
-      </View>
+          <View>
+            <Button
+              raised
+              iconRight
+              title="logout  "
+              onPress = {() => this.logout()}
+              icon={{name: 'chevron-right', size: 24}}
+              buttonStyle={styles.stockButton}
+              textStyle={{textAlign: 'center'}}
+              />
+          </View>
+
         </View>
       );
     }
   }
+
 module.exports=GardenScreen;

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
+import { AppRegistry, StyleSheet, Text, TextInput, View, Alert,
  LayoutAnimation, UIManager } from 'react-native';
-import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
+import { Button, FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
 const styles = require('../../Styles/style.js');
