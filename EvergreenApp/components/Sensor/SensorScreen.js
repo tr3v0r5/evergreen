@@ -46,7 +46,7 @@ export class SensorScreen extends Component{
 
 	   const { params } = this.props.navigation.state;
 
-	    firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).on('value',(snapshot) => {
+	    firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).limitToLast(10).on('value',(snapshot) => {
         let data=[];
         snapshot.forEach((childSnap) => {
           let date = childSnap.key;
