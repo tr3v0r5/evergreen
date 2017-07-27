@@ -34,6 +34,7 @@ export class SensorScreen extends Component{
 
     firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor).on('value', (snapshot) => {
       this.setState({
+		  sensorData:snapshot.val().data,
         sensorTitle: snapshot.val().title,
         sensorIcon: snapshot.val().icon,
         sensorType: snapshot.val().type,
@@ -127,7 +128,7 @@ export class SensorScreen extends Component{
             			<View style={{flex: 2/10}}>
               				<Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
             			</View>
-            			<View style={{flex: 6/10}}>
+            			<View style={{flex: 8/10}}>
 
                 				<View style={{flex: 5/10}}>
                   					<Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
@@ -139,7 +140,6 @@ export class SensorScreen extends Component{
             			</View>
           			</View>
 		</View>
-
 
         <View style={{ flex: 6/10}}>
         <Text style={{textAlign:'center'}}>Sensor History</Text>
