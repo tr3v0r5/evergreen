@@ -22,6 +22,11 @@ export default StyleSheet.create({
   flex: 1,
 
 },
+carouselContainer:
+  {
+    flex:1,
+    marginTop: 100
+  },
   container:
   {
     flex:1,
@@ -54,7 +59,6 @@ export default StyleSheet.create({
     flex:2,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#e67e22',
   },
   tempText:
   {
@@ -90,7 +94,6 @@ export default StyleSheet.create({
   {
     fontFamily: 'HelveticaNeue-Light',
   fontSize: 20,
-    color:'#e67e22'
   },
   detailContainer:
   {

@@ -128,9 +128,9 @@ var ChartComponent=React.createClass({
 		 //console.warn(firstTime);
 		 let leftAxis=ticks(0, maxFrequency, 10);
 		 let bottomAxis=[firstTime-apple,lasttime+apple];
-
+		 let wherelinegoes= bottomAxis[0]+apple;
 		 const leftAxisD=d3.shape.line()
-				.x(() => bottomAxis[0] + apple)
+				.x(() => wherelinegoes)
             	.y(d => scaleY(d) - height)
 		   		(leftAxis)
 
@@ -154,6 +154,7 @@ var ChartComponent=React.createClass({
 		   leftaxis:leftAxisD,
 		   lefttick:leftAxis,
 		   apple:apple,
+		   wherelinegoes:wherelinegoes,
 		   createdgraph:true
 	     });
 	 },
@@ -168,14 +169,14 @@ var ChartComponent=React.createClass({
      return (
 		 <View style={styles.container}>
 		 	<Svg width={this.state.width+20} height={this.state.height+20}>
-    	 		<G translate="20,-20">
+    	 		<G translate="30,-20">
         			<G translate={"0," + graphHeight}>
             			<G key={-1}>
                 			<Path stroke={'black'} d={this.state.bottomaxis} key="-1"/>
                 				{
                     				data.map((d, i) => (
                         				<G key={i + 1} translate={this.state.scale.x(d.date) + (this.state.apple)+ ",0"}>
-                            				<Line stroke={'red'} y2={5}/>
+                            				<Line stroke={'black'} y1={-2} y2={2}/>
 											<G rotate="50">
 										<Text fill={'black'} y={-2}>{d.date.toLocaleDateString()}</Text>
 										<Text fill={'black'} y={10} x={-7}>{d.date.toLocaleTimeString()}</Text>
@@ -190,8 +191,8 @@ var ChartComponent=React.createClass({
                 				{
                    				 	this.state.lefttick.map((d, i) => (
                         				<G key={i + 1} translate={"0," + (this.state.scale.y(d) - graphHeight)}>
-                            				<Line stroke={'red'} x1={5} x2={9}/>
-                            				<Text fill={'blue'} x={-10} y={-5}>{d}</Text>
+										<Line stroke={'black'} x1={this.state.wherelinegoes-2} x2={this.state.wherelinegoes+2}/>
+                            				<Text textAnchor='end' fill={'black'} x={this.state.wherelinegoes-8} y={-7}>{d}</Text>
                         				</G>
                     				))
                 				}
@@ -199,10 +200,11 @@ var ChartComponent=React.createClass({
 
 						<G translate={this.state.apple+","+-graphHeight}>
 								<Path d={this.state.path}
-									stroke='red'
+									stroke='blue'
 									fill='none'
 								/>
 						</G>
+
         			</G>
     			</G>
 			</Svg>
@@ -225,7 +227,7 @@ var ChartComponent=React.createClass({
 
  const styles = StyleSheet.create({
    container: {
-	   backgroundColor:'white'
+	   backgroundColor:'rgba(255,255,255,.3)'
    },
    tickLabelX: {
      position: 'absolute',

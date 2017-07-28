@@ -34,6 +34,7 @@ export class SensorScreen extends Component{
 
     firebase.database().ref("Users/"+ userID +"/Current/Sensors/"+ params.sensor).on('value', (snapshot) => {
       this.setState({
+		  sensorData:snapshot.val().data,
         sensorTitle: snapshot.val().title,
         sensorIcon: snapshot.val().icon,
         sensorType: snapshot.val().type,
@@ -45,7 +46,7 @@ export class SensorScreen extends Component{
 
 	   const { params } = this.props.navigation.state;
 
-	    firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).on('value',(snapshot) => {
+	    firebase.database().ref('Users/'+userId+'/History/Sensors/'+params.sensor).limitToLast(10).on('value',(snapshot) => {
         let data=[];
         snapshot.forEach((childSnap) => {
           let date = childSnap.key;
@@ -127,10 +128,10 @@ export class SensorScreen extends Component{
             			<View style={{flex: 2/10}}>
               				<Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
             			</View>
-            			<View style={{flex: 6/10}}>
+            			<View style={{flex: 8/10}}>
 
                 				<View style={{flex: 5/10}}>
-                  					<Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
+                  					<Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center', backgroundColor:'rgba(0,0,0,0)' }}>{this.state.sensorTitle}</Text>
                 				</View>
                 				<View style={{flex: 5/10}}>
                   					<Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>
@@ -139,7 +140,6 @@ export class SensorScreen extends Component{
             			</View>
           			</View>
 		</View>
-
 
         <View style={{ flex: 6/10}}>
         <Text style={{textAlign:'center'}}>Sensor History</Text>
