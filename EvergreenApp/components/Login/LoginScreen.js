@@ -81,15 +81,6 @@ export class LoginScreen extends Component {
              buttonStyle={ styles.stockButton }
              textStyle={{textAlign: 'center'}}
              />
-			<Button
-			   raised
-			   iconRight
-			   title="Skip  "
-			   onPress = {() => this.skip()}
-			   icon={{name: 'chevron-right', size: 24}}
-			   buttonStyle={styles.stockButton}
-			   textStyle={{textAlign: 'center'}}
-			   />
           </View>
         );
 
