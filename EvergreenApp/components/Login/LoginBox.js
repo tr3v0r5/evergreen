@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, Animated,
- LayoutAnimation, UIManager, AsyncStorage } from 'react-native';
-import { Button, List, ListItem, Grid, Row,FormLabel, FormInput, FormValidationMessage, Icon }
+import { AppRegistry, StyleSheet, Text, TextInput, View, Alert, AsyncStorage } from 'react-native';
+import { Button, FormLabel, FormInput, FormValidationMessage, Icon }
 from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
 const styles = require('../../Styles/style.js');
@@ -20,40 +18,47 @@ export class LoginBox extends Component{
   }
 
   async login(email, pass){
+
     try {
       await firebase.auth()
         .signInWithEmailAndPassword(email, pass);
 
       let user = firebase.auth().currentUser;
-      //navigate to garden screen
-      if((user != null)&&(user.emailVerified)){//the first part of this is wrong currently
 
-          this.props.navi.navigate('Garden');
+      //if the user token exists and has verified the email
+      if((user !== null)&&(user.emailVerified)){
 
-      }//if
-      else{
+          //Write to AsyncStorage Here
+          try {
+            await AsyncStorage.setItem('UID', user.uid );
+          } catch (error) {
+            console.log('AsyncStorage write error: '+ error)
+          }
+
+          //After AsyncWrite move to next screen
+          this.props.navi.navigate('Garden', {userID: user.uid});
+
+      } else{
         this.setState({
           PasswordErrorMess: 'sorry wrong password or email verification incomplete',
         });
-      }//else
 
-    }
-    catch (error) {
+      }//if-else
+
+    } catch (error) {
 
       let err = error.toString();
-
       this.setState({
         PasswordErrorMess: err,
       });
-
       console.log(err);
 
-    }
-  }
+    }//try-catch
+
+  }//login
 
   render(){
 
-    // var loginDisplayed = this.props.displayed === true ? {} : {display:'none'};
     const { navigate } = this.props.navi
 
     return(
@@ -80,5 +85,6 @@ export class LoginBox extends Component{
    </View>
     );
   }//render()
+
 }//LoginBox
 module.exports=LoginBox;
