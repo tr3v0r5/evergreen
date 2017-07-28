@@ -145,7 +145,15 @@ export class SensorScreen extends Component{
 
           <View style={{ flex: 2/10}}>
             {
-              (this.state.sensorType === 'valve') ? ( <Text>Override Button if a valve</Text> ) : ( <Text> nothing to see here </Text> )
+              (this.state.sensorType === 'valve') ? (
+                <Button
+                raised
+                iconRight
+                title="override"
+                onPress = {() => this.openOrClose()}
+                buttonStyle={styles.stockButton}
+                textStyle={{textAlign: 'center'}}/>
+            ) : ( <Text> nothing to see here </Text> )
             }
           </View>
 
