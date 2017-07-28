@@ -17,32 +17,14 @@ export class GardenZoneComponent extends Component{
   		};
     }
 
-    // componentWillReceiveProps(props)
-    //   {
-    //   this.setState({
-    //       name:props.name,
-    //       keyRef : props.keyRef
-    //   });
-    //   }
-
-    onLearnMore = (maga) => {
-      this.props.navigation.navigate('GardenDetailScreen');
-    };
-
-viewDetails()
-{
-  const { navigate } = this.props.navigation;
-   navigate('GardenDetailScreen');
-}
-
-
       render(){
         const resizeMode = 'center';
+
         return(
           <TouchableOpacity
                   activeOpacity={0.7}
                   style = {{padding:10}}
-                  onPress={() => this.props.navigation.navigate('GardenDetailScreen')}
+                  onPress={() => this.props.navi.navigate('ZoneDetailScreen',{zone:this.props.keyRef})}
                   >
           <Image style = {styles.zoneContainer} source={{ uri: this.props.imageSource }}>
             <Text style = {styles.zoneName}>

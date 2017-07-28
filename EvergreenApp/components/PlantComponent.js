@@ -18,13 +18,14 @@ export class PlantComponent extends Component{
 
       render(){
         return(
-          <View>
-          <Image source={{ uri: this.props.imageSource }}>
+          <TouchableOpacity style = {styles.plantContainer}>
+          <Image style = {styles.plantImageContainer}
+          source={{ uri: this.props.imageSource }}>
                   </Image>
-                  <Text >
+                  <Text style = {styles.plantName}>
                     {this.props.name}
                       </Text>
-                      </View>
+                      </TouchableOpacity>
         );
   	}
   }

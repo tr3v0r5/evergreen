@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet} from 'react-native';
 
+var plantHeightandWidth = 70;
+
+
 export default StyleSheet.create({
   gardenIcon:{
     position:'absolute',
@@ -30,8 +33,6 @@ export default StyleSheet.create({
   borderRadius:10,
   backgroundColor:'transparent',
   justifyContent: 'flex-end',
-
-  //alignItems: 'flex-end',
     },
   zoneName:{
         fontFamily: 'HelveticaNeue',
@@ -40,4 +41,21 @@ export default StyleSheet.create({
         padding:10,
         color:'white'
   },
+  plantContainer:{
+    padding:10
+  },
+  plantImageContainer:{
+    width:plantHeightandWidth,
+    height:plantHeightandWidth,
+    borderRadius: plantHeightandWidth/2,
+  },
+  plantName:{
+    fontFamily:'HelveticaNeue-Thin',
+    textAlign:'center'
+  },
+  plantGrid:{
+    marginLeft:10,
+    flexDirection:'row',
+    flexWrap:'wrap'
+  }
 });

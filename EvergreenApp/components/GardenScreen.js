@@ -10,6 +10,11 @@ import GardenZoneComponent from './GardenZoneComponent.js';
 import styles from '../Styles/gardenStyles.js';
 
 export default class GardenScreen extends Component{
+
+  static navigationOptions = {
+    header:null
+  }
+
   constructor(props){
     super(props);
     this.state = {
@@ -49,14 +54,15 @@ export default class GardenScreen extends Component{
 
   }
 
-  makeZones(){
+  makeZones(navigation){
     return this.state.zonesArray.map(function(zone,i){
       var nameVal = zone.name;
       var imageVal = zone.imageSource;
       var keyVal = zone.keyRef
         return(
-          <GardenZoneComponent key = {i}  name = {nameVal} keyRef = {keyVal}
-          imageSource = {imageVal}/>
+          <GardenZoneComponent
+           key = {i}  name = {nameVal} keyRef = {keyVal}
+          imageSource = {imageVal} navi = {navigation}/>
         );
       });
   };
@@ -74,15 +80,17 @@ export default class GardenScreen extends Component{
         type='material-community'
         color='#27ae60'
         containerStyle = {styles.gardenIcon}
-        onPress={() => console.log('hello')} />
+        onPress={() => this.props.navigation.navigate('GardenDetailScreen')} />
 
-        <View style = {styles.gardenHeader}>
+        <View style = {styles.gardenHeader}
+        onPress={() => alert('MAGA')}
+        >
         <Text style = {styles.gardenText}>Welcome to Your Smart Garden</Text>
         </View>
 
         <View style = {styles.gardenGrid}>
 
-        {this.makeZones()}
+        {this.makeZones(this.props.navigation)}
         </View>
         </View>
        </ScrollView>

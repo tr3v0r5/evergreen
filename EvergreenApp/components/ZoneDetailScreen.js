@@ -9,12 +9,18 @@ import PlantComponent from './PlantComponent.js';
 
 import styles from '../Styles/gardenStyles.js';
 
-export default class GardenDetailScreen extends Component{
+export default class ZoneDetailScreen extends Component{
+
+static navigationOptions={
+  headerStyle:{
+    backgroundColor:'white'
+  }
+}
   constructor(props){
     super(props);
     this.state = {
       uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
-      plantssArray:[],
+      plantsArray:[],
       loaded:false
     };
   }
@@ -22,9 +28,10 @@ export default class GardenDetailScreen extends Component{
 
   initPlants()
   {
-    var zoneRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones/Zone1');
+    const {params} = this.props.navigation.state;
+    var plantRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones/'+params.zone + '/Plants');
     var that = this;
-    PlantRef.on('value', (snapshot) => {
+    plantRef.on('value', (snapshot) => {
               var plants = [];
 
               snapshot.forEach((child) => {
@@ -37,7 +44,7 @@ export default class GardenDetailScreen extends Component{
                 });
 
                 that.setState({
-                  zonesArray:zones,
+                  plantsArray:plants,
                   loaded:true
                             });
               });
@@ -64,8 +71,14 @@ export default class GardenDetailScreen extends Component{
   render() {
     if(this.state.loaded){
       return(
-    <View>
+    <View style={{flex:1, backgroundColor:'white'}}>
+    <Text style ={{textAlign:'center', fontSize: 30, fontFamily:'HelveticaNeue-Thin', color: '#27ae60'}}>
+    Plants
+    </Text>
+    
+    <View style = {styles.plantGrid}>
       {this.makePlants()}
+      </View>
       </View>
       );
           }
@@ -80,4 +93,4 @@ export default class GardenDetailScreen extends Component{
 
 
 
-module.exports = GardenDetailScreen;
+module.exports = ZoneDetailScreen;
