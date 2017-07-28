@@ -131,7 +131,7 @@ export class SensorScreen extends Component{
             			<View style={{flex: 8/10}}>
 
                 				<View style={{flex: 5/10}}>
-                  					<Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
+                  					<Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center', backgroundColor:'rgba(0,0,0,0)' }}>{this.state.sensorTitle}</Text>
                 				</View>
                 				<View style={{flex: 5/10}}>
                   					<Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>

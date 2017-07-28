@@ -169,7 +169,7 @@ var ChartComponent=React.createClass({
      return (
 		 <View style={styles.container}>
 		 	<Svg width={this.state.width+20} height={this.state.height+20}>
-    	 		<G translate="20,-20">
+    	 		<G translate="30,-20">
         			<G translate={"0," + graphHeight}>
             			<G key={-1}>
                 			<Path stroke={'black'} d={this.state.bottomaxis} key="-1"/>
@@ -192,7 +192,7 @@ var ChartComponent=React.createClass({
                    				 	this.state.lefttick.map((d, i) => (
                         				<G key={i + 1} translate={"0," + (this.state.scale.y(d) - graphHeight)}>
 										<Line stroke={'black'} x1={this.state.wherelinegoes-2} x2={this.state.wherelinegoes+2}/>
-                            				<Text fill={'black'} x={this.state.wherelinegoes-25} y={-5}>{d}</Text>
+                            				<Text textAnchor='end' fill={'black'} x={this.state.wherelinegoes-8} y={-7}>{d}</Text>
                         				</G>
                     				))
                 				}
