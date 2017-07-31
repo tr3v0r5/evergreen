@@ -24,15 +24,32 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 //Screen imports
 import LoginScreen from './components/Login/LoginScreen.js';
 
-import GardenScreen from './components/Garden/GardenScreen.js';
+// import GardenScreen from './components/Garden/GardenScreen.js';
 
-import SensorScreen from './components/Sensor/SensorScreen.js';
+// import SensorScreen from './components/Sensor/SensorScreen.js';
+//
+// import WeatherScreen from './components/Weather/WeatherScreen.js';
+//
+// import SettingsScreen from './components/Settings/SettingsScreen.js';
+//
+// import SensorAddScreen from './components/SensorAdd/SensorAddScreen.js';
 
-import WeatherScreen from './components/Weather/WeatherScreen.js';
+import GardenTabs from './components/Garden/GardenTabs.js';
 
-import SettingsScreen from './components/Settings/SettingsScreen.js';
 
-import SensorAddScreen from './components/SensorAdd/SensorAddScreen.js';
+class GardenScreen extends Component {
+
+  static navigationOptions = {
+    header:null
+  }
+
+  render() {
+    return (
+      <GardenTabs />
+    );
+  }
+}
+
 
 class SplashScreen extends Component{
     render(){
@@ -48,10 +65,7 @@ const EvergreenApp = StackNavigator({
     Login: { screen: LoginScreen },
     Splash: { screen: SplashScreen },
     Garden: { screen: GardenScreen },
-	  Weather: { screen: WeatherScreen },
-    Sensor: { screen: SensorScreen },
-    SensorAdd: {screen: SensorAddScreen },
-    Settings: { screen: SettingsScreen },
+
   }, { headerMode: 'screen' }
 );
 
