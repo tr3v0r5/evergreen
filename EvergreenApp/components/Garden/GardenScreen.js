@@ -25,7 +25,8 @@ export class GardenScreen extends Component {
   }//constructor
 
   async logout(){
-    //needs to eventually include firebase logout fuction
+    /* needs to eventually include firebase logout fuction for when navigating
+    from LoginBox */
 
     try {
       await AsyncStorage.setItem('UID', '' );
@@ -91,6 +92,15 @@ export class GardenScreen extends Component {
               title="logout  "
               onPress = {() => this.logout()}
               icon={{name: 'chevron-right', size: 24}}
+              buttonStyle={styles.stockButton}
+              textStyle={{textAlign: 'center'}}
+              />
+            <Button
+              raised
+              iconRight
+              title="add sensor  "
+              onPress = {() => navigate('SensorAdd')}
+              icon={{name: 'playlist-add', size: 24}}
               buttonStyle={styles.stockButton}
               textStyle={{textAlign: 'center'}}
               />

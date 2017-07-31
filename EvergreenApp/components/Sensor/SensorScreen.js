@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Button, Icon }
-from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import * as firebase from 'firebase';
 import Chart from '../ChartComponent.js';
 
