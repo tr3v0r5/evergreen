@@ -1,6 +1,7 @@
 import React, { PureComponent, Component } from 'react';
 import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
   Image,TouchableOpacity,Dimensions,Animated } from 'react-native';
+  import { StackNavigator, TabNavigator } from 'react-navigation';
 import {Button, Icon} from 'react-native-elements';
 import Svg, {G,Path} from 'react-native-svg'
 import * as firebase from 'firebase';
@@ -17,7 +18,6 @@ export class GardenScreen extends Component{
   constructor(props){
     super(props);
     this.state = {
-      uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
       zonesArray:[],
       loaded:false,
 		timer:'something',
@@ -31,7 +31,8 @@ width:dimensionWindow.width,
 
   initZones()
   {
-    var zoneRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones');
+	  const { params } = this.props.navigation.state;
+    var zoneRef = firebase.database().ref('/Users/' + params.userID + '/Garden Zones');
     var that = this;
     zoneRef.on('value', (snapshot) => {
               var zones = [];
@@ -57,18 +58,18 @@ width:dimensionWindow.width,
 	  Animated.timing(
 	  		  this.state.fadeAnim,{
 	  			  toValue:0,
-	  			  duration:5000
+	  			  duration:1000
 	  		  }
 	  	  ).start()
 		  setInterval(()=>{
 		  		  Animated.timing(
 		  			  this.state.fadeAnim2,{
 		  				  toValue:1,
-		  				  duration:5000
+		  				  duration:1000
 		  			  }
 		  		  ).start()
     this.initZones();
-},5000);
+},1000);
 
   }
 

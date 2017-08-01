@@ -12,7 +12,6 @@ export class GardenZoneComponent extends Component{
   	constructor(){
   		super();
   		this.state = {
-        uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
         name:'',
   		};
     }
@@ -30,6 +29,8 @@ export class GardenZoneComponent extends Component{
             <Text style = {styles.zoneName}>
               {this.props.name}
                 </Text>
+			  <Text>
+			  </Text>
                   </Image>
                   </TouchableOpacity>
         );

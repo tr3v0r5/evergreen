@@ -4,17 +4,7 @@ import { Icon } from 'react-native-elements';
 
 import WeatherScreen from './WeatherScreen.js';
 import SettingsScreen from './SettingsScreen.js';
-import GardenScreen from './GardenScreen.js';
-import ZoneDetailScreen from './ZoneDetailScreen.js';
-
-export const GardenStack = StackNavigator({
-  Home:{
-    screen: GardenScreen
-  },
-  ZoneDetailScreen:{
-    screen: ZoneDetailScreen
-  }
-});
+import GardenStack from './SecondStack.js'
 
 export const GardenTabs = TabNavigator({
   Home: {
