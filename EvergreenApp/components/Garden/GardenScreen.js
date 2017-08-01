@@ -1,13 +1,13 @@
 import React, { PureComponent, Component } from 'react';
 import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
-  Image,TouchableOpacity } from 'react-native';
+  Image,TouchableOpacity,Dimensions,Animated } from 'react-native';
 import {Button, Icon} from 'react-native-elements';
-
+import Svg, {G,Path} from 'react-native-svg'
 import * as firebase from 'firebase';
 import GardenZoneComponent from './GardenZoneComponent.js';
 
 import styles from '../../Styles/gardenStyles.js';
-
+const dimensionWindow = Dimensions.get('window');
 export class GardenScreen extends Component{
 
   static navigationOptions = {
@@ -19,7 +19,12 @@ export class GardenScreen extends Component{
     this.state = {
       uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
       zonesArray:[],
-      loaded:false
+      loaded:false,
+		timer:'something',
+fadeAnim: new Animated.Value(1),
+		fadeAnim2: new Animated.Value(0),
+width:dimensionWindow.width,
+		height:dimensionWindow.height
     };
   }
 
@@ -42,14 +47,28 @@ export class GardenScreen extends Component{
 
                 that.setState({
                   zonesArray:zones,
-                  loaded:true
+					timer:null
                             });
               });
   }
 
   componentWillMount()
   {
+	  Animated.timing(
+	  		  this.state.fadeAnim,{
+	  			  toValue:0,
+	  			  duration:5000
+	  		  }
+	  	  ).start()
+		  setInterval(()=>{
+		  		  Animated.timing(
+		  			  this.state.fadeAnim2,{
+		  				  toValue:1,
+		  				  duration:5000
+		  			  }
+		  		  ).start()
     this.initZones();
+},5000);
 
   }
 
@@ -68,8 +87,23 @@ export class GardenScreen extends Component{
 
 
   render() {
-    if(this.state.loaded){
+	  if(this.state.timer!=null){
+	  	  	return(
+	  			<Animated.View style={{alignItems:'center',backgroundColor:'orange',justifyContent: 'center',
+	      padding: 10,opacity:this.state.fadeAnim}}>
+	  	  		<Svg width={this.state.width} height={this.state.height}>
+	  			<G y={this.state.height/8.5} translate='-25,0'>
+	  			<Path fill='green' d="M244.8,225.4c0.9-7.4,1-16,0.3-25.6c-0.9-8.4-1.3-13.1-1.3-13.9c-35.6,8.4-53.6,23.2-54,44.3
+	  	c-0.1,6.6,1.5,13.4,4.9,20.5c1.7,3.5,3.4,6.4,5.1,8.7c0-12.4,3.6-22,10.8-29.1c2.4-2.3,4.9-4.1,7.5-5.3c2.3-1.1,3.5-1.4,3.7-1
+	  	c-6.3,6.1-11.9,18.7-16.7,37.9c-2.4,9.6-4.2,18.5-5.3,26.8h14.6v-29.3C231.8,260.3,242,249,244.8,225.4z"/>
+	  			</G>
+	  			</Svg>
+	  			</Animated.View>
+	  	  	)
+	  	  }
+    else{
       return(
+		  <Animated.View style={[styles.containerGarden,{opacity:this.state.fadeAnim2}]}>
         <ScrollView style = {{backgroundColor:'white'}}>
         <View>
 
@@ -93,14 +127,10 @@ export class GardenScreen extends Component{
         </View>
         </View>
        </ScrollView>
+		</Animated.View>
       );
           }
 
-    return (
-      <View style={{flex: 1, paddingTop: 20,justifyContent: 'center'}}>
-        <ActivityIndicator size = 'large' />
-      </View>
-    );
   }
 }
 
