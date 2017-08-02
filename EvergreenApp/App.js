@@ -191,12 +191,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
                   }
                 }
 
-/*
-  const EvergreenApp = StackNavigator({
-    Garden: {screen: GardenScreen}
-  }, { headerMode: 'screen' }
-);
-*/
+
 console.disableYellowBox = true;
 
 // skip this line if using Create React Native App

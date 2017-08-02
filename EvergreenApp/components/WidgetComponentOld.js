@@ -118,15 +118,13 @@ export class WidgetComponent extends Component
       <Icon
       name = {this.state.icon}
       type='material-community'
-      color={this.state.color}
+      color='white'
       size ={50}
       />
       </View>
 
-        <Text style = {[{color:this.state.color}, styles.tempText]}>{this.state.temp}</Text>
-
-        <Text style = {[{color:this.state.color}, styles.degreeText]}>&#8457;</Text>
-
+        <Text style = {styles.tempText}>{this.state.temp}  </Text>
+        <Text style = {styles.degreeText}> &#8457;</Text>
       </View>
 
       <View style = {styles.bottomContainer}>

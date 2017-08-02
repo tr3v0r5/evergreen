@@ -16,6 +16,12 @@ export const GardenStack = StackNavigator({
   }
 });
 
+export const SettingsStack = StackNavigator({
+  Settings:{
+    screen: SettingsScreen
+  },
+});
+
 export const GardenTabs = TabNavigator({
   Home: {
     screen: GardenStack,
@@ -30,7 +36,7 @@ export const GardenTabs = TabNavigator({
     },
   },
   Settings: {
-    screen: SettingsScreen,
+    screen: SettingsStack,
     navigationOptions: {
       tabBarLabel: '',
       tabBarIcon: ({ tintColor }) => <Icon name="settings" type='material-community' size={35} color={tintColor} />
