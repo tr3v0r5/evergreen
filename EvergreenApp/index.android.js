@@ -29,4 +29,5 @@ const EvergreenApp = StackNavigator({
 }, {headerMode:'none'}
 );
 
+
 AppRegistry.registerComponent('EvergreenApp', () => EvergreenApp);

@@ -29,7 +29,7 @@ static navigationOptions={
   initPlants()
   {
     const {params} = this.props.navigation.state;
-    var plantRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones/'+params.zone + '/Plants');
+    var plantRef = firebase.database().ref('/Users/' + params.userID + '/Garden Zones/'+params.zone + '/Plants');
     var that = this;
     plantRef.on('value', (snapshot) => {
               var plants = [];

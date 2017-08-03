@@ -91,7 +91,7 @@ setZipCode() {
         }
 
 
-    componentWillMount(){
+    componentDidMount(){
 
        this.setZipCode()
         .then(getLoc =>this.setZipCode())

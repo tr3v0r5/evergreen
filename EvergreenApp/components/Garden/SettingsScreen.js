@@ -11,9 +11,6 @@ import * as firebase from 'firebase';
 export default class SettingsScreen extends Component{
   constructor(props){
     super(props);
-    this.state = {
-      uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
-    };
   }
 
 

@@ -57,9 +57,9 @@ export default class UserSettingsComponent extends Component{
         alert('You have successfully changed your information!');
     }
 
-    componentWillMount(){
-      this.initInfo();
-    }
+	componentWillMount(){
+		this.initInfo();
+	}
 
 
       render(){

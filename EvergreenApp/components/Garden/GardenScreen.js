@@ -1,3 +1,4 @@
+
 import React, { PureComponent, Component } from 'react';
 import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
   Image,TouchableOpacity,Dimensions,Animated } from 'react-native';
@@ -9,11 +10,15 @@ import GardenZoneComponent from './GardenZoneComponent.js';
 
 import styles from '../../Styles/gardenStyles.js';
 const dimensionWindow = Dimensions.get('window');
+
 export class GardenScreen extends Component{
+
 
   static navigationOptions = {
     header:null
   }
+
+
 
   constructor(props){
     super(props);
@@ -26,14 +31,24 @@ fadeAnim: new Animated.Value(1),
 width:dimensionWindow.width,
 		height:dimensionWindow.height
     };
-  }
+  }//constructor
 
+  async initZones(){
 
-  initZones()
-  {
-	  const { params } = this.props.navigation.state;
-    var zoneRef = firebase.database().ref('/Users/' + params.userID + '/Garden Zones');
-    var that = this;
+    try {
+      const UID = await AsyncStorage.getItem('UID');
+      this.setState({
+        userID: UID
+      });
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+
+    console.warn(this.state.userID+'asfdasdfasdfsdf');
+
+    var zoneRef = firebase.database().ref('/Users/' + this.state.userID + '/Garden Zones');
+
     zoneRef.on('value', (snapshot) => {
               var zones = [];
 
@@ -44,32 +59,36 @@ width:dimensionWindow.width,
                     imageSource :child.val().ImageSource,
                     keyRef :child.key
                     });
-                });
-
-                that.setState({
-                  zonesArray:zones,
-					timer:null
-                            });
               });
-  }
 
-  componentWillMount()
+              this.setState({
+                  zonesArray:zones,
+                  loaded:true,
+				  timer:null
+                  });
+
+              });
+
+  }//initZones
+
+  componentDidMount()
   {
 	  Animated.timing(
 	  		  this.state.fadeAnim,{
 	  			  toValue:0,
-	  			  duration:1000
+	  			  duration:2000
 	  		  }
 	  	  ).start()
-		  setInterval(()=>{
+		  setTimeout(()=>{
 		  		  Animated.timing(
 		  			  this.state.fadeAnim2,{
 		  				  toValue:1,
 		  				  duration:1000
 		  			  }
 		  		  ).start()
+				  
     this.initZones();
-},1000);
+},2000);
 
   }
 
@@ -116,9 +135,7 @@ width:dimensionWindow.width,
         containerStyle = {styles.gardenIcon}
         onPress={() => this.props.navigation.navigate('GardenDetailScreen')} />
 
-        <View style = {styles.gardenHeader}
-        onPress={() => alert('MAGA')}
-        >
+        <View style = {styles.gardenHeader}>
         <Text style = {styles.gardenText}>Welcome to Your Smart Garden</Text>
         </View>
 

@@ -34,7 +34,7 @@ export const GardenTabs = TabNavigator({
     style:{
       backgroundColor:'white'
     },
-    tabBarComponent:'TabBarBottom',
+	tabBarPosition:'top'
   },
 
 });

@@ -18,6 +18,7 @@ export class PlantComponent extends Component{
 
       render(){
         return(
+			<View>
           <TouchableOpacity style = {styles.plantContainer}>
           <Image style = {styles.plantImageContainer}
           source={{ uri: this.props.imageSource }}>
@@ -26,6 +27,10 @@ export class PlantComponent extends Component{
                     {this.props.name}
                       </Text>
                       </TouchableOpacity>
+					<View>
+					<Text> Apple</Text>
+					</View>
+					</View>
         );
   	}
   }
