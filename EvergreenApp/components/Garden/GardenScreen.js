@@ -1,7 +1,7 @@
 
 import React, { PureComponent, Component } from 'react';
 import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
-  Image,TouchableOpacity,Dimensions,Animated } from 'react-native';
+  Image,TouchableOpacity,Dimensions,Animated,AsyncStorage } from 'react-native';
   import { StackNavigator, TabNavigator } from 'react-navigation';
 import {Button, Icon} from 'react-native-elements';
 import Svg, {G,Path} from 'react-native-svg'
