@@ -53,8 +53,6 @@ export class GardenScreen extends Component{
       console.log(error);
     }
 
-    console.log(this.state.userID+'asfdasdfasdfsdf');
-
     var zoneRef = firebase.database().ref('/Users/' + this.state.userID + '/Garden Zones');
 
     zoneRef.on('value', (snapshot) => {
@@ -85,6 +83,9 @@ export class GardenScreen extends Component{
   }//componentWillMount
 
   makeZones(navigation){
+
+    let userID = this.state.userID;
+
     return this.state.zonesArray.map(function(zone,i){
       var nameVal = zone.name;
       var imageVal = zone.imageSource;
@@ -96,6 +97,7 @@ export class GardenScreen extends Component{
            keyRef = {keyVal}
            imageSource = {imageVal}
            navi = {navigation}
+           userID = {userID}
             />
         );
       });
