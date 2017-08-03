@@ -24,16 +24,6 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 //Screen imports
 import LoginScreen from './components/Login/LoginScreen.js';
 
-// import GardenScreen from './components/Garden/GardenScreen.js';
-
-// import SensorScreen from './components/Sensor/SensorScreen.js';
-//
-// import WeatherScreen from './components/Weather/WeatherScreen.js';
-//
-// import SettingsScreen from './components/Settings/SettingsScreen.js';
-//
-// import SensorAddScreen from './components/SensorAdd/SensorAddScreen.js';
-
 import GardenTabs from './components/Garden/GardenTabs.js';
 
 
@@ -44,26 +34,19 @@ class GardenScreen extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+    const { params } = this.props.navigation.state;
+
+    console.log(params.userID);
     return (
-      <GardenTabs />
+      <GardenTabs navi = { navigate } userID = { params.userID } />
     );
   }
-}
+}//render
 
-
-class SplashScreen extends Component{
-    render(){
-      return(
-        <View>
-          <Text style={styles.genericText}>TODO</Text>
-        </View>
-      );
-    }
-  }
 
 const EvergreenApp = StackNavigator({
     Login: { screen: LoginScreen },
-    Splash: { screen: SplashScreen },
     Garden: { screen: GardenScreen },
 
   }, { headerMode: 'screen' }

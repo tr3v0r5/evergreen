@@ -40,11 +40,16 @@ export const GardenTabs = TabNavigator({
   tabBarOptions:{
     showLabel:false,
     activeTintColor:'#27ae60',
-
+    inactiveTintColor: 'grey',
+    showIcon: true,
     style:{
-      backgroundColor:'white'
+      backgroundColor:'white',
+      height: 50,
+      margin: 0,
+      padding: 0
     },
-    tabBarComponent:'TabBarBottom',
+
+
   },
 
 });

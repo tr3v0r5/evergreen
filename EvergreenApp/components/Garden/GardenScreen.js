@@ -1,6 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
-  Image,TouchableOpacity } from 'react-native';
+  Image,TouchableOpacity, AsyncStorage } from 'react-native';
 import {Button, Icon} from 'react-native-elements';
 
 import * as firebase from 'firebase';
@@ -10,24 +10,53 @@ import styles from '../../Styles/gardenStyles.js';
 
 export class GardenScreen extends Component{
 
+
   static navigationOptions = {
     header:null
   }
 
+  async userLoad(){
+    /*rather then figuring out how to pass user credentials down through
+    three navigation stack objects we check wether the user is logged in on the
+    loginScreen and then load the actual user ID here*/
+
+    try {
+      const UID = await AsyncStorage.getItem('UID');
+      this.setState({
+        userID: UID
+      });
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+
+  }//loginCheck
+
   constructor(props){
     super(props);
     this.state = {
-      uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
+      userID:'',
       zonesArray:[],
       loaded:false
     };
-  }
+  }//constructor
 
+  async initZones(){
 
-  initZones()
-  {
-    var zoneRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones');
-    var that = this;
+    try {
+      const UID = await AsyncStorage.getItem('UID');
+      this.setState({
+        userID: UID
+      });
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+
+    console.log(this.state.userID+'asfdasdfasdfsdf');
+
+    var zoneRef = firebase.database().ref('/Users/' + this.state.userID + '/Garden Zones');
+
     zoneRef.on('value', (snapshot) => {
               var zones = [];
 
@@ -38,20 +67,22 @@ export class GardenScreen extends Component{
                     imageSource :child.val().ImageSource,
                     keyRef :child.key
                     });
-                });
+              });
 
-                that.setState({
+              this.setState({
                   zonesArray:zones,
                   loaded:true
-                            });
-              });
-  }
+                  });
 
-  componentWillMount()
-  {
+              });
+
+  }//initZones
+
+  componentWillMount(){
+
     this.initZones();
 
-  }
+  }//componentWillMount
 
   makeZones(navigation){
     return this.state.zonesArray.map(function(zone,i){
@@ -60,11 +91,16 @@ export class GardenScreen extends Component{
       var keyVal = zone.keyRef
         return(
           <GardenZoneComponent
-           key = {i}  name = {nameVal} keyRef = {keyVal}
-          imageSource = {imageVal} navi = {navigation}/>
+           key = {i}
+           name = {nameVal}
+           keyRef = {keyVal}
+           imageSource = {imageVal}
+           navi = {navigation}
+            />
         );
       });
-  };
+
+  }//makeZones
 
 
   render() {
@@ -73,28 +109,18 @@ export class GardenScreen extends Component{
         <ScrollView style = {{backgroundColor:'white'}}>
         <View>
 
-        <Icon
-        raised
-        name='plus'
-        type='material-community'
-        color='#27ae60'
-        containerStyle = {styles.gardenIcon}
-        onPress={() => this.props.navigation.navigate('GardenDetailScreen')} />
+          <View style = {styles.gardenHeader} >
+            <Text style = {styles.gardenText}>Welcome to Your Smart Garden</Text>
+          </View>
 
-        <View style = {styles.gardenHeader}
-        onPress={() => alert('MAGA')}
-        >
-        <Text style = {styles.gardenText}>Welcome to Your Smart Garden</Text>
-        </View>
+          <View style = {styles.gardenGrid}>
+            {this.makeZones(this.props.navigation)}
+          </View>
 
-        <View style = {styles.gardenGrid}>
-
-        {this.makeZones(this.props.navigation)}
-        </View>
         </View>
        </ScrollView>
       );
-          }
+    }
 
     return (
       <View style={{flex: 1, paddingTop: 20,justifyContent: 'center'}}>
@@ -102,8 +128,7 @@ export class GardenScreen extends Component{
       </View>
     );
   }
-}
-
+}//render
 
 
 module.exports = GardenScreen;
