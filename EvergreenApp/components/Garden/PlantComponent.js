@@ -27,9 +27,6 @@ export class PlantComponent extends Component{
                     {this.props.name}
                       </Text>
                       </TouchableOpacity>
-					<View>
-					<Text> Apple</Text>
-					</View>
 					</View>
         );
   	}

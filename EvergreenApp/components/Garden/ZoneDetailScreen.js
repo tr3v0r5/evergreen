@@ -3,9 +3,10 @@ import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
   Image,TouchableOpacity
 } from 'react-native';
 import {Button, Icon} from 'react-native-elements';
-
+import { List, ListItem } from 'react-native-elements';
 import * as firebase from 'firebase';
 import PlantComponent from './PlantComponent.js';
+import Sensor from '../Sensor/SensorScreen.js'
 
 import styles from '../../Styles/gardenStyles.js';
 
@@ -19,8 +20,8 @@ static navigationOptions={
   constructor(props){
     super(props);
     this.state = {
-      uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
       plantsArray:[],
+		userSensors:[],
       loaded:false
     };
   }
@@ -28,6 +29,7 @@ static navigationOptions={
 
   initPlants()
   {
+	 
     const {params} = this.props.navigation.state;
     var plantRef = firebase.database().ref('/Users/' + params.userID + '/Garden Zones/'+params.zone + '/Plants');
     var that = this;
@@ -49,10 +51,27 @@ static navigationOptions={
                             });
               });
   }
+  initArray(){
+	 
+	  const { params } = this.props.navigation.state;//get uid from last screen
 
-  componentWillMount()
-  {
+	      firebase.database().ref("Users/"+ params.userID +"/Current/Sensors/").orderByChild('title')
+	        .on('value', snapshot => {
+	          list = [];//intialize list and reset for each database change
+
+	          snapshot.forEach(function(sensor){
+	            list.push(sensor.val());
+	          });//returns the all contents of child nodes in one list
+
+	          this.setState({
+	            userSensors: list,
+	          });//component state equal to state
+
+	        });//on
+  }
+  componentDidMount(){
     this.initPlants();
+	this.initArray();
 
   }
 
@@ -66,9 +85,21 @@ static navigationOptions={
         );
       });
   };
-
+  makelist(){
+	  const {params} = this.props.navigation.state;
+	  const { navigate } = this.props.navigation;
+      return this.state.userSensors.map((item, i) => (
+                    <ListItem
+                      onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID })}
+                      key={i}
+                      title={item.title}
+                      leftIcon={{name:item.icon}}
+                      />
+                  ))
+  }
 
   render() {
+	  const {params} = this.props.navigation.state;
     if(this.state.loaded){
       return(
     <View style={{flex:1, backgroundColor:'white'}}>
@@ -79,6 +110,11 @@ static navigationOptions={
     <View style = {styles.plantGrid}>
       {this.makePlants()}
       </View>
+		<ScrollView>
+    <List containerStyle={{marginRight: 10, marginLeft: 10,marginTop:5}}>
+      {this.makelist()}
+    </List>
+		</ScrollView>
       </View>
       );
           }

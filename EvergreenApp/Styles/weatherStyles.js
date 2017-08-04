@@ -111,33 +111,4 @@ export default StyleSheet.create({
     fontSize: 15,
     color: '#34495e',
   },
-  widgetweatherContainer:{
-	    width:itemWidth,
-	    height:wHeight,
-	    flexDirection: 'column',
-
-	    shadowColor:'#000000',
-	    shadowOffset:
-	    {
-	      width:0,
-	      height:3
-	    },
-	    shadowRadius:5,
-	    shadowOpacity: 0.7
-	  },
-widgettempText:{
-	    fontFamily: 'HelveticaNeue-Thin',
-	    fontSize:70,
-	    color:'white',
-	    marginLeft:20,
-	    marginTop: -60
-	 },
-widgetdegreeText:{
-	   fontFamily: 'HelveticaNeue-Thin',
-	   color:'white',
-	   fontSize:20,
-	   marginLeft:65,
-	   marginTop: -10
-	 },
-
 });

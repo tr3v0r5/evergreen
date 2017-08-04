@@ -4,11 +4,15 @@ import { Button, Icon } from 'react-native-elements';
 import * as firebase from 'firebase';
 import Chart from '../ChartComponent.js';
 
-const styles = require('../../Styles/style.js');
+const styles = require('../../Styles/gardenStyles.js');
 const styles2 = require('../../Styles/sensorDetailStyle.js');
 
 export class SensorScreen extends Component{
-
+	static navigationOptions={
+	  headerStyle:{
+	    backgroundColor:'white'
+	  }
+	}
   constructor(props){
     super();
     this.state = {
@@ -68,7 +72,7 @@ export class SensorScreen extends Component{
   loading(){
   	return(
   		<View>
-		      <Text style={{color:'#ffffff', fontSize: 20,textAlign: 'center', marginTop: 25 }}>No Data</Text>
+		      <Text style={{color:'#27ae60', fontSize: 20,textAlign: 'center', marginTop: 25 }}>No Data</Text>
 		  </View>
   	);
   }//loading
@@ -114,7 +118,7 @@ export class SensorScreen extends Component{
     const { params } = this.props.navigation.state;
 
     return(
-      <View style={{flex: 1,backgroundColor: 'rgb(52,180,67)',padding: 10,}}>
+      <View style={{backgroundColor:'#ffffff',flex: 1,padding: 10,}}>
         <View style={{flex:1,justifyContent:'space-around'}}>
 
           <View style={{ flex: 2/10 }}>
@@ -124,10 +128,10 @@ export class SensorScreen extends Component{
               </View>
               <View style={{flex: 6/10}}>
                 <View style={{flex: 5/10}}>
-                  <Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
+                  <Text style={{color:'#27ae60', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
                 </View>
                 <View style={{flex: 5/10}}>
-                  <Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>
+                  <Text style={{color:'#27ae60', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>
                 </View>
               </View>
             </View>
@@ -142,7 +146,7 @@ export class SensorScreen extends Component{
             </View>
           </View>
 
-          <View style={{ flex: 2/10}}>
+          <View style={{ flex: 1/10}}>
             {
               (this.state.sensorType === 'valve') ? (
                 <Button
@@ -152,7 +156,7 @@ export class SensorScreen extends Component{
                 onPress = {() => this.openOrClose()}
                 buttonStyle={styles.stockButton}
                 textStyle={{textAlign: 'center'}}/>
-            ) : ( <Text> nothing to see here </Text> )
+            ) : ( <Text></Text> )
             }
           </View>
 
