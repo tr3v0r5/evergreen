@@ -25,11 +25,11 @@ export class GardenScreen extends Component{
     this.state = {
       zonesArray:[],
       loaded:false,
-		timer:'something',
-fadeAnim: new Animated.Value(1),
-		fadeAnim2: new Animated.Value(0),
-width:dimensionWindow.width,
-		height:dimensionWindow.height
+		timer:'something', //used to make the end of fade in animation
+fadeAnim: new Animated.Value(1),//opacity value for splashscreen
+		fadeAnim2: new Animated.Value(0),//opacity value for gardenscreem
+width:dimensionWindow.width,//width of screen
+		height:dimensionWindow.height//height of screen
     };
   }//constructor
 
@@ -78,19 +78,19 @@ width:dimensionWindow.width,
 	  			  toValue:0,
 	  			  duration:2000
 	  		  }
-	  	  ).start()
+	  	  ).start()//decrease splashscreen opacity from 1 to 0
 		  setTimeout(()=>{
 		  		  Animated.timing(
 		  			  this.state.fadeAnim2,{
 		  				  toValue:1,
 		  				  duration:1000
 		  			  }
-		  		  ).start()
+		  		  ).start()//increase gardenscreen opacity from 0 to 1
 						  
     this.initZones();
-},2000);
+},2000);//delays actual garden screen
 
-  }
+  }//componentDidMount
 
   makeZones(navigation){
 	  var x= this.state.userID;
@@ -106,7 +106,7 @@ width:dimensionWindow.width,
           imageSource = {imageVal} navi = {navigation} userID={x} list={list}/>
         );
       });
-  };
+  };//makeZones
 
 
   render() {
@@ -161,7 +161,7 @@ width:dimensionWindow.width,
       );
           }
 
-  }
+  }//rneder
 }
 
 

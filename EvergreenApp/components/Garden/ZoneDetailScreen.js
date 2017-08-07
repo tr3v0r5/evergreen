@@ -50,7 +50,7 @@ static navigationOptions={
                   loaded:true
                             });
               });
-  }
+  }//initPlants
   initArray(){
 	 
 	  const { params } = this.props.navigation.state;//get uid from last screen
@@ -68,12 +68,12 @@ static navigationOptions={
 	          });//component state equal to state
 
 	        });//on
-  }
+  }//initArray
   componentDidMount(){
     this.initPlants();
 	this.initArray();
 
-  }
+  }//componentDidMount
 
   makePlants(){
     return this.state.plantsArray.map(function(plant,i){
@@ -84,7 +84,7 @@ static navigationOptions={
           imageSource = {imageVal}/>
         );
       });
-  };
+  };//makePlants
   makelist(){
 	  const {params} = this.props.navigation.state;
 	  const { navigate } = this.props.navigation;
@@ -95,8 +95,8 @@ static navigationOptions={
                       title={item.title}
                       leftIcon={{name:item.icon}}
                       />
-                  ))
-  }
+                  ))//create list of sensors from array
+  }//makeList
 
   render() {
 	  const {params} = this.props.navigation.state;
