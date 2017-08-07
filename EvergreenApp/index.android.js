@@ -37,7 +37,7 @@ class GardenScreen extends Component {
     const { navigate } = this.props.navigation;
     const { params } = this.props.navigation.state;
 
-    console.log(params.userID);
+    // console.log(params.userID);/
     return (
       <GardenTabs navi = { navigate } userID = { params.userID } />
     );
