@@ -19,3 +19,33 @@ Flow for user setting up garden:
   - this displays list of unconfigured sensors
   - they click on a sensor give it a name and a type
 - Now users can see what sensors that they have set up in their garden
+
+
+
+Packet flow:
+- Smart-Garden Server:                        - Smart-Garden Module:
+  -                         <-----              - (0x10) Transmit Request: Includes address, some look up code, and configured and unconfigured.  Sent on an interval (Broadcast)
+  - Parse transmit request. Store address, if its new, store in unconfigured in firebase
+  - User sets up module, writes this information to firebase
+  - User's info generates Remote AT commands (0x17) for each parameters(DL of module to SL of hub Xbee) changed on the module. In order to pair the two xbees. Once configured send remote AT command to stop Arduino from broadcasting configuration packet.
+  - Once configured module will send (0x10) Transmit Request that the server will parse. Data will include type of data and value.
+
+
+
+
+
+
+  - Note: everytime we send a (0x10) we should receive a (0x8B) Transmit Status
+  - Note: On all Remote AT commands there should be a remote AT command response (0x88)
+
+
+
+Main tasks for each frame:
+- parse frames
+- calculate checksums
+
+List of used frameTypes:
+- 0x10
+- 0x8B
+- 0x17
+- 0x97
