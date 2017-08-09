@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, AppRegistry, StyleSheet, Text, TextInput, View, Alert, ScrollView, Dimensions
-} from 'react-native';
+	,AsyncStorage} from 'react-native';
+	import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import * as firebase from 'firebase';
-
-
+import GardenScreen from './GardenScreen.js';
+//import Login from  '../Login/LoginScreen.js'
 import styles from '../../Styles/settingStyles.js'
-
+import Chart from '../ChartComponent.js';
 export default class UserSettingsComponent extends Component{
 
   	constructor(props){
   		super(props);
   		this.state = {
-        uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
+			userID:'',
         firstName:'',
         lastName:'',
         zipCode:''
   		};
     }
 
-    initInfo() {
-        var that = this;
-           firebase.database().ref('/Users/' + this.state.uID + '/UserData').once('value')
-           .then(function(snapshot) {
+    async initInfo() {
+	    try {
+	      const UID = await AsyncStorage.getItem('UID');
+	      this.setState({
+	        userID: UID
+	      });
+	    } catch (error) {
+	      // Error retrieving data
+	      console.log(error);
+	    }
+		//console.warn(this.state.userID)
+		var that=this;
+	    var zoneRef = firebase.database().ref('/Users/' + this.state.userID + '/UserData');
+
+	    zoneRef.on('value', (snapshot) => {
              var fname= snapshot.val().fname
              var lname = snapshot.val().lname
              var zip = snapshot.val().zip
@@ -40,16 +52,20 @@ export default class UserSettingsComponent extends Component{
           from LoginBox */
 
         try {
-          await AsyncStorage.setItem('UID', '' );
-          this.props.navigation.navigate('Login');
+			var uid = await AsyncStorage.setItem('UID', '' )
+			this.setState({
+				logout:true
+			});
+			
           } catch (error) {
             console.log('AsyncStorage write error: '+ error)
           }
+		  
       }//tempary logout function
-
+	  
 
     changeUserInfo(first, last, zip){
-      firebase.database().ref('/Users/' + this.state.uID + '/UserData').set({
+      firebase.database().ref('/Users/' + this.state.userID + '/UserData').set({
           fname: this.state.firstName,
           lname:this.state.lastName,
           zip:this.state.zipCode
@@ -63,8 +79,13 @@ export default class UserSettingsComponent extends Component{
 
 
       render(){
-        return(
-
+		  var that= this;
+		  if (this.state.logout){
+			  console.warn(this.props.navigation);
+			  return(this.props.navigation.navigate('Login'));
+		}
+		else{
+			return(
           <View style = {styles.userContainer} >
 
           <FormLabel>First Name</FormLabel>
@@ -99,10 +120,8 @@ export default class UserSettingsComponent extends Component{
             buttonStyle={styles.stockButton}
             textStyle={{textAlign: 'center'}}
             />
-
           </View>
-
-        );
+        )};
   	}
   }
 

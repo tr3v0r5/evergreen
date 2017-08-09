@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,ScrollView, Dimensions
-} from 'react-native';
+	,AsyncStorage} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import WidgetComponent from './WidgetComponent.js';
 import * as firebase from 'firebase';
@@ -27,10 +27,19 @@ export default class WeatherScreen extends Component{
   		};
     }
 
-setZipCode() {
+async setZipCode() {
+    try {
+      const UID = await AsyncStorage.getItem('UID');
+      this.setState({
+        userID: UID
+      });
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
     var that = this;
      return new Promise((resolve, reject) => {
-       firebase.database().ref('/Users/' + this.state.uID + '/UserData').once('value')
+       firebase.database().ref('/Users/' + this.state.userID + '/UserData').once('value')
        .then(function(snapshot) {
          var zip = snapshot.val().zip
          that.setState({

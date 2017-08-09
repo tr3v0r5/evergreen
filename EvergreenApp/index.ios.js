@@ -19,14 +19,12 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 //Screen imports
 import LoginScreen from './components/Login/LoginScreen.js';
-import Gardentab from './components/Garden/Tabs.js'
+import {Root} from './components/Garden/Tabs.js'
 
-const EvergreenApp = StackNavigator({
-  Login: { screen: LoginScreen },
-  Garden:{
-	  screen: Gardentab
-  },
-}, {headerMode:'none'}
-);
+class EvergreenApp extends Component {
+  render() {
+    return <Root />;
+  }
+}
 
 AppRegistry.registerComponent('EvergreenApp', () => EvergreenApp);

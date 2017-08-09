@@ -7,12 +7,6 @@ import * as firebase from 'firebase';
 import styles from '../../Styles/gardenStyles.js';
 
 export class PlantComponent extends Component{
-
-  	constructor(){
-  		super();
-    }
-
-
       render(){
         return(
 			<View>

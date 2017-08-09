@@ -95,7 +95,7 @@ width:dimensionWindow.width,//width of screen
   makeZones(navigation){
 	  var x= this.state.userID;
 	  var list= this.state.userSensors;
-	  console.warn(list);
+	  //console.warn(list);
     return this.state.zonesArray.map(function(zone,i){
       var nameVal = zone.name;
       var imageVal = zone.imageSource;
@@ -110,6 +110,7 @@ width:dimensionWindow.width,//width of screen
 
 
   render() {
+	  console.warn(JSON.stringify(this.props.navigation));
 	  if(this.state.timer!=null){
 	  	  	return(
 	  			<Animated.View style={{alignItems:'center',backgroundColor:'orange',justifyContent: 'center',
