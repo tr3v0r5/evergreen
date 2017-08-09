@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import * as firebase from 'firebase';
-import Chart from '../ChartComponent.js';
+import Chart from './ChartComponent.js';
 
 const styles = require('../../Styles/gardenStyles.js');
 const styles2 = require('../../Styles/sensorDetailStyle.js');

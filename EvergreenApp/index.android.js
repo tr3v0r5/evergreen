@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-
-//styling import
-const styles = require('./Styles/style.js');
-
 
 //firebase config stuff
 const firebaseConfig = {
@@ -18,16 +13,12 @@ storageBucket: "smart-garden-ca02a.appspot.com",
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 //Screen imports
-import LoginScreen from './components/Login/LoginScreen.js';
-import Gardentab from './components/Garden/Tabs.js'
+import {Root} from './components/Navigation.js'
 
-const EvergreenApp = StackNavigator({
-  Login: { screen: LoginScreen },
-  Garden:{
-	  screen: Gardentab
-  },
-}, {headerMode:'none'}
-);
-
+class EvergreenApp extends Component {
+  render() {
+    return <Root />;
+  }
+}
 
 AppRegistry.registerComponent('EvergreenApp', () => EvergreenApp);
