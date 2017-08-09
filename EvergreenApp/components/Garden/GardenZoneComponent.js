@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Text,  View, Alert, ScrollView, Image,TouchableOpacity
 } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import * as firebase from 'firebase';
 

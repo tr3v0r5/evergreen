@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, AppRegistry, StyleSheet, Text, TextInput, View, Alert, ScrollView, Dimensions
 	,AsyncStorage} from 'react-native';
-	import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import * as firebase from 'firebase';
-import GardenScreen from './GardenScreen.js';
-//import Login from  '../Login/LoginScreen.js'
-import styles from '../../Styles/settingStyles.js'
-import Chart from '../ChartComponent.js';
+import styles from '../../Styles/settingStyles.js';
+
 export default class UserSettingsComponent extends Component{
 
   	constructor(props){
   		super(props);
   		this.state = {
 			userID:'',
-        firstName:'',
-        lastName:'',
-        zipCode:''
+        	firstName:'',
+        	lastName:'',
+        	zipCode:''
   		};
     }
 
