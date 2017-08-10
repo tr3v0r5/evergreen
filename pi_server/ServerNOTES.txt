@@ -36,7 +36,7 @@ Packet flow:
 
 
   - Note: everytime we send a (0x10) we should receive a (0x8B) Transmit Status
-  - Note: On all Remote AT commands there should be a remote AT command response (0x88)
+  - Note: On all Remote AT commands there should be a remote AT command response (0x97)
 
 
 

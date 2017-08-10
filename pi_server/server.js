@@ -16,6 +16,7 @@ var config = {
 
 //temproary connection between firebase user and server
 var userID = 'LaZTsgde9AWuHxRfmS5Y75QZSge2';
+// ========================================
 
 var sensorRef = firebase.database();
 
@@ -33,6 +34,8 @@ var parser = myPort.pipe(new Delimiter({delimiter: Buffer.from([126])}));//set h
 
 var tempXbeeMessObj = {};//intailize a temporary object that will get recoreded on firebase then
 
+
+//puts the serialPort into stream mode
 parser.on('data',function(data){
 
     console.log('xbee data: ' + data);// print value send to server from xbee
@@ -46,25 +49,8 @@ parser.on('data',function(data){
 
       console.log('End Byte: ' + endByte);
 
-      case '90':
-
-        tempXbeeMessObj = {
-          mostSigByte: data.slice(0,1).toString('hex'),
-          leastSigByte: data.slice(1,2).toString('hex'),
-          frameType: data.slice(2,3).toString('hex'),
-          senderAddressLong: data.slice(3,11).toString('hex'),
-          reserved: data.slice(11,12).toString('hex'),
-          receiveOptions: data.slice(13,14).toString('hex'),
-          data: data.slice(14, endByte + 2).toString('hex'),
-          checksum: data.slice(endByte + 2, endByte + 3).toString('hex'),
-          timestamp: date
-        }
-
-        //do checksum here
-
-        break;//end case frame 90
-
       case '10':
+        // Transmit Request Frame
 
         tempXbeeMessObj = {
           mostSigByte: data.slice(0,1).toString('hex'),
@@ -83,6 +69,27 @@ parser.on('data',function(data){
         //do checksum here
 
         break;//end case frame 10
+
+
+      case '90':
+        //not sure the difference between 90 and 91 or this will be important later on
+
+        tempXbeeMessObj = {
+          mostSigByte: data.slice(0,1).toString('hex'),
+          leastSigByte: data.slice(1,2).toString('hex'),
+          frameType: data.slice(2,3).toString('hex'),
+          senderAddressLong: data.slice(3,11).toString('hex'),
+          reserved: data.slice(11,12).toString('hex'),
+          receiveOptions: data.slice(13,14).toString('hex'),
+          data: data.slice(14, endByte + 2).toString('hex'),
+          checksum: data.slice(endByte + 2, endByte + 3).toString('hex'),
+          timestamp: date
+        }
+
+        //do checksum here
+
+        break;//end case frame 90
+
 
       case '17':
 
@@ -124,11 +131,36 @@ parser.on('data',function(data){
         break;
 
       case '97':
+
+        tempXbeeMessObj = {
+          mostSigByte: data.slice(0,1).toString('hex'),
+          leastSigByte: data.slice(1,2).toString('hex'),
+          frameType: data.slice(2,3).toString('hex'),
+          frameID: data.slice(3,4).toString('hex'),
+          senderAddressLong: data.slice(4,12).toString('hex'),
+          reserved: data.slice(12,14).toString('hex'),
+          atCommand: data.slice(14,16).toString('hex'),
+          commandStatus: data.slice(16,17).toString('hex'),
+          commandData: data.slice(17, endByte + 2).toString('hex'),
+          checksum: data.slice(endByte + 2, endByte + 3),
+          timestamp: date
+        }
+
+        //do checksum here
+
         break;//end case frame 97
 
       default:
         console.log('something went terribly wrong');
     }
+
+    setInterval(function(){
+
+      parser.write(Buffer.from([0x7e,'mostSigByte', 'leastSigByte', 0x10, 'frameID',
+       'senderAddressLong', 'reserved', 'broadcastRadius', 'transportOptions',
+       'rfData', 'checksum']));
+
+    }, 15000);
 
 
     console.log(JSON.stringify(tempXbeeMessObj));//prints to console what is written to firebase
