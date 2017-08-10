@@ -106,7 +106,7 @@ width:dimensionWindow.width,//width of screen
            keyRef = {keyVal}
            imageSource = {imageVal}
            navi = {navigation}
-           userID = {userID}
+           userID = {x}
             />
         );
       });
