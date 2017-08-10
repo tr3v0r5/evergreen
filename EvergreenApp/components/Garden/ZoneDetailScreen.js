@@ -90,7 +90,7 @@ static navigationOptions={
 	  const { navigate } = this.props.navigation;
       return this.state.userSensors.map((item, i) => (
                     <ListItem
-                      onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID })}
+                      onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID, zone: params.zone })}
                       key={i}
                       title={item.title}
                       leftIcon={{name:item.icon}}
