@@ -54,8 +54,14 @@ export default StyleSheet.create({
     textAlign:'center'
   },
   plantGrid:{
+    marginTop:30,
     marginLeft:10,
     flexDirection:'row',
     flexWrap:'wrap'
-  }
+  },
+  addContainer:{
+    marginTop:300,
+    alignItems:'center',
+    justifyContent:'center',
+  },
 });

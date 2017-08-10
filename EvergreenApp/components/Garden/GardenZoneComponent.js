@@ -5,14 +5,13 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import * as firebase from 'firebase';
 
-import styles from '../Styles/gardenStyles.js';
+import styles from '../../Styles/gardenStyles.js';
 
 export class GardenZoneComponent extends Component{
 
   	constructor(){
   		super();
   		this.state = {
-        uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
         name:'',
   		};
     }
@@ -24,7 +23,7 @@ export class GardenZoneComponent extends Component{
           <TouchableOpacity
                   activeOpacity={0.7}
                   style = {{padding:10}}
-                  onPress={() => this.props.navi.navigate('ZoneDetailScreen',{zone:this.props.keyRef})}
+                  onPress={() => this.props.navi.navigate('ZoneDetailScreen',{zone:this.props.keyRef, userID: this.props.userID})}
                   >
           <Image style = {styles.zoneContainer} source={{ uri: this.props.imageSource }}>
             <Text style = {styles.zoneName}>

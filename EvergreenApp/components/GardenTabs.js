@@ -2,10 +2,10 @@ import React from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import WeatherScreen from './WeatherScreen.js';
-import SettingsScreen from './SettingsScreen.js';
-import GardenScreen from './GardenScreen.js';
-import ZoneDetailScreen from './ZoneDetailScreen.js';
+import WeatherScreen from './Weather/WeatherScreen.js';
+import SettingsScreen from './Settings/SettingsScreen.js';
+import GardenScreen from './Garden/GardenScreen.js';
+import ZoneDetailScreen from './Garden/ZoneDetailScreen.js';
 
 export const GardenStack = StackNavigator({
   Home:{
@@ -14,6 +14,12 @@ export const GardenStack = StackNavigator({
   ZoneDetailScreen:{
     screen: ZoneDetailScreen
   }
+});
+
+export const SettingsStack = StackNavigator({
+  Settings:{
+    screen: SettingsScreen
+  },
 });
 
 export const GardenTabs = TabNavigator({
@@ -30,7 +36,7 @@ export const GardenTabs = TabNavigator({
     },
   },
   Settings: {
-    screen: SettingsScreen,
+    screen: SettingsStack,
     navigationOptions: {
       tabBarLabel: '',
       tabBarIcon: ({ tintColor }) => <Icon name="settings" type='material-community' size={35} color={tintColor} />

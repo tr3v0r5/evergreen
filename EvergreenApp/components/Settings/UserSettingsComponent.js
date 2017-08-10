@@ -5,7 +5,7 @@ import { Button, FormLabel, FormInput } from 'react-native-elements'
 import * as firebase from 'firebase';
 
 
-import styles from '../Styles/settingStyles.js'
+import styles from '../../Styles/settingStyles.js'
 
 export default class UserSettingsComponent extends Component{
 

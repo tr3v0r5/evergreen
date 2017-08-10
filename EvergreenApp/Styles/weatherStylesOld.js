@@ -32,9 +32,8 @@ export default StyleSheet.create({
   },
   carouselContainer:
   {
-    backgroundColor:'white',
     flex:1,
-    marginTop: 30
+    marginTop: 80
   },
   weatherContainer:
   {
@@ -59,7 +58,6 @@ export default StyleSheet.create({
   },
   topContainer:
   {
-    backgroundColor:'white',
     flex:2,
     flexDirection: 'column',
     alignItems: 'center',
@@ -69,12 +67,14 @@ export default StyleSheet.create({
   {
     fontFamily: 'HelveticaNeue-Thin',
     fontSize:70,
-    marginLeft:10,
+    color:'white',
+    marginLeft:30,
     marginTop: -10
  },
  degreeText:
  {
    fontFamily: 'HelveticaNeue-Thin',
+   color:'white',
    fontSize:20,
    marginLeft:65,
    marginTop: -10
@@ -91,9 +91,7 @@ export default StyleSheet.create({
     flex:2,
     justifyContent:'center',
     alignItems:'center',
-    borderTopWidth:2,
-    borderTopColor:'#ecf0f1'
-  //backgroundColor: '#ecf0f1'
+    backgroundColor: '#ecf0f1'
   },
   conditionText:
   {

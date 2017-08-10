@@ -6,8 +6,9 @@ import {Button, Icon} from 'react-native-elements';
 
 import * as firebase from 'firebase';
 import PlantComponent from './PlantComponent.js';
+import AddPlantScreen from './AddPlantScreen.js';
 
-import styles from '../Styles/gardenStyles.js';
+import styles from '../../Styles/gardenStyles.js';
 
 export default class ZoneDetailScreen extends Component{
 
@@ -19,17 +20,34 @@ static navigationOptions={
   constructor(props){
     super(props);
     this.state = {
-      uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
+      userID:'',
+      zone:'',
       plantsArray:[],
-      loaded:false
+      loaded:false,
+      modal: <AddPlantScreen/>
     };
   }
 
 
-  initPlants()
+
+  async initPlants()
   {
+
     const {params} = this.props.navigation.state;
-    var plantRef = firebase.database().ref('/Users/' + this.state.uID + '/Garden Zones/'+params.zone + '/Plants');
+
+    try {
+      const userVal = await params.userID;
+      const zoneVal = await params.zone
+      this.setState({
+        userID: params.userID,
+        zone: params.zone
+      });
+    } catch (error) {
+      // Error retrieving data
+      console.log(error);
+    }
+
+    var plantRef = firebase.database().ref('/Users/' + this.state.userID + '/Garden Zones/'+ this.state.zone + '/Plants');
     var that = this;
     plantRef.on('value', (snapshot) => {
               var plants = [];
@@ -43,6 +61,7 @@ static navigationOptions={
                     });
                 });
 
+
                 that.setState({
                   plantsArray:plants,
                   loaded:true
@@ -52,6 +71,7 @@ static navigationOptions={
 
   componentWillMount()
   {
+
     this.initPlants();
 
   }
@@ -70,15 +90,35 @@ static navigationOptions={
 
   render() {
     if(this.state.loaded){
+
       return(
     <View style={{flex:1, backgroundColor:'white'}}>
+    {this.state.modal}
     <Text style ={{textAlign:'center', fontSize: 30, fontFamily:'HelveticaNeue-Thin', color: '#27ae60'}}>
     Plants
     </Text>
-    
+
+    <Icon
+    raised
+    name='plus'
+    type='material-community'
+    color='#27ae60'
+
+    containerStyle = {[styles.gardenIcon,{marginTop:10}]}
+    onPress={() =>
+      this.setState({
+      modal: <AddPlantScreen
+      userID = {this.state.userID}
+      zone = {this.state.zone}
+      modalVisible={true}/>
+    })}
+    />
+
     <View style = {styles.plantGrid}>
       {this.makePlants()}
       </View>
+
+
       </View>
       );
           }

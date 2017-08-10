@@ -4,7 +4,7 @@ import { ActivityIndicator, Text,  View, Alert, ScrollView, Image,TouchableOpaci
 
 import * as firebase from 'firebase';
 
-import styles from '../Styles/gardenStyles.js';
+import styles from '../../Styles/gardenStyles.js';
 
 export class PlantComponent extends Component{
 
