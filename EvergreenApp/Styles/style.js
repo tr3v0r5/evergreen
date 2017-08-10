@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    backgroundColor: 'rgb(52,180,67)',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   textBox:{
     height: 50,
-    backgroundColor:'white',
+    backgroundColor:'#eeeeee',
     marginTop: 20,
 
  },

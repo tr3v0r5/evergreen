@@ -8,8 +8,8 @@ import styles from '../../Styles/gardenStyles.js';
 
 export class GardenZoneComponent extends Component{
 
-  	constructor(){
-  		super();
+  	constructor(props){
+  		super(props);
   		this.state = {
         name:'',
   		};
@@ -31,7 +31,8 @@ export class GardenZoneComponent extends Component{
 			  <Text>
 			  </Text>
                   </Image>
-                  </TouchableOpacity>
+
+         </TouchableOpacity>
         );
   	}
   }

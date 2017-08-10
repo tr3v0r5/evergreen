@@ -12,7 +12,7 @@ import SensorScreen from './Sensor/SensorScreen.js';
 
 export const GardenStack = StackNavigator({
   Main:{
-    screen: GardenScreen 
+    screen: GardenScreen
   },
   ZoneDetailScreen:{
     screen: ZoneDetailScreen,
@@ -49,11 +49,14 @@ export const GardenTabs = TabNavigator({
   tabBarOptions:{
     showLabel:false,
     activeTintColor:'#27ae60',
-
+    inactiveTintColor: 'grey',
+    showIcon: true,
     style:{
-      backgroundColor:'white'
+      backgroundColor:'white',
+      height: 50,
+      margin: 0,
+      padding: 0
     },
-	tabBarPosition:'top'
   },
 
 });
@@ -62,7 +65,7 @@ export const Root = StackNavigator({
   Garden:{
 	  screen: GardenTabs
   },
-}, 
+},
 {headerMode:'none'}
 
 );

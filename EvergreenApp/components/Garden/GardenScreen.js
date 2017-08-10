@@ -85,7 +85,7 @@ width:dimensionWindow.width,//width of screen
 		  				  duration:1000
 		  			  }
 		  		  ).start()//increase gardenscreen opacity from 0 to 1
-						  
+
     this.initZones();
 },2000);//delays actual garden screen
 
@@ -101,11 +101,17 @@ width:dimensionWindow.width,//width of screen
       var keyVal = zone.keyRef
         return(
           <GardenZoneComponent
-           key = {i}  name = {nameVal} keyRef = {keyVal}
-          imageSource = {imageVal} navi = {navigation} userID={x} list={list}/>
+           key = {i}
+           name = {nameVal}
+           keyRef = {keyVal}
+           imageSource = {imageVal}
+           navi = {navigation}
+           userID = {userID}
+            />
         );
       });
-  };//makeZones
+
+  }//makeZones
 
 
   render() {
@@ -151,15 +157,15 @@ width:dimensionWindow.width,//width of screen
         <Text style = {styles.gardenText}>Welcome to Your Smart Garden</Text>
         </View>
 
-        <View style = {styles.gardenGrid}>
+          <View style = {styles.gardenGrid}>
+            {this.makeZones(this.props.navigation)}
+          </View>
 
-        {this.makeZones(this.props.navigation)}
-        </View>
         </View>
        </ScrollView>
 		</Animated.View>
       );
-          }
+    }
 
   }//rneder
 }

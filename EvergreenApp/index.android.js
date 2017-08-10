@@ -19,6 +19,6 @@ class EvergreenApp extends Component {
   render() {
     return <Root />;
   }
-}
+}//render
 
 AppRegistry.registerComponent('EvergreenApp', () => EvergreenApp);

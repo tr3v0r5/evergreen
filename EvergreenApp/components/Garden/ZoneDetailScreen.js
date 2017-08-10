@@ -29,10 +29,10 @@ static navigationOptions={
 
   initPlants()
   {
-	 
+
     const {params} = this.props.navigation.state;
-    var plantRef = firebase.database().ref('/Users/' + params.userID + '/Garden Zones/'+params.zone + '/Plants');
-    var that = this;
+    var plantRef = firebase.database().ref('/Users/' + params.userID + '/Garden Zones/' + params.zone + '/Plants');
+
     plantRef.on('value', (snapshot) => {
               var plants = [];
 
@@ -45,14 +45,14 @@ static navigationOptions={
                     });
                 });
 
-                that.setState({
+                this.setState({
                   plantsArray:plants,
                   loaded:true
                             });
               });
   }//initPlants
   initArray(){
-	 
+
 	  const { params } = this.props.navigation.state;//get uid from last screen
 
 	      firebase.database().ref("Users/"+ params.userID +"/Current/Sensors/").orderByChild('title')
