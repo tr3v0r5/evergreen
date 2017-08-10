@@ -46,7 +46,7 @@ width:dimensionWindow.width,//width of screen
 
     //console.warn(this.state.userID+'asfdasdfasdfsdf');
 
-    var zoneRef = firebase.database().ref('/Users/' + this.state.userID + '/Garden Zones');
+    var zoneRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones');
 
     zoneRef.on('value', (snapshot) => {
               var zones = [];
@@ -118,7 +118,7 @@ width:dimensionWindow.width,//width of screen
 	  console.warn(JSON.stringify(this.props.navigation));
 	  if(this.state.timer!=null){
 	  	  	return(
-	  			<Animated.View style={{alignItems:'center',backgroundColor:'orange',justifyContent: 'center',
+	  			<Animated.View style={{alignItems:'center',backgroundColor:'white',justifyContent: 'center',
 	      padding: 10,opacity:this.state.fadeAnim}}>
 	  	  		<Svg width='560' height='681' preserveAspectRatio="xMidYMid meet">
 	  			<G translate='100,520' scale=".065,-.065" >

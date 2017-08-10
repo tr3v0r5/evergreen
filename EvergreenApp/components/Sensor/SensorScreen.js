@@ -31,7 +31,7 @@ export class SensorScreen extends Component{
 
     this.getdata();//sets data state from firebase
 
-    firebase.database().ref("Users/"+ params.userID +"/Current/Sensors/"+ params.sensor)
+    firebase.database().ref("Users/"+ params.userID +"/GardenZone/Sensors/"+ params.sensor)
      .on('value', (snapshot) => {
       this.setState({
         sensorTitle: snapshot.val().title,
@@ -45,7 +45,7 @@ export class SensorScreen extends Component{
 
 	   const { params } = this.props.navigation.state;
 
-	    firebase.database().ref('Users/'+ params.userID +'/History/Sensors/'+ params.sensor)
+	    firebase.database().ref('Users/'+ params.userID +'/History/Sensors/'+ params.sensor).limitToLast(10)
       .on('value',(snapshot) => {
         let data=[];
         snapshot.forEach((childSnap) => {
@@ -81,7 +81,7 @@ export class SensorScreen extends Component{
 
     const { params } = this.props.navigation.state;
 
-    let sensRef = firebase.database().ref('Users/' + params.userID + '/Current/Sensors/' + params.sensor);
+    let sensRef = firebase.database().ref('Users/' + params.userID + '/GardenZone/Sensors/' + params.sensor);
 
     var data, title, icon, type, id;
 

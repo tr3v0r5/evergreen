@@ -31,7 +31,7 @@ static navigationOptions={
   {
 
     const {params} = this.props.navigation.state;
-    var plantRef = firebase.database().ref('/Users/' + params.userID + '/Garden Zones/' + params.zone + '/Plants');
+    var plantRef = firebase.database().ref('/Users/' + params.userID + '/GardenZones/' + params.zone + '/Plants');
 
     plantRef.on('value', (snapshot) => {
               var plants = [];
@@ -55,7 +55,7 @@ static navigationOptions={
 
 	  const { params } = this.props.navigation.state;//get uid from last screen
 
-	      firebase.database().ref("Users/"+ params.userID +"/Current/Sensors/").orderByChild('title')
+	      firebase.database().ref("Users/"+ params.userID +"/GardenZones/"+params.zone+"/Sensors/").orderByChild('title')
 	        .on('value', snapshot => {
 	          list = [];//intialize list and reset for each database change
 
