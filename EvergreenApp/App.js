@@ -61,4 +61,8 @@ export default class App extends Component{
     }
   }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 186f0919022974e3070080ba75c4c4e65d0c3353
 console.disableYellowBox = true;

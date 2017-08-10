@@ -9,8 +9,12 @@ import * as firebase from 'firebase';
 export default class SettingsScreen extends Component{
 
   static navigationOptions = {
+<<<<<<< HEAD:EvergreenApp/components/Settings/SettingsScreen.js
     header: <Text style={{backgroundColor:'white',
     paddingTop:30, textAlign:'center',
+=======
+    header: <Text style={{paddingTop:30, textAlign:'center',
+>>>>>>> 186f0919022974e3070080ba75c4c4e65d0c3353:EvergreenApp/components/SettingsScreen.js
     color:'#27ae60',
     fontFamily:'HelveticaNeue-Thin',
     fontSize:30}}>
