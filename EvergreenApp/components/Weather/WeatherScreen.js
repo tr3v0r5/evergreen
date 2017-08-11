@@ -40,16 +40,14 @@ async setZipCode() {
     var that = this;
 		 firebase.database().ref('/Users/' + this.state.userID + '/UserData').on('value',(snapshot)=> {
          var zip = snapshot.val().zip
-		 let apiKey = 'AIzaSyDnBNddRo5XOIX61hmASkzVIqf05fgw2Dg';
-		 console.warn(zip);
+		 let apiKey = 'AIzaSyDnBNddRo5XOIX61hmASkzVIqf05fgw2Dg'; 
 		 fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${apiKey}`)
 		     .then((response)=> response.json())
 		     .then((responseData)=> {
 		       var cityVal=responseData.results[0].address_components[1].long_name;
-			   console.warn(cityVal);
 		       var stateVal=responseData.results[0].address_components[3].short_name;
 			   
-		       this.setInfo(cityVal,stateVal);
+		       this.setInfo(cityVal,stateVal,zip);
 			   });
 			   }); 
          
@@ -73,12 +71,10 @@ async setZipCode() {
                 })
             }*/
 
-	setInfo(city,state){
+	setInfo(city,state,zip){
     let apiKey='3f766cac24cd2475';
     let temporaryArray = [];
-	console.warn(state);
-	console.warn(city);
-    fetch(`https://api.wunderground.com/api/${apiKey}/forecast10day/q/${state}/${city}.json`)
+    fetch(`https://api.wunderground.com/api/${apiKey}/forecast10day/q/${zip}.json`)
     .then((response)=> response.json())
     .then((responseData)=> {
 

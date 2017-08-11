@@ -115,7 +115,6 @@ width:dimensionWindow.width,//width of screen
 
 
   render() {
-	  console.warn(JSON.stringify(this.props.navigation));
 	  if(this.state.timer!=null){
 	  	  	return(
 	  			<Animated.View style={{alignItems:'center',backgroundColor:'white',justifyContent: 'center',

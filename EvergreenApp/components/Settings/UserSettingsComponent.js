@@ -50,9 +50,7 @@ export default class UserSettingsComponent extends Component{
 
         try {
 			var uid = await AsyncStorage.setItem('UID', '' )
-			this.setState({
-				logout:true
-			});
+			this.props.navigation.navigate('Login')
 			
           } catch (error) {
             console.log('AsyncStorage write error: '+ error)
@@ -76,12 +74,6 @@ export default class UserSettingsComponent extends Component{
 
 
       render(){
-		  var that= this;
-		  if (this.state.logout){
-			  console.warn(this.props.navigation);
-			  return(this.props.navigation.navigate('Login'));
-		}
-		else{
 			return(
           <View style = {styles.userContainer} >
 
@@ -119,7 +111,6 @@ export default class UserSettingsComponent extends Component{
             />
           </View>
         )};
-  	}
   }
 
 
