@@ -37,6 +37,7 @@ export class SensorScreen extends Component{
         sensorTitle: snapshot.val().title,
         sensorIcon: snapshot.val().icon,
         sensorType: snapshot.val().type,
+		  sensorData: snapshot.val().data,
       });
     });
   }//componentDidMount
@@ -126,9 +127,9 @@ export class SensorScreen extends Component{
               <View style={{flex: 2/10}}>
                 <Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
               </View>
-              <View style={{flex: 6/10}}>
+              <View style={{flex: 8/10}}>
                 <View style={{flex: 5/10}}>
-                  <Text style={{color:'#27ae60', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
+                  <Text style={{color:'#27ae60', fontSize: 30,textAlign: 'center',backgroundColor:"rgba(0,0,0,0)" }}>{this.state.sensorTitle}</Text>
                 </View>
                 <View style={{flex: 5/10}}>
                   <Text style={{color:'#27ae60', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>
@@ -146,7 +147,7 @@ export class SensorScreen extends Component{
             </View>
           </View>
 
-          <View style={{ flex: 1/10}}>
+          <View style={{ flex: 2/10}}>
             {
               (this.state.sensorType === 'valve') ? (
                 <Button
