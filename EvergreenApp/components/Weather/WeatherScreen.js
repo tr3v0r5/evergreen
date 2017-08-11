@@ -14,7 +14,6 @@ export default class WeatherScreen extends Component{
   	constructor(props){
   		super(props);
   		this.state = {
-        uID:'QVw8UfD3b4Tcd1YsxiNCx8x3zyh1',
         viewport:
         {
           width: Dimensions.get('window').width
@@ -37,26 +36,30 @@ async setZipCode() {
       // Error retrieving data
       console.log(error);
     }
+	
     var that = this;
-     return new Promise((resolve, reject) => {
-       firebase.database().ref('/Users/' + this.state.userID + '/UserData').once('value')
-       .then(function(snapshot) {
+		 firebase.database().ref('/Users/' + this.state.userID + '/UserData').on('value',(snapshot)=> {
          var zip = snapshot.val().zip
-         that.setState({
-           zipCode:zip
-                     });
-                resolve(true);
-          });
-        })
+		 let apiKey = 'AIzaSyDnBNddRo5XOIX61hmASkzVIqf05fgw2Dg';
+		 console.warn(zip);
+		 fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zip}&key=${apiKey}`)
+		     .then((response)=> response.json())
+		     .then((responseData)=> {
+		       var cityVal=responseData.results[0].address_components[1].long_name;
+			   console.warn(cityVal);
+		       var stateVal=responseData.results[0].address_components[3].short_name;
+			   
+		       this.setInfo(cityVal,stateVal);
+			   });
+			   }); 
+         
       }
 
 
- setCityandState(onSuccess, onFail) {
-
-  return new Promise((resolve, reject) => {
+ /*setCityandState() {
     let apiKey = 'AIzaSyDnBNddRo5XOIX61hmASkzVIqf05fgw2Dg';
     let zipCode = this.state.zipCode;
-
+	console.warn(zipCode);
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${zipCode}&key=${apiKey}`)
     .then((response)=> response.json())
     .then((responseData)=> {
@@ -67,16 +70,15 @@ async setZipCode() {
         city: cityVal,
         state: stateVal
                   });
-              resolve(true);
                 })
-              })
-            }
+            }*/
 
-  setInfo()
-    {
+	setInfo(city,state){
     let apiKey='3f766cac24cd2475';
     let temporaryArray = [];
-    fetch(`https://api.wunderground.com/api/${apiKey}/forecast10day/q/${this.state.state}/${this.state.city}.json`)
+	console.warn(state);
+	console.warn(city);
+    fetch(`https://api.wunderground.com/api/${apiKey}/forecast10day/q/${state}/${city}.json`)
     .then((response)=> response.json())
     .then((responseData)=> {
 
@@ -94,7 +96,9 @@ async setZipCode() {
 
     this.setState({
       infoArray:temporaryArray,
-      loaded:true
+      loaded:true,
+		state:state,
+		city:city,
                 });
             })
         }
@@ -102,15 +106,16 @@ async setZipCode() {
 
     componentDidMount(){
 
-       this.setZipCode()
-        .then(getLoc =>this.setZipCode())
+		this.setZipCode();
+		//this.setInfo(); 
+        /*.then(getLoc =>this.setZipCode())
         .then(getLoc =>{
           this.setCityandState()
           .then(getInfo => this.setCityandState())
           .then(getInfo =>{
             this.setInfo();
           })
-        })
+        })*/
 
       }
 
