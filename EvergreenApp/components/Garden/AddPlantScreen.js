@@ -44,21 +44,22 @@ export class AddPlantScreen extends Component{
     }
   }
 
-    addPlant()
-    {
-      var plantRef = firebase.database().ref('/Users/' + this.state.userID + '/Garden Zones/'+this.state.zone+'/Plants/');
+  addPlant() {
 
-      plantRef.push().set({
-        ImageSource:'https://static.pexels.com/photos/54630/japanese-cherry-trees-flowers-spring-japanese-flowering-cherry-54630.jpeg',
-        Name:this.state.plantName
-      });
+    var plantRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Plants/');
 
-      this.setState({
-        plantName:'',
-        errorMessage:''
-      })
-      this.setModalVisible(false);
-    }
+    plantRef.push().set({
+      ImageSource:'https://static.pexels.com/photos/54630/japanese-cherry-trees-flowers-spring-japanese-flowering-cherry-54630.jpeg',
+      Name:this.state.plantName
+    });
+
+    this.setState({
+      plantName:'',
+      errorMessage:''
+    })
+    this.setModalVisible(false);
+
+  }//addPlant
 
       render(){
         return(
