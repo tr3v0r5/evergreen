@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { Text,  View, Alert, Modal } from 'react-native';
+import { Text,  View, Alert, Modal, Picker } from 'react-native';
 import { Button, Icon, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements';
 
 import * as firebase from 'firebase';
 
 import styles from '../../Styles/gardenStyles.js';
 
-export class AddPlantScreen extends Component{
+export class AddSensorScreen extends Component{
 
   	constructor(){
   		super();
   		this.state = {
-        plantName :'',
+        sensorTitle :'',
+        type: '',
+        icon: '',
         errorMessage:'',
         modalVisible: false
   		};
@@ -31,31 +33,36 @@ export class AddPlantScreen extends Component{
 
   validate()
   {
-    if(this.state.plantName == '')
-    {
+    if(this.state.sensorTitle == '' || this.state.type == '') {
+
       this.setState({
-        errorMessage:'Please enter a value for the name of the Plant.'
-      })
-    }
-    else
-    {
-      this.addPlant();
+        errorMessage:'Please fill out all the fields.'
+      });
+
+    }else {
+      this.addSensor();
     }
   }
 
-  addPlant() {
+  addSensor() {
 
-    var plantRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Plants/');
+    var SensorRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/');
 
-    plantRef.push().set({
-      ImageSource:'https://static.pexels.com/photos/54630/japanese-cherry-trees-flowers-spring-japanese-flowering-cherry-54630.jpeg',
-      Name:this.state.plantName
-    });
+    SensorRef.push().set({
+      title: this.state.sensorTitle,
+      type: this.state.type,
+      icon: this.state.icon,
+      data: '',
+      id: ''
+    });//push to firebase
 
     this.setState({
-      plantName:'',
+      sensorTitle:'',
+      type: '',
+      icon: '',
       errorMessage:''
-    })
+    })//reset form
+
     this.setModalVisible(false);
 
   }//addPlant
@@ -78,10 +85,23 @@ export class AddPlantScreen extends Component{
             />
 
               <View style = {styles.addContainer}>
-                <FormLabel>Enter Plant Name</FormLabel>
+
+                <FormLabel>Enter Sensor Namerr</FormLabel>
                 <FormInput
-                  onChangeText={(plant) => this.setState({plantName:plant})}
-                  value={this.state.zoneName}
+                  onChangeText={(sensor) => this.setState({sensorTitle: sensor})}
+                  value={this.state.sensorTitle}
+                  />
+
+                <FormLabel>Enter Sensor Type</FormLabel>
+                <FormInput
+                  onChangeText={(sensor) => this.setState({title: sensor})}
+                  value={this.state.title}
+                  />
+
+                <FormLabel>Enter Sensor Icon</FormLabel>
+                <FormInput
+                  onChangeText={(sensor) => this.setState({icon: sensor})}
+                  value={this.state.icon}
                   />
 
                 <Button
@@ -99,4 +119,4 @@ export class AddPlantScreen extends Component{
   }
 
 
-module.exports = AddPlantScreen;
+module.exports = AddSensorScreen;

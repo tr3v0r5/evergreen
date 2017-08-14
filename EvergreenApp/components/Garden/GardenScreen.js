@@ -1,15 +1,14 @@
 
-import React, { PureComponent, Component } from 'react';
-import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
-  Image,TouchableOpacity,Dimensions,Animated,AsyncStorage } from 'react-native';
+import React, { Component } from 'react';
+import {Text, View, Alert, ScrollView, TouchableOpacity,
+  Animated,AsyncStorage } from 'react-native';
 import {Button, Icon} from 'react-native-elements';
-import Svg, {G,Path} from 'react-native-svg'
+import Svg, { G, Path } from 'react-native-svg'
 import * as firebase from 'firebase';
 import GardenZoneComponent from './GardenZoneComponent.js';
 import AddZoneScreen from './AddZoneScreen.js';
 
 import styles from '../../Styles/gardenStyles.js';
-const dimensionWindow = Dimensions.get('window');
 
 export class GardenScreen extends Component{
 
@@ -26,8 +25,6 @@ export class GardenScreen extends Component{
 		  timer:'something', //used to make the end of fade in animation
       fadeAnim: new Animated.Value(1),//opacity value for splashscreen
 		  fadeAnim2: new Animated.Value(0),//opacity value for gardenscreem
-      width:dimensionWindow.width,//width of screen
-		  height:dimensionWindow.height,//height of screen
       userID: '',
       modal: <AddZoneScreen/>
     };
@@ -53,19 +50,19 @@ export class GardenScreen extends Component{
               snapshot.forEach((child) => {
 
               zones.push({
-                    name:child.val().Name,
-                    imageSource :child.val().ImageSource,
-                    keyRef :child.key
+                    name: child.val().Name,
+                    imageSource: child.val().ImageSource,
+                    keyRef: child.key
                     });
               });
 
               this.setState({
                   zonesArray:zones,
                   loaded:true,
-				  timer:null
-                  });
-
+				          timer:null
               });
+
+        });
 
   }//initZones
 
@@ -120,7 +117,7 @@ export class GardenScreen extends Component{
 	  if(this.state.timer!=null){
 	  	  	return(
 	  			<Animated.View style={{alignItems:'center',backgroundColor:'white',justifyContent: 'center',
-	           padding: 10,opacity:this.state.fadeAnim}}>
+	           padding: 10,opacity: this.state.fadeAnim}}>
 	  	  		<Svg width='560' height='681' preserveAspectRatio="xMidYMid meet">
 	  			      <G translate='100,520' scale=".065,-.065" >
 	  			          <Path fill='green' d="M5438 6707 c-175 -174 -379 -312 -613 -413 -224 -97 -393 -138 -1015
@@ -139,8 +136,9 @@ export class GardenScreen extends Component{
 	  			   </Svg>
 	  			</Animated.View>
         );
-	  	  }
-    else{
+
+    }else{
+
       if(this.state.loaded){
         return(
   		      <Animated.View style={[styles.containerGarden,{opacity:this.state.fadeAnim2}]}>
@@ -177,7 +175,5 @@ export class GardenScreen extends Component{
 
   }//render
 }
-
-
 
 module.exports = GardenScreen;

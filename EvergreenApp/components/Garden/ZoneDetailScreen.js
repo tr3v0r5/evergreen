@@ -7,6 +7,8 @@ import { List, ListItem } from 'react-native-elements';
 import * as firebase from 'firebase';
 
 import AddPlantScreen from './AddPlantScreen.js';
+import AddSensorScreen from './AddSensorScreen.js';
+
 import PlantComponent from './PlantComponent.js';
 import Sensor from '../Sensor/SensorScreen.js'
 
@@ -28,7 +30,8 @@ export default class ZoneDetailScreen extends Component{
       loaded:false,
       userID: '',
       zone: '',
-      modal: <AddPlantScreen/>
+      modal: <AddPlantScreen/>,
+      modal2: <AddSensorScreen/>
     };
   }//constructor
 
@@ -107,7 +110,7 @@ export default class ZoneDetailScreen extends Component{
   }//makePlants
 
   makeSensorList(){
-	  const {params} = this.props.navigation.state;
+	  const { params } = this.props.navigation.state;
 	  const { navigate } = this.props.navigation;
 
       return this.state.userSensors.map((item, i) => (
@@ -128,6 +131,7 @@ export default class ZoneDetailScreen extends Component{
       return(
         <View style={{flex:1, backgroundColor:'white'}}>
           {this.state.modal}
+          {this.state.modal2}
           <Text style ={{textAlign:'center', fontSize: 30, fontFamily:'HelveticaNeue-Thin', color: '#27ae60'}}>
             Plants
           </Text>
@@ -155,6 +159,14 @@ export default class ZoneDetailScreen extends Component{
             <ScrollView>
               <List containerStyle={{marginRight: 10, marginLeft: 10,marginTop:5}}>
                 {this.makeSensorList()}
+                <ListItem
+                  title={'Add Sensor'}
+                  rightIcon={{name:'squared-plus', type: 'entypo' }}
+                  onPress={() => this.setState({
+                    modal2: <AddSensorScreen userID = {this.state.userID}
+                      zone = {this.state.zone} modalVisible={true}/>
+                  })}
+                  />
               </List>
 		          </ScrollView>
         </View>

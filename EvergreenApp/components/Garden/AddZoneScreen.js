@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text,  View, Alert, ScrollView, Image,TouchableOpacity, Modal
-} from 'react-native';
+import { Text,  View, Alert, Modal } from 'react-native';
 import { Button, Icon, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements';
 
 import * as firebase from 'firebase';
