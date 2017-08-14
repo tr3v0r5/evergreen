@@ -19,6 +19,7 @@ export default StyleSheet.create({
     color:'#27ae60',
     fontFamily: 'HelveticaNeue-Thin',
     fontSize:30,
+    paddingLeft: 30,
   },
   gardenGrid:{
     marginTop:40,

@@ -47,6 +47,11 @@ export const GardenTabs = TabNavigator({
   },
 },{
   tabBarOptions:{
+    iconStyle: {
+      width: 50,
+      height: 35,
+     },
+    lazyLoad: true,
     showLabel:false,
     activeTintColor:'#27ae60',
     inactiveTintColor: 'grey',
@@ -55,7 +60,7 @@ export const GardenTabs = TabNavigator({
       backgroundColor:'white',
       height: 50,
       margin: 0,
-      padding: 0
+      padding: 0,
     },
   },
 
