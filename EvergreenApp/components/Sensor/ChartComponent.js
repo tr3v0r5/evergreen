@@ -116,7 +116,7 @@ var ChartComponent=React.createClass({
 	       width
 	     );
 		 //console.warn(scaleX.range);
-		 let maxFrequency = max(data, d => d.value)+10;
+		 let maxFrequency = max(data, d => d.value)+5;
 	     const scaleY = this.createScaleY(0,maxFrequency,height);
 
 	     const lineShape = d3.shape.line()
@@ -173,7 +173,7 @@ var ChartComponent=React.createClass({
      return (
 		 <View style={styles.container}>
 		 	<Svg width={this.state.width+20} height={this.state.height+20}>
-    	 		<G translate="30,-20">
+    	 		<G translate="30,-10">
         			<G translate={"0," + graphHeight}>
             			<G key={-1}>
                 			<Path stroke={'black'} d={this.state.bottomaxis} key="-1"/>
