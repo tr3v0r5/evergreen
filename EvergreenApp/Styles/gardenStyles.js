@@ -58,5 +58,9 @@ export default StyleSheet.create({
     marginLeft:10,
     flexDirection:'row',
     flexWrap:'wrap'
+  },
+  plantAddIcon:{
+    display: 'flex',
+    alignSelf: 'flex-start',
   }
 });

@@ -31,7 +31,7 @@ export class AddSensorScreen extends Component{
     this.setState({modalVisible: visible});
   }
 
-  validate()
+  async validate()
   {
     if(this.state.sensorTitle == '' || this.state.type == '') {
 
@@ -40,21 +40,39 @@ export class AddSensorScreen extends Component{
       });
 
     }else {
-      this.addSensor();
+
+      switch (this.state.type) {
+        case "moisture":
+          await this.setState({icon: 'opacity'});
+          this.addSensor();
+          break;
+
+        case "valve":
+          await this.setState({icon: 'highlight'});
+          this.addSensor();
+          break;
+
+        default:
+          this.setState({icon: 'error'});
+          this.addSensor();
+      }//Depending on which the type of the sensor it's icon set here
+
+
     }
   }
 
   addSensor() {
 
-    var SensorRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/');
+    var gardenSensorRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/');
+    // var SensorRef = firebase.database().ref('/Users/' + this.state.userID + '/Sensors/Configured/' );
 
-    SensorRef.push().set({
+    gardenSensorRef.push().set({
       title: this.state.sensorTitle,
       type: this.state.type,
       icon: this.state.icon,
       data: '',
       id: ''
-    });//push to firebase
+    });//push to firebase under it's garden GardenZones
 
     this.setState({
       sensorTitle:'',
@@ -92,17 +110,16 @@ export class AddSensorScreen extends Component{
                   value={this.state.sensorTitle}
                   />
 
-                <FormLabel>Enter Sensor Type</FormLabel>
-                <FormInput
-                  onChangeText={(sensor) => this.setState({type: sensor})}
-                  value={this.state.type}
-                  />
-
-                <FormLabel>Enter Sensor Icon</FormLabel>
-                <FormInput
-                  onChangeText={(sensor) => this.setState({icon: sensor})}
-                  value={this.state.icon}
-                  />
+                <FormLabel>Pick Sensor Type</FormLabel>
+                <Picker
+                  selectedValue={this.state.type}
+                  style={{margin:15, backgroundColor: '#f2f2f2'}}
+                  mode="dropdown"
+                  onValueChange={(itemValue, itemIndex) => this.setState({type: itemValue})}>
+                  <Picker.Item label="Moisture" value="moisture" />
+                  <Picker.Item label="Valve" value="valve" />
+                  <Picker.Item label="None" value="" />
+                </Picker>
 
                 <Button
                   title='SUBMIT'

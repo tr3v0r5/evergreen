@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { Component } from 'react';
 import {ActivityIndicator , Text, TextInput, View, Alert, ScrollView,
   Image,TouchableOpacity
 } from 'react-native';
@@ -136,21 +136,23 @@ export default class ZoneDetailScreen extends Component{
             Plants
           </Text>
 
-          <Icon
-          raised
-          name='plus'
-          type='material-community'
-          color='#27ae60'
-          containerStyle = {[styles.gardenIcon,{marginTop:10}]}
-          onPress={() =>
-            this.setState({
-              modal: <AddPlantScreen userID = {this.state.userID}
-                zone = {this.state.zone} modalVisible={true}/>
-            })}
-          />
+
 
           <View style = {styles.plantGrid}>
             {this.makePlants()}
+            <Icon
+            raised
+            size={32}
+            name='plus'
+            type='material-community'
+            color='#27ae60'
+            containerStyle = {styles.plantAddIcon}
+            onPress={() =>
+              this.setState({
+                modal: <AddPlantScreen userID = {this.state.userID}
+                  zone = {this.state.zone} modalVisible={true}/>
+              })}
+            />
           </View>
           <Text style ={{textAlign:'center', fontSize: 30, fontFamily:'HelveticaNeue-Thin', color: '#27ae60'}}>
             Sensors
