@@ -86,7 +86,7 @@ export class AddSensorScreen extends Component{
 
               <View style = {styles.addContainer}>
 
-                <FormLabel>Enter Sensor Namerr</FormLabel>
+                <FormLabel>Enter Sensor Name</FormLabel>
                 <FormInput
                   onChangeText={(sensor) => this.setState({sensorTitle: sensor})}
                   value={this.state.sensorTitle}
@@ -94,8 +94,8 @@ export class AddSensorScreen extends Component{
 
                 <FormLabel>Enter Sensor Type</FormLabel>
                 <FormInput
-                  onChangeText={(sensor) => this.setState({title: sensor})}
-                  value={this.state.title}
+                  onChangeText={(sensor) => this.setState({type: sensor})}
+                  value={this.state.type}
                   />
 
                 <FormLabel>Enter Sensor Icon</FormLabel>

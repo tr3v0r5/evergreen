@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "art": "^0.10.1",
+    "babel-plugin-transform-remove-console": "^6.8.5",
     "d3": "^4.9.1",
     "d3-shape": "^1.2.0",
     "firebase": "^4.1.2",

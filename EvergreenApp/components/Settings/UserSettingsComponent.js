@@ -51,13 +51,13 @@ export default class UserSettingsComponent extends Component{
         try {
 			var uid = await AsyncStorage.setItem('UID', '' )
 			this.props.navigation.navigate('Login')
-			
+
           } catch (error) {
             console.log('AsyncStorage write error: '+ error)
           }
-		  
+
       }//tempary logout function
-	  
+
 
     changeUserInfo(first, last, zip){
       firebase.database().ref('/Users/' + this.state.userID + '/UserData').set({
@@ -97,7 +97,7 @@ export default class UserSettingsComponent extends Component{
            />
 
           <Button
-           title='SUBMIT'
+           title='submit'
            onPress={this.changeUserInfo.bind(this)}/>
 
           <Button
