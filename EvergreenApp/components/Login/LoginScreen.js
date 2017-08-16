@@ -30,7 +30,7 @@ export class LoginScreen extends Component {
       try {
         const UID = await AsyncStorage.getItem('UID');
         if (UID !== null){
-          this.props.navigation.navigate('Garden', { userID: UID });
+          this.props.navigation.navigate('Setup', { userID: UID });
         }
       } catch (error) {
         // Error retrieving data
