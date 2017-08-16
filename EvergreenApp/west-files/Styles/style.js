@@ -4,31 +4,31 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1abc9c',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
   },
   dataBlock:{
     backgroundColor: 'blue',
-    height: 200,
-    width: 200,
+    height: 75,
+    width: 75,
   },
   extraTop:{
     marginTop: 20,
   },
   textBox:{
-    height: 50,
-    backgroundColor:'#eeeeee',
+    height: 30,
+    backgroundColor:'white',
+    width: 200,
+    textAlign: 'center',
     marginTop: 20,
-
+    paddingTop: 6,
  },
   genericText: {
     color: '#ffffff',
-    fontSize: 20,
-    textAlign: 'center',
+    fontSize: 30,
   },
   stockButton:{
     backgroundColor: '#1666e5',
@@ -50,6 +50,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgb(52,180,67)',
     alignItems: 'center',
+    justifyContent: 'center',
     padding: 10,
   },
 });

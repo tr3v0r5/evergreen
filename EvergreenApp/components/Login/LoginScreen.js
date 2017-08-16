@@ -62,7 +62,7 @@ export class LoginScreen extends Component {
 
         return (
           <View style={ styles.container }>
-            <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+            <Text style={{color:'rgb(52,180,67)', fontSize:30}}>evergreen</Text>
            <Button
              raised
              iconRight
@@ -88,7 +88,7 @@ export class LoginScreen extends Component {
 
         return(
         <View style={styles.container}>
-          <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+          <Text style={{color:'rgb(52,180,67)', fontSize:30}}>evergreen</Text>
           <View>
             <LoginBox navi={ this.props.navigation }/>
           </View>
@@ -109,7 +109,7 @@ export class LoginScreen extends Component {
       }else{
         return(
           <View style={styles.container}>
-            <Text style={{color:'#ffffff', fontSize:30}}>evergreen</Text>
+            <Text style={{color:'rgb(52,180,67)', fontSize:30}}>evergreen</Text>
             <View>
               <SignupBox navi={ this.props.navigation }/>
             </View>

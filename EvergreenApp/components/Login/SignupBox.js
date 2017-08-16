@@ -45,8 +45,9 @@ export class SignupBox extends Component{
 
           firebase.database().ref('Users/'+ user.uid).set({
 
-              Current: '',
-              History: '',
+              Sensors: '',
+			  GardenZones:'',
+			  History:'',
               UserData: '',
 
           });//this might be a bad way to do this

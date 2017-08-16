@@ -12,25 +12,28 @@ function wp (percentage)
 const slideHeight = viewportHeight *0.65;
 const slideWidth = wp(60);
 const horizontalMargin = wp(3);
-const wHeight=(viewportHeight*.2);
+
 export const sliderWidth = viewportWidth;
 export const itemWidth = slideWidth + horizontalMargin*3;
 
 
 export default StyleSheet.create({
-  linearGradient: {
-  flex: 1,
-
-},
-carouselContainer:
+  headerContainer:
   {
-    flex:1,
-    marginTop: 100
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:20
   },
-  container:
+  headerText:
+  {
+    color:'#27ae60',
+    fontFamily: 'HelveticaNeue-Thin',
+    fontSize:30,
+  },
+  carouselContainer:
   {
     flex:1,
-    marginTop: 100
+    marginTop: 80
   },
   weatherContainer:
   {
@@ -49,7 +52,6 @@ carouselContainer:
   },
   iconContainer:
   {
-	  zIndex:10,
     marginTop:0,
     marginLeft:180,
     padding:10
@@ -59,6 +61,7 @@ carouselContainer:
     flex:2,
     flexDirection: 'column',
     alignItems: 'center',
+
   },
   tempText:
   {
@@ -93,7 +96,7 @@ carouselContainer:
   conditionText:
   {
     fontFamily: 'HelveticaNeue-Light',
-  fontSize: 20,
+  fontSize: 20
   },
   detailContainer:
   {
@@ -113,5 +116,5 @@ carouselContainer:
     fontFamily: 'HelveticaNeue-Light',
     fontSize: 15,
     color: '#34495e',
-  },
+  }
 });

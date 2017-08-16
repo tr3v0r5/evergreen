@@ -1,4 +1,3 @@
-
 import React,{Component, PropTypes} from 'react';
 import {
    ART,
@@ -7,7 +6,7 @@ import {
    View,
 	Text as text
  } from 'react-native';
- import Svg, {G,Line,Path,Rect,Text} from 'react-native-svg'
+ import Svg, {G,Line,Path,Rect,Text} from 'react-native-svg';
  import Axis from 'd3-axis';
  import * as scale from 'd3-scale';
  import * as shape from 'd3-shape';
@@ -39,7 +38,7 @@ var ChartComponent=React.createClass({
 	    //console.warn('initial');
 
      	let width= Math.round(dimensionWindow.width * 0.9),
-			height= Math.round(dimensionWindow.height * 0.47);
+			height= Math.round(dimensionWindow.height * 0.45);
    	 return{
        graphWidth: 0,
        graphHeight: 0,
@@ -58,16 +57,21 @@ var ChartComponent=React.createClass({
        const graphWidth = this.state.width - PaddingSize * 2;
        const graphHeight = this.state.height - PaddingSize * 2;
 	   this.createLineGraph(this.props.data,graphWidth,graphHeight);
-   },
+   },//componentWillMount
    componentWillReceiveProps:function(nextProps){
 	   //console.warn(nextProps+"nextprops");
 	   const graphWidth = this.state.width - PaddingSize * 2;
        const graphHeight = this.state.height - PaddingSize * 2;
 	   this.createLineGraph(nextProps.data,graphWidth,graphHeight);
-   },
+   },//ComponentWillRecieveProps
 
 
-
+	   /**
+	    * Create a x-scale.
+	    * @param {array} array of Date Values
+	    * @param {number} maxY Maximum y value to use in our domain.
+   		* @return {Function} D3 scale instance.
+   */
 	   createScaleX:function(data,width) {
 		   //console.warn('In xCreate '+start+end+width);
 	     return d3.scale.scaleBand()
@@ -120,7 +124,7 @@ var ChartComponent=React.createClass({
 	       		.y((d)=>scaleY(d.value));
 //////////////////////////////// For Axis ///////////////////////////////////////////////
 
-		 let apple=(scaleX(data[1].date)-scaleX(data[0].date))/2;
+				let apple=(scaleX(data[1].date)-scaleX(data[0].date))/2;//space between 0 and date[0] on x axis
 		   //console.warn(apple);
 		 var firstTime=scaleX(data[0].date);
          var secondtime = scaleX(data[1].date)
@@ -129,12 +133,12 @@ var ChartComponent=React.createClass({
 		 let leftAxis=ticks(0, maxFrequency, 10);
 		 let bottomAxis=[firstTime-apple,lasttime+apple];
 		 let wherelinegoes= bottomAxis[0]+apple;
-		 const leftAxisD=d3.shape.line()
+		 const leftAxisD=d3.shape.line()//length of y axis also moves y axis to start of x Axis
 				.x(() => wherelinegoes)
             	.y(d => scaleY(d) - height)
 		   		(leftAxis)
 
-	 	 const bottomAxisD = d3.shape.line()
+	 	 const bottomAxisD = d3.shape.line()//length of x axis
 		   		.x(d => d + apple)
             	.y(() => 0)
 		   		(bottomAxis)

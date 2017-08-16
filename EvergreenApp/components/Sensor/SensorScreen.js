@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Button, Icon }
-from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import * as firebase from 'firebase';
-import Chart from '../ChartComponent.js';
+import Chart from './ChartComponent.js';
 
-const styles = require('../../Styles/style.js');
+const styles = require('../../Styles/gardenStyles.js');
 const styles2 = require('../../Styles/sensorDetailStyle.js');
 
 export class SensorScreen extends Component{
-
+	static navigationOptions={
+	  headerStyle:{
+	    backgroundColor:'white'
+	  }
+	}
   constructor(props){
     super();
     this.state = {
@@ -25,16 +28,15 @@ export class SensorScreen extends Component{
   componentDidMount(){
 
     const { params } = this.props.navigation.state;//gets parameters from last screen
-
     this.getdata();//sets data state from firebase
-
-    firebase.database().ref("Users/"+ params.userID +"/Current/Sensors/"+ params.sensor)
+    firebase.database().ref("Users/"+ params.userID +"/GardenZones/"+params.zone+"/Sensors/"+ params.sensor)
      .on('value', (snapshot) => {
       this.setState({
 		    sensorData:snapshot.val().data,
         sensorTitle: snapshot.val().title,
         sensorIcon: snapshot.val().icon,
         sensorType: snapshot.val().type,
+		  sensorData: snapshot.val().data,
       });
     });
   }//componentDidMount
@@ -43,7 +45,7 @@ export class SensorScreen extends Component{
 
 	   const { params } = this.props.navigation.state;
 
-	    firebase.database().ref('Users/'+ params.userID +'/History/Sensors/'+ params.sensor).limitToLast(10)
+	    firebase.database().ref('Users/'+ params.userID +'/History/'+ params.sensor).limitToLast(10)
       .on('value',(snapshot) => {
         let data=[];
         snapshot.forEach((childSnap) => {
@@ -70,7 +72,7 @@ export class SensorScreen extends Component{
   loading(){
   	return(
   		<View>
-		      <Text style={{color:'#ffffff', fontSize: 20,textAlign: 'center', marginTop: 25 }}>No Data</Text>
+		      <Text style={{color:'#27ae60', fontSize: 20,textAlign: 'center', marginTop: 25 }}>No Data</Text>
 		  </View>
   	);
   }//loading
@@ -79,7 +81,7 @@ export class SensorScreen extends Component{
 
     const { params } = this.props.navigation.state;
 
-    let sensRef = firebase.database().ref('Users/' + params.userID + '/Current/Sensors/' + params.sensor);
+    let sensRef = firebase.database().ref('Users/' + params.userID + '/GardenZone/Sensors/' + params.sensor);
 
     var data, title, icon, type, id;
 
@@ -116,7 +118,7 @@ export class SensorScreen extends Component{
     const { params } = this.props.navigation.state;
 
     return(
-      <View style={{flex: 1,backgroundColor: 'rgb(52,180,67)',padding: 10,}}>
+      <View style={{backgroundColor:'#ffffff',flex: 1,padding: 10,}}>
         <View style={{flex:1,justifyContent:'space-around'}}>
 
           <View style={{ flex: 2/10 }}>
@@ -124,12 +126,12 @@ export class SensorScreen extends Component{
               <View style={{flex: 2/10}}>
                 <Icon raised name={this.state.sensorIcon} color='#aaaaaa' size={30} />
               </View>
-              <View style={{flex: 6/10}}>
+              <View style={{flex: 8/10}}>
                 <View style={{flex: 5/10}}>
-                  <Text style={{color:'#ffffff', fontSize: 30,textAlign: 'center' }}>{this.state.sensorTitle}</Text>
+                  <Text style={{color:'#27ae60', fontSize: 30,textAlign: 'center',backgroundColor:"rgba(0,0,0,0)" }}>{this.state.sensorTitle}</Text>
                 </View>
                 <View style={{flex: 5/10}}>
-                  <Text style={{color:'#ffffff', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>
+                  <Text style={{color:'#27ae60', fontSize: 25,textAlign: 'center' }}>Sensor Current Value: {this.state.sensorData}</Text>
                 </View>
               </View>
             </View>
@@ -154,7 +156,7 @@ export class SensorScreen extends Component{
                 onPress = {() => this.openOrClose()}
                 buttonStyle={styles.stockButton}
                 textStyle={{textAlign: 'center'}}/>
-            ) : ( <Text> nothing to see here </Text> )
+            ) : ( <Text></Text> )
             }
           </View>
 
