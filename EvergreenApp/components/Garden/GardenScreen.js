@@ -141,29 +141,35 @@ export class GardenScreen extends Component{
 
       if(this.state.loaded){
         return(
-  		      <Animated.View style={[styles.containerGarden,{opacity:this.state.fadeAnim2}]}>
+  		      <Animated.View style={[styles.containerGarden,{opacity:this.state.fadeAnim2 }]}>
               <ScrollView style = {{backgroundColor:'white'}}>
                 {this.state.modal}
                 <View>
 
-                  <Icon
-                    raised
-                    name='plus'
-                    type='material-community'
-                    color='#27ae60'
-                    containerStyle = {styles.gardenIcon}
-                    onPress={() => this.setState({
-                      modal: <AddZoneScreen userID = {this.state.userID}
-                        modalVisible={true}/>
-                    })}
-                    />
+                  
 
                   <View style = {styles.gardenHeader}>
-                    <Text style = {styles.gardenText}>Welcome to Your Smart Garden</Text>
+				<Text style = {[styles.gardenText,{textAlign:'center'}]}>Welcome to Your Smart Garden</Text>
                   </View>
 
                   <View style = {styles.gardenGrid}>
                     {this.makeZones(this.props.navigation)}
+				<TouchableOpacity 
+					onPress={() => this.setState({
+                  		modal: <AddZoneScreen userID = {this.state.userID}
+				  	  	modalVisible={true}/>
+						})}
+				  	>
+					<View style={[styles.zoneContainer,{borderColor:'black',borderStyle:'dotted',borderWidth:2,alignItems:'center',alignItems:'center',justifyContent:'center'}]}>
+					
+                  		  <Icon					
+                    			name='plus'
+                    		    type='material-community'
+                    		    color='#27ae60'
+                    		/>
+					</View>
+					</TouchableOpacity>
+							
                   </View>
 
                 </View>
