@@ -36,7 +36,7 @@ var setup=React.createClass({
               });
           },
 	navigate:function(){
-		if ((this.state.zipCode).length!=5){
+		if ((this.state.zipCode).length!=5 || this.state.zipCode==''){
 			this.setState({
 				zipError:'ZipCode needs to be 5 digits'
 			})
@@ -53,7 +53,9 @@ var setup=React.createClass({
     render:function(){
 		return (
 		<View style={styles.userContainer}>
-		<Text style = {otherstyles.gardenText}>Let's get you setup here</Text>		
+		<Text style = {{color:'#27ae60',
+    fontFamily: 'HelveticaNeue-Thin',
+    fontSize:30,}}>Let us get you setup here!</Text>		
         <View style = {styles.userContainer} >
 
         	<FormLabel>First Name</FormLabel>

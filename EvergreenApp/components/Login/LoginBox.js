@@ -27,16 +27,26 @@ export class LoginBox extends Component{
 
       //if the user token exists and has verified the email
       if((user !== null)&&(user.emailVerified)){
-
           //Write to AsyncStorage Here
           try {
             await AsyncStorage.setItem('UID', user.uid );
           } catch (error) {
             console.log('AsyncStorage write error: '+ error)
           }
-
+		  var that=this;
+		  firebase.database().ref('/Users/' + this.state.userID+"/UserData").once('value').then(function(snapshot){ 
+			  var userdata= snapshot.val();
+			  console.warn(userdata);
           //After AsyncWrite move to next screen
-          this.props.navi.navigate('Garden', {userID: user.uid});
+		  if (userdata==null){
+		  that.props.navi.navigate('Setup',{ userID: user.uid });
+
+		  }
+		  else{
+		  console.warn('here');
+          that.props.navi.navigate('Garden',{ userID: user.uid });
+	  }
+		  })
 
       } else{
         this.setState({
