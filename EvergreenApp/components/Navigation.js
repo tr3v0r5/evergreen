@@ -8,6 +8,7 @@ import LoginScreen from './Login/LoginScreen.js';
 import GardenScreen from './Garden/GardenScreen.js';
 import ZoneDetailScreen from './Garden/ZoneDetailScreen.js';
 import SensorScreen from './Sensor/SensorScreen.js';
+import Setup from './Settings/setup.js'
 
 
 export const GardenStack = StackNavigator({
@@ -67,6 +68,7 @@ export const GardenTabs = TabNavigator({
 });
 export const Root = StackNavigator({
   Login: { screen: LoginScreen },
+	Setup:{screen:Setup},
   Garden:{
 	  screen: GardenTabs
   },
