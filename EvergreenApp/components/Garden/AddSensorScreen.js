@@ -98,7 +98,7 @@ export class AddSensorScreen extends Component{
             name='close'
             type='material-community'
             color='gray'
-            containerStyle = {styles.gardenIcon}
+            containerStyle = {[styles.gardenIcon,{zIndex:2}]}
             onPress={() => this.setModalVisible(false)}
             />
 
