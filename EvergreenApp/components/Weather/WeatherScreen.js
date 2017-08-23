@@ -116,7 +116,18 @@ async setZipCode() {
 
       }
 
-
+	  enter(){
+  		if (this.state.zipCode==null ||(this.state.zipCode).length!=5 ){
+  			this.setState({
+  				zipError:'ZipCode needs to be 5 digits'
+  			})
+  		}
+		else{
+		    firebase.database().ref('/Users/' + this.state.userID + '/UserData').set({
+				zip:this.state.zipCode
+		          });
+		}
+	  }
     makeWidgets(){
       let cityVar = this.state.city;
       let stateVar = this.state.state;
@@ -167,7 +178,9 @@ async setZipCode() {
           value={this.state.zipCode}
             keyboardType = {'numeric'}
 			placeholder='Required'
+			onEndEditing={()=>this.enter()}
            />
+		<FormValidationMessage>{this.state.zipError}</FormValidationMessage>
 		  </View>
 	  )
   }
