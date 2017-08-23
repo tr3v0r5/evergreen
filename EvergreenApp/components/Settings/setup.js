@@ -8,8 +8,8 @@ import otherstyles from '../../Styles/gardenStyles.js';
 var setup=React.createClass({
 	getInitialState:function(){
    	 return{
-         firstName:'',
-         lastName:'',
+         firstName:null,
+         lastName:null,
 		 zipCode: '',
 		 zipError:''
    		};
@@ -35,21 +35,32 @@ var setup=React.createClass({
 
               });
           },
+		  
+		  	  
 	navigate:function(){
-		if ((this.state.zipCode).length!=5 || this.state.zipCode==''){
+		if (this.state.zipCode==null ||(this.state.zipCode).length!=5 ){
 			this.setState({
 				zipError:'ZipCode needs to be 5 digits'
 			})
 		}
 		else{
+			let fname=this.state.firstName;
+			let lname=this.state.lastName;
+			if(fname==undefined){
+				fname=null;
+			}
+			if(lname==undefined){
+				lname=null
+			}	
 	    firebase.database().ref('/Users/' + this.state.userID + '/UserData').set({
-	            fname: this.state.firstName,
-	            lname:this.state.lastName,
+	            fname: fname,
+			lname:lname,
 	            zip:this.state.zipCode
-	          }).then(	
-				  this.props.navigation.navigate('Garden'));
+	          }).then(
+		 this.props.navigation.navigate('Garden'));
 	}
 		  },
+		  
     render:function(){
 		return (
 		<View style={styles.userContainer}>
@@ -62,7 +73,6 @@ var setup=React.createClass({
         	<FormInput
         		onChangeText={(first) => this.setState({firstName:first})}
         		value={this.state.firstName}
-				onEndEditing={()=>this.setting()}
 				placeholder='Optional'
          	   />
 

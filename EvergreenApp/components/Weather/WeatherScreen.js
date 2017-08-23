@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, AppRegistry, StyleSheet, Text, TextInput, View, Alert, Button,ScrollView, Dimensions
 	,AsyncStorage} from 'react-native';
+import { FormLabel, FormInput,FormValidationMessage } from 'react-native-elements'	
 import Carousel from 'react-native-snap-carousel';
 import WidgetComponent from './WidgetComponent.js';
 import * as firebase from 'firebase';
@@ -156,12 +157,27 @@ async setZipCode() {
           </View>
         );
       }
-
-      return (
+	  else if (this.state.zip==''){
+	  return (
+		  <View style={{flex: 1, paddingTop: 20,justifyContent:'center',alignItems:'center'}}>  
+	  	<Text> Please enter zipcode</Text>
+          <FormLabel>Zip Code</FormLabel>
+          <FormInput
+          onChangeText={(zip) => this.setState({zipCode:''+zip})}
+          value={this.state.zipCode}
+            keyboardType = {'numeric'}
+			placeholder='Required'
+           />
+		  </View>
+	  )
+  }
+     else{ return (
   <View style={{flex: 1, paddingTop: 20,justifyContent: 'center'}}>
     <ActivityIndicator size = 'large' />
+		  
   </View>
 );
+}
     }
   	}
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, AppRegistry, StyleSheet, Text, TextInput, View, Alert, ScrollView, Dimensions
 	,AsyncStorage} from 'react-native';
-import { Button, FormLabel, FormInput } from 'react-native-elements'
+import { Button, FormLabel, FormInput,FormValidationMessage } from 'react-native-elements'
 import * as firebase from 'firebase';
 import styles from '../../Styles/settingStyles.js';
 
@@ -13,7 +13,8 @@ export default class UserSettingsComponent extends Component{
 			userID:'',
         	firstName:'',
         	lastName:'',
-        	zipCode:''
+        	zipCode:'',
+			zipError:''
   		};
     }
 
@@ -60,12 +61,28 @@ export default class UserSettingsComponent extends Component{
 
 
     changeUserInfo(first, last, zip){
-      firebase.database().ref('/Users/' + this.state.userID + '/UserData').set({
-          fname: this.state.firstName,
-          lname:this.state.lastName,
-          zip:this.state.zipCode
-        });
-        alert('You have successfully changed your information!');
+		if (this.state.zipCode==null ||(this.state.zipCode).length!=5 ){
+			this.setState({
+				zipError:'ZipCode needs to be 5 digits'
+			})
+		}
+		else{
+			let fname=this.state.firstName;
+			let lname=this.state.lastName;
+			if(fname==undefined){
+				fname=null;
+			}
+			if(lname==undefined){
+				lname=null
+			}	
+	    firebase.database().ref('/Users/' + this.state.userID + '/UserData').set({
+	            fname: fname,
+			lname:lname,
+	            zip:this.state.zipCode
+	          })
+			  alert('You have successfully changed your information!');
+		  }
+        
     }
 
 	componentWillMount(){
@@ -81,12 +98,14 @@ export default class UserSettingsComponent extends Component{
           <FormInput
           onChangeText={(first) => this.setState({firstName:first})}
           value={this.state.firstName}
+		  placeholder='Optional'
            />
 
           <FormLabel>Last Name</FormLabel>
           <FormInput
           onChangeText={(last) => this.setState({lastName:last})}
           value={this.state.lastName}
+		  placeholder='Optional'
           />
 
           <FormLabel>Zip Code</FormLabel>
@@ -94,8 +113,9 @@ export default class UserSettingsComponent extends Component{
           onChangeText={(zip) => this.setState({zipCode:''+zip})}
           value={this.state.zipCode}
             keyboardType = {'numeric'}
+			placeholder='Required'
            />
-
+		<FormValidationMessage>{this.state.zipError}</FormValidationMessage>
           <Button
            title='submit'
            onPress={this.changeUserInfo.bind(this)}/>

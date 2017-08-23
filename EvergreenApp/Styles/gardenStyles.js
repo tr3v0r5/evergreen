@@ -13,7 +13,7 @@ export default StyleSheet.create({
   gardenHeader:{
     justifyContent:'center',
     alignItems:'center',
-    marginTop:99
+	  marginTop:20
   },
   gardenText:{
     color:'#27ae60',
