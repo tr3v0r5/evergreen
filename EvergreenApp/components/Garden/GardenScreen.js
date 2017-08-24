@@ -159,8 +159,9 @@ export class GardenScreen extends Component{
                   		modal: <AddZoneScreen userID = {this.state.userID}
 				  	  	modalVisible={true}/>
 						})}
+						style={{padding:10}}
 				  	>
-					<View style={[styles.zoneContainer,{borderColor:'black',borderStyle:'dotted',borderWidth:2,alignItems:'center',justifyContent:'center'}]}>
+					<View style={[styles.zoneContainer,{borderColor:'black',borderStyle:'dotted',borderWidth:2,alignItems:'center',justifyContent:'center',padding:10}]}>
 					
                   		  <Icon					
                     			name='plus'

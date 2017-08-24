@@ -89,7 +89,7 @@ export class SignupBox extends Component{
          containerStyle={styles.textBox}
          secureTextEntry={true}
          placeholder='password again'/>
-       <FormValidationMessage>{this.state.PasswordCheckErrorMess}</FormValidationMessage>
+       <FormValidationMessage>{this.state.PasswordErrorMess}</FormValidationMessage>
        <View style={{justifyContent: 'center'}}>
          <Button
            raised

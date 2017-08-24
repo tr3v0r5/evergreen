@@ -117,15 +117,14 @@ export default class UserSettingsComponent extends Component{
            />
 		<FormValidationMessage>{this.state.zipError}</FormValidationMessage>
           <Button
+			raised
            title='submit'
            onPress={this.changeUserInfo.bind(this)}/>
 
           <Button
             raised
-            iconRight
             title="logout  "
             onPress = {() => this.logout()}
-            icon={{name: 'chevron-right', size: 24}}
             buttonStyle={styles.stockButton}
             textStyle={{textAlign: 'center'}}
             />
