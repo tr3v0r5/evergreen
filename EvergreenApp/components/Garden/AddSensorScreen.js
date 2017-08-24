@@ -63,15 +63,15 @@ export class AddSensorScreen extends Component{
 
   addSensor() {
 
-    var gardenSensorRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/');
+    var gardenSensorRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/').push().key;
     // var SensorRef = firebase.database().ref('/Users/' + this.state.userID + '/Sensors/Configured/' );
-
-    gardenSensorRef.push().set({
+	
+    firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/'+gardenSensorRef).set({
       title: this.state.sensorTitle,
       type: this.state.type,
       icon: this.state.icon,
       data: '',
-      id: ''
+		id: gardenSensorRef
     });//push to firebase under it's garden GardenZones
 
     this.setState({

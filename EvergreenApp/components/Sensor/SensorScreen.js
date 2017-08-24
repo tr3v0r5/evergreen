@@ -27,7 +27,8 @@ export class SensorScreen extends Component{
 
   componentDidMount(){
 
-    const { params } = this.props.navigation.state;//gets parameters from last screen
+    const { params } = this.props.navigation.state;
+	console.warn(params.sensor)//gets parameters from last screen
     this.getdata();//sets data state from firebase
     firebase.database().ref("Users/"+ params.userID +"/GardenZones/"+params.zone+"/Sensors/"+ params.sensor)
      .on('value', (snapshot) => {
@@ -81,7 +82,7 @@ export class SensorScreen extends Component{
 
     const { params } = this.props.navigation.state;
 
-    let sensRef = firebase.database().ref('Users/' + params.userID + '/GardenZone/Sensors/' + params.sensor);
+    let sensRef = firebase.database().ref('Users/' + params.userID + '/GardenZones/Sensors/' + params.sensor);
 
     var data, title, icon, type, id;
 

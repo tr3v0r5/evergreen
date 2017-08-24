@@ -115,7 +115,7 @@ export default class ZoneDetailScreen extends Component{
 
       return this.state.userSensors.map((item, i) => (
               <ListItem
-                onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID, zone: params.zone })}
+                onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID, zone: params.zone, locate:params.sensor })}
                 key={i}
                 title={item.title}
                 leftIcon={{name:item.icon}}

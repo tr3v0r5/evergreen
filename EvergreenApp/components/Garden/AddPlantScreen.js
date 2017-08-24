@@ -43,33 +43,33 @@ export class AddPlantScreen extends Component{
     }
   }
   pickImg(){
-	  //let number=Math.floor((Math.random()*4)+1);
-	  let number=1;
+	  //"https://static.pexels.com/photos/54630/japanese-cherry-trees-flowers-spring-japanese-flowering-cherry-54630.jpeg"
+	  let number=Math.floor((Math.random()*7)+1);
 	  let image;
 	  switch (number){
 	  case 1:
-		  image="https://static.pexels.com/photos/54630/japanese-cherry-trees-flowers-spring-japanese-flowering-cherry-54630.jpeg";
+		  image='image1';
 		  break;
 	  case 2:
-		  image="https://static.pexels.com/photos/83129/flower-flowers-nature-macro-83129.jpeg";
+		  image='image2';
 		  break;
 	  case 3:
-		  image="https://static.pexels.com/photos/114735/pexels-photo-114735.jpeg";
+		  image='image3';
 		  break;
 	  case 4:
-		  image="https://static.pexels.com/photos/113335/pexels-photo-113335.jpeg";
+		  image='image4';
 		  break;
 	  case 5:
-		  image="https://static.pexels.com/photos/4935/flowerpot-plants-tables.jpg";
+		  image='image5';
 		  break;
 	  case 6:
-		  image="https://static.pexels.com/photos/92038/pexels-photo-92038.jpeg";
+		  image='image6';
 		  break;
 	  case 7:
-		  image="https://static.pexels.com/photos/509651/pexels-photo-509651.jpeg";
-		  break;	  	  
+		  image='image7';
+		  break;
 	  default:
-		  image='https://static.pexels.com/photos/163036/mario-luigi-yoschi-figures-163036.jpeg';	  	  
+		  image='imageErr';
 	  }
 	  return image; 
   }
