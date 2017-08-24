@@ -78,11 +78,11 @@ export class SensorScreen extends Component{
   	);
   }//loading
 
-  openOrClose(){
+   openOrClose(){
 
     const { params } = this.props.navigation.state;
-
-    let sensRef = firebase.database().ref('Users/' + params.userID + '/GardenZones/Sensors/' + params.sensor);
+	
+    let sensRef = firebase.database().ref('Users/' + params.userID + '/GardenZones/'+params.zone+'/Sensors/' + params.sensor);
 
     var data, title, icon, type, id;
 
@@ -92,7 +92,10 @@ export class SensorScreen extends Component{
       icon = snapshot.val().icon;
       type = snapshot.val().type;
       id = snapshot.val().id;
+	
     });
+	
+	
 
     if(data == 1){
       sensRef.set({

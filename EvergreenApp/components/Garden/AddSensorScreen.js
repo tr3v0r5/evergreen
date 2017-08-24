@@ -70,7 +70,7 @@ export class AddSensorScreen extends Component{
       title: this.state.sensorTitle,
       type: this.state.type,
       icon: this.state.icon,
-      data: '',
+      data: 0,
 		id: gardenSensorRef
     });//push to firebase under it's garden GardenZones
 
