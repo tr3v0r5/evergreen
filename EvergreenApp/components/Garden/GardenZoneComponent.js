@@ -29,7 +29,7 @@ export class GardenZoneComponent extends Component{
 	alert(){
 		Alert.alert (
 		  'Delete Zone',
-		  'Deleting '+this.props.name+' this zone will delete all data within it, including flower names, sensors, and sensor data. Are you sure you want to delete?',
+		  'Deleting '+this.props.name+', this will delete all data within it, including flower names, sensors, and sensor data. Are you sure you want to delete?',
 		  [
 		    {text: 'Cancel', style: 'cancel'},
 		    {text: 'Yes', onPress: () => this.delete(this.props.keyRef)},

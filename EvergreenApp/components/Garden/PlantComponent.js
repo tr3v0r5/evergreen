@@ -20,7 +20,7 @@ export class PlantComponent extends Component{
 	alert(item){
 		Alert.alert (
 		  'Delete Plant',
-		  'Deleting '+item+' once deleted all data within it are erased. Are you sure you want to delete?',
+		  'Deleting '+item+', once deleted all data within it are erased. Are you sure you want to delete?',
 		  [
 		    {text: 'Cancel', style: 'cancel'},
 			  {text: 'Yes', onPress: () => this.delete()},

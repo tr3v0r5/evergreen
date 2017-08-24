@@ -130,7 +130,7 @@ export default class ZoneDetailScreen extends Component{
 alert(itemname,locate){
 	Alert.alert (
 	  'Delete Sensor',
-	  'Deleting '+itemname+'once deleted all data within it are erased. Are you sure you want to delete?',
+	  'Deleting '+itemname+', once deleted all data within it are erased. Are you sure you want to delete?',
 	  [
 	    {text: 'Cancel', style: 'cancel'},
 		  {text: 'Yes', onPress: () => this.delete(locate)},
