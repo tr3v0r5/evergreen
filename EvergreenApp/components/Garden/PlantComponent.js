@@ -17,11 +17,28 @@ const PlantImg={
 }
 
 export class PlantComponent extends Component{
+	alert(item){
+		Alert.alert (
+		  'Delete Plant',
+		  'Deleting '+item+' once deleted all data within it are erased. Are you sure you want to delete?',
+		  [
+		    {text: 'Cancel', style: 'cancel'},
+			  {text: 'Yes', onPress: () => this.delete()},
+		  ],
+		  { cancelable: false }
+		)
+	}
+	delete(){
+		firebase.database().ref('/Users/'+this.props.user+'/GardenZones/'+this.props.zone+'/Plants/'+this.props.keyref).remove();
+	}
       render(){
 		  const tumbnail = PlantImg[this.props.imageSource];
         return(
 			<View>
-          <TouchableOpacity style = {styles.plantContainer}>
+          <TouchableOpacity style = {styles.plantContainer}
+		  delayLongPress={1000}
+		  onLongPress={()=>this.alert(this.props.name)}
+		  >
           <Image style = {styles.plantImageContainer}
           source={tumbnail}>
                   </Image>

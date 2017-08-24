@@ -99,12 +99,14 @@ export default class ZoneDetailScreen extends Component{
   }//componentDidMount
 
   makePlants(){
+	  const { params } = this.props.navigation.state;
     return this.state.plantsArray.map(function(plant,i){
       var nameVal = plant.name;
       var imageVal = plant.imageSource;
+	  var keyRef=plant.keyRef;
         return(
           <PlantComponent key = {i}  name = {nameVal}
-          imageSource = {imageVal}/>
+          imageSource = {imageVal} keyref={keyRef} user={params.userID} zone={params.zone}/>
         );
       });
   }//makePlants
@@ -115,14 +117,31 @@ export default class ZoneDetailScreen extends Component{
 
       return this.state.userSensors.map((item, i) => (
               <ListItem
-                onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID, zone: params.zone, locate:params.sensor })}
+		  delayLongPress={750}
+		  
+                onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID, zone: params.zone})}
+				onLongPress={()=>this.alert(item.title,item.id)}
                 key={i}
                 title={item.title}
                 leftIcon={{name:item.icon}}
                 />
                 ))//create list of sensors from array
   }//makeSensorList
-
+alert(itemname,locate){
+	Alert.alert (
+	  'Delete Sensor',
+	  'Deleting '+itemname+'once deleted all data within it are erased. Are you sure you want to delete?',
+	  [
+	    {text: 'Cancel', style: 'cancel'},
+		  {text: 'Yes', onPress: () => this.delete(locate)},
+	  ],
+	  { cancelable: false }
+	)
+}
+delete(item){
+	const { params } = this.props.navigation.state;
+	firebase.database().ref('/Users/'+params.userID+'/GardenZones/'+params.zone+'/Sensors/'+item).remove();
+}
   render() {
 
     const {params} = this.props.navigation.state;
