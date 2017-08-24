@@ -6,6 +6,18 @@ import * as firebase from 'firebase';
 
 import styles from '../../Styles/gardenStyles.js';
 
+const ZONEIMAGES = {
+  'image1': require('../../assets/babyCactus.jpg'),
+  'image2': require('../../assets/babyFlowers.jpg'),
+  'image3': require('../../assets/flowerCrop.jpg'),
+  'image4': require('../../assets/flowerPot.jpg'),
+  'image5': require('../../assets/justGardenThings.jpg'),
+  'image6': require('../../assets/smallGreen.jpg'),
+  'image7': require('../../assets/treeStar.jpg'),
+  'imageErr': require('../../assets/error.jpg')
+};
+
+
 export class GardenZoneComponent extends Component{
 
   	constructor(props){
@@ -28,26 +40,25 @@ export class GardenZoneComponent extends Component{
 	delete(zone){
 		firebase.database().ref('/Users/'+this.props.userID+'/GardenZones/'+zone).remove();
 	}
-	
+
 
       render(){
         const resizeMode = 'center';
+        const tumbnail = ZONEIMAGES[this.props.imageSource];
 
         return(
           <TouchableOpacity
                   activeOpacity={0.7}
                   style = {{padding:10}}
-				  delayLongPress={1000}
+				          delayLongPress={1000}
                   onPress={() => this.props.navi.navigate('ZoneDetailScreen',{zone:this.props.keyRef,userID:this.props.userID,list:this.props.list})}
-				  onLongPress={()=>this.alert()}
+				          onLongPress={()=>this.alert()}
                   >
-          <Image style = {styles.zoneContainer} source={{ uri: this.props.imageSource }}>
+          <Image style = {styles.zoneContainer} source={tumbnail}>
             <Text style = {styles.zoneName}>
               {this.props.name}
-                </Text>
-			  <Text>
-			  </Text>
-                  </Image>
+            </Text>
+          </Image>
 
          </TouchableOpacity>
         );

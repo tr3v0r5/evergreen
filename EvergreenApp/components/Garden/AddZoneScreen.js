@@ -10,11 +10,11 @@ export class AddZoneScreen extends Component{
 
   	constructor(){
   		super();
-		
+
   		this.state = {
         zoneName :'',
-        errorMessage:'',	
-		modalVisible: false 
+        errorMessage:'',
+		modalVisible: false
   		};
     }
 
@@ -22,7 +22,7 @@ export class AddZoneScreen extends Component{
       this.setState({userID: props.userID})
       this.setModalVisible(props.modalVisible);
     }
-			
+
     setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
@@ -46,32 +46,32 @@ export class AddZoneScreen extends Component{
 	  let image;
 	  switch (number){
 	  case 1:
-		  image="https://static.pexels.com/photos/212323/pexels-photo-212323.jpeg";
+		  image='image1';
 		  break;
 	  case 2:
-		  image="https://static.pexels.com/photos/83129/flower-flowers-nature-macro-83129.jpeg";
+		  image='image2';
 		  break;
 	  case 3:
-		  image="https://static.pexels.com/photos/114735/pexels-photo-114735.jpeg";
+		  image='image3';
 		  break;
 	  case 4:
-		  image="https://static.pexels.com/photos/113335/pexels-photo-113335.jpeg";
+		  image='image4';
 		  break;
 	  case 5:
-		  image="https://static.pexels.com/photos/4935/flowerpot-plants-tables.jpg";
+		  image='image5';
 		  break;
 	  case 6:
-		  image="https://static.pexels.com/photos/92038/pexels-photo-92038.jpeg";
+		  image='image6';
 		  break;
 	  case 7:
-		  image="https://static.pexels.com/photos/509651/pexels-photo-509651.jpeg";
-		  break;	  	  
+		  image='image7';
+		  break;
 	  default:
-		  image='https://static.pexels.com/photos/163036/mario-luigi-yoschi-figures-163036.jpeg';	  	  
+		  image='imageErr';
 	  }
-	  return image; 
+	  return image;
   }
-	
+
     addZone()
     {
       var zoneRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones');
@@ -97,9 +97,9 @@ export class AddZoneScreen extends Component{
             animationType={"slide"}
             transparent={false}
             visible={this.state.modalVisible}
-            
+
             >
-			
+
             <Icon
             name='close'
             type='material-community'
@@ -108,7 +108,7 @@ export class AddZoneScreen extends Component{
             onPress={()=>this.setModalVisible(false)}
 			focus
             />
-			
+
 
 			<View style = {styles.addContainer}>
           <FormLabel>Enter Zone Name</FormLabel>
@@ -116,7 +116,7 @@ export class AddZoneScreen extends Component{
           onChangeText={(zone) => this.setState({zoneName:zone})}
           value={this.state.zoneName}
            />
-		  	
+
            <Button
            title='SUBMIT'
            onPress={this.validate.bind(this)}/>
