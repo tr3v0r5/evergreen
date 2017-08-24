@@ -50,7 +50,7 @@ export class GardenZoneComponent extends Component{
           <TouchableOpacity
                   activeOpacity={0.7}
                   style = {{padding:10}}
-				          delayLongPress={750}
+				          delayLongPress={500}
                   onPress={() => this.props.navi.navigate('ZoneDetailScreen',{zone:this.props.keyRef,userID:this.props.userID,list:this.props.list})}
 				          onLongPress={()=>this.alert()}
                   >

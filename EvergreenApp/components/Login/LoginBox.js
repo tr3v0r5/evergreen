@@ -34,11 +34,11 @@ export class LoginBox extends Component{
             console.log('AsyncStorage write error: '+ error)
           }
 		  var that=this;
-		  firebase.database().ref('/Users/' + this.state.userID+"/UserData").once('value').then(function(snapshot){ 
-			  var userdata= snapshot.val();
+		  firebase.database().ref('/Users/' + user.uid+"/UserData").once('value').then(function(snapshot){ 
+			  var userdata= snapshot.child('zip').val();
 			  console.warn(userdata);
           //After AsyncWrite move to next screen
-		  if (userdata==null){
+		  if (userdata==undefined){
 		  that.props.navi.navigate('Setup',{ userID: user.uid });
 
 		  }

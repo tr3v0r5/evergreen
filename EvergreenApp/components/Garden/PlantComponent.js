@@ -36,7 +36,7 @@ export class PlantComponent extends Component{
         return(
 			<View>
           <TouchableOpacity style = {styles.plantContainer}
-		  delayLongPress={1000}
+		  delayLongPress={500}
 		  onLongPress={()=>this.alert(this.props.name)}
 		  >
           <Image style = {styles.plantImageContainer}

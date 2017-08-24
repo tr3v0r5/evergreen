@@ -117,7 +117,7 @@ export default class ZoneDetailScreen extends Component{
 
       return this.state.userSensors.map((item, i) => (
               <ListItem
-		  delayLongPress={750}
+		  delayLongPress={500}
 		  
                 onPress={() => navigate('Sensor', { sensor: item.id, userID: params.userID, zone: params.zone})}
 				onLongPress={()=>this.alert(item.title,item.id)}
