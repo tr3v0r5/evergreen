@@ -154,7 +154,7 @@ async setZipCode() {
            }}
           >
           <View style = {styles.headerContainer}>
-          <Text style = {styles.headerText}> 5 Day Weather Forecast </Text>
+          <Text style = {styles.gardenText}> 5 Day Weather Forecast </Text>
           </View>
            <Carousel
            sliderWidth={this.state.viewport.width}

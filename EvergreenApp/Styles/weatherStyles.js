@@ -18,6 +18,12 @@ export const itemWidth = slideWidth + horizontalMargin*3;
 
 
 export default StyleSheet.create({
+    gardenText:{
+      color:'#27ae60',
+      fontFamily: 'HelveticaNeue-Thin',
+      fontSize:30,
+		textAlign:'center'
+    },
   linearGradient: {
   flex: 1,
 
@@ -25,7 +31,7 @@ export default StyleSheet.create({
 carouselContainer:
   {
     flex:1,
-    marginTop: 100
+	  marginTop: 50
   },
   container:
   {

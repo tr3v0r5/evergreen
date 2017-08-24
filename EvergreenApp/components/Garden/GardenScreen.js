@@ -160,7 +160,7 @@ export class GardenScreen extends Component{
 				  	  	modalVisible={true}/>
 						})}
 				  	>
-					<View style={[styles.zoneContainer,{borderColor:'black',borderStyle:'dotted',borderWidth:2,alignItems:'center',alignItems:'center',justifyContent:'center'}]}>
+					<View style={[styles.zoneContainer,{borderColor:'black',borderStyle:'dotted',borderWidth:2,alignItems:'center',justifyContent:'center'}]}>
 					
                   		  <Icon					
                     			name='plus'
