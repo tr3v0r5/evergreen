@@ -41,7 +41,8 @@ export class AddZoneScreen extends Component{
     }
   }
   pickimg(){
-	  let number=Math.floor((Math.random()*4)+1);
+	  let number=Math.floor((Math.random()*7)+1);
+	  console.warn(number);
 	  let image;
 	  switch (number){
 	  case 1:
