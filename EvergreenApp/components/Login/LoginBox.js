@@ -83,7 +83,6 @@ export class LoginBox extends Component{
        <FormValidationMessage>{this.state.PasswordErrorMess}</FormValidationMessage>
        <View>
          <Button
-           raised
            iconRight
            title="login  "
            onPress = {() => this.login(this.state.UserName,this.state.Password)}

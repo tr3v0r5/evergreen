@@ -117,7 +117,7 @@ var ChartComponent=React.createClass({
 	     );
 		 //console.warn(scaleX.range);
 		 let maxFrequency = max(data, d => d.value)+5;
-	     const scaleY = this.createScaleY(0,maxFrequency,height);
+	     const scaleY = this.createScaleY(0,110,height);
 
 	     const lineShape = d3.shape.line()
 	     		.x((d)=>scaleX(d.date))
@@ -130,7 +130,7 @@ var ChartComponent=React.createClass({
          var secondtime = scaleX(data[1].date)
          var lasttime = scaleX(data[data.length - 1].date)
 		 //console.warn(firstTime);
-		 let leftAxis=ticks(0, maxFrequency, 10);
+		 let leftAxis=ticks(0, 100, 5);
 		 let bottomAxis=[firstTime-apple,lasttime+apple];
 		 let wherelinegoes= bottomAxis[0]+apple;
 		 const leftAxisD=d3.shape.line()//length of y axis also moves y axis to start of x Axis

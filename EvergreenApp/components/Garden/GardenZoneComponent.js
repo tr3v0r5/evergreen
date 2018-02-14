@@ -54,7 +54,7 @@ export class GardenZoneComponent extends Component{
                   onPress={() => this.props.navi.navigate('ZoneDetailScreen',{zone:this.props.keyRef,userID:this.props.userID,list:this.props.list})}
 				          onLongPress={()=>this.alert()}
                   >
-          <Image style = {styles.zoneContainer} source={tumbnail}>
+          <Image style = {[styles.zoneContainer,{alignItems:"center"}]} source={tumbnail}>
             <Text style = {styles.zoneName}>
               {this.props.name}
             </Text>

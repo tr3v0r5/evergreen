@@ -92,7 +92,6 @@ export class SignupBox extends Component{
        <FormValidationMessage>{this.state.PasswordErrorMess}</FormValidationMessage>
        <View style={{justifyContent: 'center'}}>
          <Button
-           raised
            iconRight
            title="sign-up"
            onPress = {() => this.signup(this.state.UserName, this.state.Password, this.state.PasswordCheck)}

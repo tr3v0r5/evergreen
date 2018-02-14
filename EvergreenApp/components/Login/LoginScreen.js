@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Alert,
  LayoutAnimation, UIManager, AsyncStorage } from 'react-native';
-import { Button, Icon }
-from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 
 const styles = require('../../Styles/style.js');
 
@@ -62,24 +61,21 @@ export class LoginScreen extends Component {
 
         return (
           <View style={ styles.container }>
-            <Text style={{color:'rgb(52,180,67)', fontSize:30}}>evergreen</Text>
-           <Button
-             raised
+            <Text style={{color:'rgb(52,180,67)', fontSize:30}}>Sage Smart Garden</Text>
+            <Button
              iconRight
-             title="sign-up"
-             onPress = {() => this.toggleBox('SignUp')}
-             icon={{name: 'chevron-right', size: 24}}
-             buttonStyle={styles.stockButton}
-             textStyle={{textAlign: 'center'}}
-             />
-           <Button
-             raised
-             iconRight
-             title="login  "
+             title="login"
              onPress = {() => this.toggleBox('Login')}
              icon={{name: 'chevron-right', size: 24}}
              buttonStyle={ styles.stockButton }
              textStyle={{textAlign: 'center'}}
+             />
+           <Button
+             iconRight
+             title="If you do not have an account click here to sign-up"
+             onPress = {() => this.toggleBox('SignUp')}
+             buttonStyle={styles.smallButton}
+             textStyle={{textAlign: 'center',fontSize:10,color:"#e77777"}}
              />
           </View>
         );
@@ -88,19 +84,17 @@ export class LoginScreen extends Component {
 
         return(
         <View style={styles.container}>
-          <Text style={{color:'rgb(52,180,67)', fontSize:30}}>evergreen</Text>
+          <Text style={{color:'rgb(52,180,67)', fontSize:30}}>Sage Smart Garden</Text>
           <View>
             <LoginBox navi={ this.props.navigation }/>
           </View>
 			       <View>
                <Button
-                 raised
                  iconRight
-                 title="signup"
+                 title="If you do not have an account click here to sign-up"
                  onPress = {() => this.toggleBox('SignUp')}
-                 icon={{name: 'chevron-right', size: 24}}
-                 buttonStyle={ styles.stockButton }
-                 textStyle={{textAlign: 'center'}}
+                 buttonStyle={styles.smallButton}
+                 textStyle={{textAlign: 'center',fontSize:10,color:"#e77777"}}
                  />
 			       </View>
           </View>
@@ -109,18 +103,15 @@ export class LoginScreen extends Component {
       }else{
         return(
           <View style={styles.container}>
-            <Text style={{color:'rgb(52,180,67)', fontSize:30}}>evergreen</Text>
+            <Text style={{color:'rgb(52,180,67)', fontSize:30}}>Sage Smart Garden</Text>
             <View>
               <SignupBox navi={ this.props.navigation }/>
             </View>
             <Button
-              raised
-              iconRight
-              title="login  "
+              title="If you already have an account click here to login"
               onPress = {() => this.toggleBox('Login')}
-              icon={{name: 'chevron-right', size: 24}}
-              buttonStyle={ styles.stockButton }
-              textStyle={{textAlign: 'center'}}
+              buttonStyle={ styles.smallButton }
+              textStyle={{textAlign: 'center',fontSize:10,color:"#e77777"}}
               />
           </View>
         );

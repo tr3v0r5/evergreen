@@ -98,7 +98,7 @@ export default class ZoneDetailScreen extends Component{
 
   }//componentDidMount
 
-  makePlants(){
+  /*makePlants(){
 	  const { params } = this.props.navigation.state;
     return this.state.plantsArray.map(function(plant,i){
       var nameVal = plant.name;
@@ -109,7 +109,7 @@ export default class ZoneDetailScreen extends Component{
           imageSource = {imageVal} keyref={keyRef} user={params.userID} zone={params.zone}/>
         );
       });
-  }//makePlants
+  }//makePlants*/
 
   makeSensorList(){
 	  const { params } = this.props.navigation.state;
@@ -127,7 +127,7 @@ export default class ZoneDetailScreen extends Component{
                 />
                 ))//create list of sensors from array
   }//makeSensorList
-alert(itemname,locate){
+  alert(itemname,locate){
 	Alert.alert (
 	  'Delete Sensor',
 	  'Deleting '+itemname+', once deleted all data within it are erased. Are you sure you want to delete?',
@@ -138,11 +138,11 @@ alert(itemname,locate){
 	  { cancelable: false }
 	)
 }
-delete(item){
+  delete(item){
 	const { params } = this.props.navigation.state;
 	firebase.database().ref('/Users/'+params.userID+'/GardenZones/'+params.zone+'/Sensors/'+item).remove();
 }
-  render() {
+  /*render() {
 
     const {params} = this.props.navigation.state;
 
@@ -199,7 +199,42 @@ delete(item){
         <ActivityIndicator size = 'large' />
       </View>
     );
-  }
+  }old render method*/
+  render() {
+    
+        const {params} = this.props.navigation.state;
+    
+        if(this.state.loaded){
+          return(
+            <View style={{flex:1, backgroundColor:'white'}}>
+              {this.state.modal2}
+              <Text style ={{textAlign:'center', fontSize: 30, fontFamily:'HelveticaNeue-Thin', color: '#27ae60'}}>
+                Sensors
+              </Text>
+    
+                <ScrollView>
+                  <List containerStyle={{marginRight: 10, marginLeft: 10,marginTop:5}}>
+                    {this.makeSensorList()}
+                    <ListItem
+                      title={'Add Sensor'}
+                      rightIcon={{name:'squared-plus', type: 'entypo' }}
+                      onPress={() => this.setState({
+                        modal2: <AddSensorScreen userID = {this.state.userID}
+                          zone = {this.state.zone} modalVisible={true}/>
+                      })}
+                      />
+                  </List>
+                  </ScrollView>
+            </View>
+          );
+        }
+    
+        return (
+          <View style={{flex: 1, paddingTop: 20,justifyContent: 'center'}}>
+            <ActivityIndicator size = 'large' />
+          </View>
+        );
+      }
 }
 
 

@@ -11,6 +11,7 @@ export class AddSensorScreen extends Component{
   	constructor(){
   		super();
   		this.state = {
+        sensorId:'',
         sensorTitle :'',
         type: '',
         icon: '',
@@ -66,12 +67,12 @@ export class AddSensorScreen extends Component{
     var gardenSensorRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/').push().key;
     // var SensorRef = firebase.database().ref('/Users/' + this.state.userID + '/Sensors/Configured/' );
 	
-    firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/'+gardenSensorRef).set({
+    firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/'+this.state.sensorId).set({
       title: this.state.sensorTitle,
       type: this.state.type,
       icon: this.state.icon,
       data: 0,
-		id: gardenSensorRef
+		id: this.state.sensorId
     });//push to firebase under it's garden GardenZones
 
     this.setState({
@@ -98,19 +99,15 @@ export class AddSensorScreen extends Component{
             name='close'
             type='material-community'
             color='gray'
-            containerStyle = {[styles.gardenIcon,{zIndex:2}]}
+            containerStyle = {{zIndex:2,position:'absolute',
+            right:20,
+            marginTop: 30}}
             onPress={() => this.setModalVisible(false)}
             />
 
               <View style = {styles.addContainer}>
 
-                <FormLabel>Enter Sensor Name</FormLabel>
-                <FormInput
-                  onChangeText={(sensor) => this.setState({sensorTitle: sensor})}
-                  value={this.state.sensorTitle}
-                  />
-
-                <FormLabel>Pick Sensor Type</FormLabel>
+              <FormLabel style={{marginTop:20}}>Pick Sensor Type</FormLabel>
                 <Picker
                   selectedValue={this.state.type}
                   style={{margin:15, backgroundColor: '#f2f2f2'}}
@@ -120,6 +117,18 @@ export class AddSensorScreen extends Component{
                   <Picker.Item label="Valve" value="valve" />
                   <Picker.Item label="None" value="" />
                 </Picker>
+
+                <FormLabel>Enter Sensor Name</FormLabel>
+                <FormInput
+                  onChangeText={(sensor) => this.setState({sensorTitle: sensor})}
+                  value={this.state.sensorTitle}
+                  placeholder="e.g Water Valve, Moisture Sensor"
+                  />
+                <FormLabel>Enter 6-digit Id on Module</FormLabel>
+                <FormInput
+                  onChangeText={(id) => this.setState({sensorId: id})}
+                  value={this.state.sensorId}
+                  />  
 
                 <Button
                   title='SUBMIT'

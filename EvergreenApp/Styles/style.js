@@ -30,10 +30,16 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
+  smallButton:{
+    marginTop:20,
+    backgroundColor:'#ffffff',
+    width:200
+
+  },
   stockButton:{
     backgroundColor: '#1666e5',
     borderRadius: 3,
-    marginTop: 20,
+    marginTop:20,
     width: 200
   },
   sensorList:{
