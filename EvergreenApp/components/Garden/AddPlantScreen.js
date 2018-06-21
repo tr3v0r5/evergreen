@@ -71,7 +71,7 @@ export class AddPlantScreen extends Component{
 	  default:
 		  image='imageErr';
 	  }
-	  return image; 
+	  return image;
   }
   addPlant() {
 

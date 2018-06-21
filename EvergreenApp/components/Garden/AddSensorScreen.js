@@ -66,14 +66,14 @@ export class AddSensorScreen extends Component{
 
     var gardenSensorRef = firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/').push().key;
     // var SensorRef = firebase.database().ref('/Users/' + this.state.userID + '/Sensors/Configured/' );
-	
+
     firebase.database().ref('/Users/' + this.state.userID + '/GardenZones/'+ this.state.zone +'/Sensors/'+this.state.sensorId).set({
       title: this.state.sensorTitle,
       type: this.state.type,
       icon: this.state.icon,
       data: 0,
 		id: this.state.sensorId
-    });//push to firebase under it's garden GardenZones
+    });//push to firebase under its garden GardenZones
 
     this.setState({
       sensorTitle:'',
@@ -107,7 +107,7 @@ export class AddSensorScreen extends Component{
 
               <View style = {styles.addContainer}>
 
-              <FormLabel style={{marginTop:20}}>Pick Sensor Type</FormLabel>
+              <FormLabel style={{marginTop:20}}>Pick Module Type</FormLabel>
                 <Picker
                   selectedValue={this.state.type}
                   style={{margin:15, backgroundColor: '#f2f2f2'}}
@@ -118,7 +118,7 @@ export class AddSensorScreen extends Component{
                   <Picker.Item label="None" value="" />
                 </Picker>
 
-                <FormLabel>Enter Sensor Name</FormLabel>
+                <FormLabel>Enter Module Name</FormLabel>
                 <FormInput
                   onChangeText={(sensor) => this.setState({sensorTitle: sensor})}
                   value={this.state.sensorTitle}
@@ -128,7 +128,7 @@ export class AddSensorScreen extends Component{
                 <FormInput
                   onChangeText={(id) => this.setState({sensorId: id})}
                   value={this.state.sensorId}
-                  />  
+                  />
 
                 <Button
                   title='SUBMIT'

@@ -31,7 +31,7 @@ export class SensorScreen extends Component{
   componentDidMount(){
 
     const { params } = this.props.navigation.state;
-	  console.warn(params.sensor)//gets parameters from last screen
+	  //console.warn(params.sensor)//gets parameters from last screen
     this.getdata();//sets data state from firebase
     firebase.database().ref("Users/"+ params.userID +"/GardenZones/"+params.zone+"/Sensors/"+ params.sensor)
      .on('value', (snapshot) => {
@@ -106,7 +106,7 @@ export class SensorScreen extends Component{
    openOrClose(){
 
     const { params } = this.props.navigation.state;
-	
+
     let sensRef = firebase.database().ref('Users/' + params.userID + '/GardenZones/'+params.zone+'/Sensors/' + params.sensor);
 
     var data, title, icon, type, id;
@@ -117,10 +117,10 @@ export class SensorScreen extends Component{
       icon = snapshot.val().icon;
       type = snapshot.val().type;
       id = snapshot.val().id;
-	
+
     });
-	
-	
+
+
 
     if(data == 1){
       sensRef.set({
@@ -183,7 +183,7 @@ export class SensorScreen extends Component{
       return(
         <View style={{backgroundColor:'#ffffff',flex: 1,padding: 10,}}>
           <View style={{flex:1,justifyContent:'space-around'}}>
-  
+
             <View style={{ flex: 2/10 }}>
               <View style={{flexDirection: 'row', flex: 1}}>
                 <View style={{flex: 2/10}}>
@@ -196,13 +196,13 @@ export class SensorScreen extends Component{
                 </View>
               </View>
             </View>
-  
+
             <View style={{ flex: 8/10}}>
               <Text style={{textAlign:'center'}}>Sensor History</Text>
               <View>
                 {this.state.sensorData?(<Text style={{color:'#27ae60', fontSize: 30,textAlign: 'center',justifyContent: 'center',backgroundColor:"rgba(0,0,0,0)" }}>Open</Text>):(<Text style={{color:'red', fontSize: 30,textAlign: 'center',justifyContent: 'center',backgroundColor:"rgba(0,0,0,0)" }}>Closed</Text>)}
               </View>
-              
+
               <ScrollView>
                 <List containerStyle={{marginRight: 10, marginLeft: 10,marginTop:5}}>
                   {this.makeSensorList()}
@@ -218,7 +218,7 @@ export class SensorScreen extends Component{
 		          </ScrollView>
 
             </View>
-  
+
             <View style={{ flex: 2/10}}>
               {
                   <Button
@@ -227,10 +227,10 @@ export class SensorScreen extends Component{
                   title="override"
                   onPress = {() => this.openOrClose()}
                   buttonStyle={styles.stockButton}
-                  textStyle={{textAlign: 'center'}}/>             
+                  textStyle={{textAlign: 'center'}}/>
               }
             </View>
-  
+
           </View>
         </View>
         );
